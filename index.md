@@ -36,7 +36,7 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
   - Thermal adaptive physiology
 
 - **Synthetic and Systems Biology**
-  - Setup genetic tools for non-model themophilic bacteria (_Geobacillus_)
+  - Setup genetic tools for non-model themophilic bacteria (*Geobacillus*)
   - Applications of extremophiles for sustainable process
 
 - **Protein Engineering**
@@ -55,18 +55,14 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
 
 ## PUBLICATIONS (2018-Present)
 
-1. Ganbat, S., Ganbat, D., Sung, J.Y., et al. (2024). *Complete genome sequence of polyhydroxyalkanoate accumulating bacterium Schlegelella aquatica HS-12-14*. Microbiol. Resour. Announc.  
-2. Sung, J.Y., Ganbat, D., et al. (2024). *Complete genome sequences of Geobacillus stearothermophilus strains EF60045 and SJEF4-2 from Korean hot springs*. Microbiol. Resour. Announc.  
-3. Joo, Y.H., Sung, J.Y., et al. (2023). *A retroaldol reaction prompted the evolvability of a phosphotransferase system for the utilization of a rare sugar*. Microbiol. Spectr.  
-4. Sung, J.Y., Lee, Y.J., et al. (2021). *A large-scale metagenomic study for enzyme profiles using the FINDER strategy*. Biotechnol. Bioeng. **(Editor’s Choice, Front Cover Paper)**  
-1.	Ganbat, S., Ganbat, D., Sung, J.Y., Kim, S,B., Lee, D.W., and Lee, S.J.* (2024) *Complete genome sequence of polyhydroxyalkaonate accumulating bacterium Schlegelella aquatica HS-12-14 isolated from Korean hot spring*. _Microbiol. Resour. Announc._
-2.	Sung, J.Y.£, Ganbat, D.£, Kim, S,B., Lee, S.J.*, and Lee, D.W.* (2024) *Complete genome sequences of _Geobacillus stearothermophilus_ strains EF60045 and SJEF4-2 from Korean hot springs*. _Microbiol. Resour. Announc._ e00573-24.
-3.	Joo, Y.H. £, Sung, J.Y.£, Shin, S.M., Park, S.J., Kim, K.S., Park, K.D., Kim, S.B., and Lee, D.W.* (2023) *A retroaldol reaction prompted the evolvability of a phosphotransferase system for the utilization of a rare sugar.* _Microbiol. Spectr._ 11(2) e03660-22. 
-4.	Sung, J.Y. £, Lee, Y.J. £, Cho, Y.J., Lee, S.J., Lee, H.S., Bae, J.W., Shin, J.H., Koh, H., Kim, H.J.*, and Lee, D.W.* (2021) *A large scale metagenomic study for enzyme profiles using the focused identification of the NGS-based definitive enzyme research (FINDER) strategy. _Biotechnol. Bioeng._ 118: 4360-4374.* (Editor’s choice articles/Front cover paper) 
-5.	Jin, H.S. £, Dhanasingh, I. £, Sung, J.Y., La, J.W., Lee, Y., Lee, E.M., Kang, Y.J., Lee, D.Y., Lee, S.H.*, and Lee, D.W.* (2021) *The sulfur formation system mediating extracellular cysteine-cystine recycling in _Fervidobacterium islandicum_ AW-1 is associated with keratin degradation.* _Microb, Biotechnol._ 14, 938-952. 
-6.	Dhanasingh, I.£, Sung, J.Y.£, Ghosh, S., La, J.W., Kang, E.J., Lee, D.W., and Lee, S.H.*. (2021) *Structure of oxidized pyrrolidone carboxypeptidase from _Fervidobacterium islandicum_ AW-1 reveals unique structural features for thermostability and keratinolysis.* _Biochem. Biophys. Res. Commun._ 540, 101-107. 
-7.	Kang, E.J., Jin, H.S, La, J.W., Sung, J.Y., Park, S.Y., Kim, W.C., and Lee, D.W.* (2020) *Identification of keratinases from _Fervidobacterium islandicum AW-1_ using dynamic gene expression profiling.* _Microb. Biotechnol._ 13, 442-457. 
-8.	Kim, K.N., Yang, J.O., Sung, J.Y., Lee, J.Y., Park, J.S., Lee, H.S., Lee, B.H., Ren, Y., Lee, D.W.*, and Lee, S.E.* (2019) *Minimization of energy transduction confers resistance to phosphine in crop arthropods.* _Sci. Rep._ 9, 14605. 
+1.	Ganbat, S., Ganbat, D., **Sung, J.Y.**, Kim, S,B., Lee, D.W., and Lee, S.J.* (2025) **Complete genome sequence of polyhydroxyalkaonate accumulating bacterium *Schlegelella aquatica* HS-12-14 isolated from Korean hot spring**. *Microbiol. Resour. Announc.*
+2.	**Sung, J.Y.<sup>£</sup>**, Ganbat, D.<sup>£</sup>, Kim, S,B., Lee, S.J.*, and Lee, D.W.* (2024) **Complete genome sequences of *Geobacillus stearothermophilus* strains EF60045 and SJEF4-2 from Korean hot springs**. *Microbiol. Resour. Announc.* e00573-24.
+3.	Joo, Y.H. <sup>£</sup>, **Sung, J.Y.<sup>£</sup>**, Shin, S.M., Park, S.J., Kim, K.S., Park, K.D., Kim, S.B., and Lee, D.W.* (2023) **A retroaldol reaction prompted the evolvability of a phosphotransferase system for the utilization of a rare sugar.** *Microbiol. Spectr.* 11(2) e03660-22. 
+4.	**Sung, J.Y.<sup>£</sup>**, Lee, Y.J.<sup>£</sup>, Cho, Y.J., Lee, S.J., Lee, H.S., Bae, J.W., Shin, J.H., Koh, H., Kim, H.J.*, and Lee, D.W.* (2021) *A large scale metagenomic study for enzyme profiles using the focused identification of the NGS-based definitive enzyme research (FINDER) strategy. _Biotechnol. Bioeng._ 118: 4360-4374.* (Editor’s choice articles/Front cover paper) 
+5.	Jin, H.S. <sup>£</sup>, Dhanasingh, I. <sup>£</sup>, **Sung, J.Y.**, La, J.W., Lee, Y., Lee, E.M., Kang, Y.J., Lee, D.Y., Lee, S.H.*, and Lee, D.W.* (2021) *The sulfur formation system mediating extracellular cysteine-cystine recycling in _Fervidobacterium islandicum_ AW-1 is associated with keratin degradation.* _Microb, Biotechnol._ 14, 938-952. 
+6.	Dhanasingh, I.<sup>£</sup>, **Sung, J.Y.<sup>£</sup>**, Ghosh, S., La, J.W., Kang, E.J., Lee, D.W., and Lee, S.H.*. (2021) **Structure of oxidized pyrrolidone carboxypeptidase from *Fervidobacterium islandicum* AW-1 reveals unique structural features for thermostability and keratinolysis.** *Biochem. Biophys. Res. Commun.* 540, 101-107. 
+7.	Kang, E.J., Jin, H.S, La, J.W., **Sung, J.Y.**, Park, S.Y., Kim, W.C., and Lee, D.W.* (2020) **Identification of keratinases from *Fervidobacterium islandicum* AW-1 using dynamic gene expression profiling.** *Microb. Biotechnol.* 13, 442-457. 
+8.	Kim, K.N., Yang, J.O., **Sung, J.Y.**, Lee, J.Y., Park, J.S., Lee, H.S., Lee, B.H., Ren, Y., Lee, D.W.*, and Lee, S.E.* (2019) **Minimization of energy transduction confers resistance to phosphine in crop arthropods.** *Sci. Rep.* 9, 14605. 
 
 
 *(For the full list, please refer to my [Google Scholar](#).)*  
@@ -74,18 +70,18 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
 ---
 
 ## PAPER IN PREPARATION
-9.	Sung, J.Y., Lee, M.H., Kim, H.B., Ganbat, D., Cho, H.W., Lee, S.J., Kim, S.B.,*, and Lee, D.W.*. *A Strategic Blueprint for the Domestication of non-model _Geobacillus stearothermophilus_ as a Thermophilic Platform using the DNMB Suite.*
-10.	Sung, J.Y.,£, Kim, J.Y.£, Lee, E.M., Baek, J.H., Lee, Y.J., Jin, H.S., Kim, B.C., Lee, D.Y.,*, and Lee, D.W.,*. *Molecular insights into keratin degradation by _Fervidobacterium islandicum_ AW-1: An evolutionary perspective on bacterial resilience to starvation.*
-11.	Sung, J.Y.,£, Shin.S.M.,£, Hoang, N.K.Q., Dhanasingh, I., Yoo, K.Y., Lim, H.C., Cao, T., Lee, S.J., Kim, S.B., Lee, S.H.,*, and Lee, D.W.,*. *Metal-mediated intermolecular interactions contribute to the thermostabilization of primordial sugar isomerases.* 
-12.	Sung, J.Y., Park, M.K., Park, J.S., Lee, M.H., Lee, Y.J., Kim, K.S., Lee, S.J., and Lee, D.W.,*. *Evolutionary genetic traits for thermal adaptation using a pan-genomic approach in the order Bacillales.*
-13.	Sung, J.Y.,£, Yoo, Y.K.£, Lee, M.H., Yang, S.Y., Cho, H.S.*and Lee, D.W.*. *Structural basis mechanism of novel Type III Restriction-Methylation systems in hyperthermophilic _Fervidobacterium islandicum_ AW-1.*
+9.	**Sung, J.Y.**, Lee, M.H., Kim, H.B., Ganbat, D., Cho, H.W., Lee, S.J., Kim, S.B.,*, and Lee, D.W.*. *A Strategic Blueprint for the Domestication of non-model _Geobacillus stearothermophilus_ as a Thermophilic Platform using the DNMB Suite.*
+10.	**Sung, J.Y.<sup>£</sup>**, Kim, J.Y.<sup>£</sup>, Lee, E.M., Baek, J.H., Lee, Y.J., Jin, H.S., Kim, B.C., Lee, D.Y.,*, and Lee, D.W.,*. *Molecular insights into keratin degradation by _Fervidobacterium islandicum_ AW-1: An evolutionary perspective on bacterial resilience to starvation.*
+11.	**Sung, J.Y.<sup>£</sup>**, Shin.S.M.<sup>£</sup>, Hoang, N.K.Q., Dhanasingh, I., Yoo, K.Y., Lim, H.C., Cao, T., Lee, S.J., Kim, S.B., Lee, S.H.,<sup>*</sup>, and Lee, D.W.,<sup>*</sup>. **Metal-mediated intermolecular interactions contribute to the thermostabilization of primordial sugar isomerases.** 
+12.	**Sung, J.Y.**, Park, M.K., Park, J.S., Lee, M.H., Lee, Y.J., Kim, K.S., Lee, S.J., and Lee, D.W.,*. **Evolutionary genetic traits for thermal adaptation using a pan-genomic approach in the order Bacillales.**
+13.	**Sung, J.Y.<sup>£</sup>**, Yoo, Y.K.<sup>£</sup>, Lee, M.H., Yang, S.Y., Cho, H.S.*and Lee, D.W.*. **Structural basis mechanism of novel Type III Restriction-Methylation systems in hyperthermophilic *Fervidobacterium islandicum* AW-1.**
 
 ---
 
 ## NATIONAL RESEARCH PROJECTS
 
 - **Development of a Thermophilic Platform Host for Large-Scale Production of Natural Rare Sweeteners for Healthcare Applications**  
-  *(2023.03 - 2028.02, Ministry of Science and ICT)*  
+  *(2023.03 - 2028.02, Ministry of Science and ICT)* 
   - Role: Lead Researcher  
   - Enzyme engineering, kinetics analysis, and platform development.  
 
