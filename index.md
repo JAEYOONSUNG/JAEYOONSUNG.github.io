@@ -79,12 +79,12 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
 ## NATIONAL RESEARCH PROJECTS
 
 - **Development of a Thermophilic Platform Host for Large-Scale Production of Natural Rare Sweeteners for Healthcare Applications**  
-  *(2023.03 - 2028.02, Ministry of Science and ICT)* 
+  (2023.03 - 2028.02, Ministry of Science and ICT) 
   - Role: Lead Researcher  
   - Enzyme engineering, kinetics analysis, and platform development.  
 
 - **Development of Biosafe Geobacillus Platform Cells and Enzyme Production Technology for Industrial Uses**  
-  *(2021.04 - 2023.12, Ministry of Trade, Industry and Energy)*  
+  (2021.04 - 2023.12, Ministry of Trade, Industry and Energy)  
   - Role: Lead Researcher  
   - Development of transformation methods for non-model thermophilic bacteria and efficiency enhancement based on defense systems
   - Development of a genetic toolkit utilizing plasmid origin identification, auxotrophic selection markers, promoter screening, and native Cas9
@@ -92,12 +92,13 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
 
 
 - **Development of Multi-Omics-Based Technology for Discovering and Enhancing Valuable Genetic Resources in Agricultural and Food Microorganisms**  
-  *(2018.04 - 2021.12, Ministry of Agriculture, Food and Rural Affairs)*  
+  (2018.04 - 2021.12, Ministry of Agriculture, Food and Rural Affairs)  
   - Role: Co-researcher  
 
 - **Study on the Molecular Evolution of Substrate Promiscuity in Hyperthermophilic Sugar Isomerases Using Comparative and Structural Genomics**
-  *(2016. 03 - 2018. 02, Ministry of Science and ICT)*
+  (2016. 03 - 2018. 02, Ministry of Science and ICT)  
   - Role: Co-researcher  
+    
 ---
 
 ## CODING (GITHUB)
