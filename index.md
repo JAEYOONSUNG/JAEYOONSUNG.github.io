@@ -13,11 +13,11 @@ Seoul 03722, Korea
 
 ## EDUCATION
 
-- **Postdoctoral Fellow** 2024.09-Present
+- **Postdoctoral Fellow** 2024.09-Present  
 Department of Biotechnology, Yonsei University, Seoul, Korea  
 Advisor: Dong-Woo Lee  
 
-- **Ph.D.** 2018.09-2024.08
+- **Ph.D.** 2018.09-2024.08  
 Department of Biotechnology, Yonsei University, Seoul, Korea  
 Thesis Advisor: Dong-Woo Lee  
 Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approach and the development of a thermophilic platform host”  
