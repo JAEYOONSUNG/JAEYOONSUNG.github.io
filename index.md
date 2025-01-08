@@ -6,8 +6,8 @@
 Seoul 03722, Korea  
 📞 Tel: (+82)-2-2123-7292  
 📱 Phone: (+82)-10-3319-6382  
-📧 E-mail: sungjaeyoon@yonsei.ac.kr,  
-          o3wodbs@gmail.com  
+| 📧 E-mail       | sungjaeyoon@yonsei.ac.kr   | o3wodbs@gmail.com |
+|------------------|----------------------------|-------------------|
 🌐 [GitHub](https://github.com/JAEYOONSUNG/) | [Homepage](https://jaeyoonsung.github.io)  
 
 ---
