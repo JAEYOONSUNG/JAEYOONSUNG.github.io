@@ -1,4 +1,4 @@
-# JAE-YOON SUNG, Ph.D.
+## JAE-YOON SUNG, Ph.D.
 
 **Postdoctoral Fellow**  
 **Department of Biotechnology**  
