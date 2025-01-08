@@ -105,7 +105,7 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
 - [**DNMB**](https://github.com/JAEYOONSUNG/DNMB/): a combined scripts-based pipeline for comprehensive genomics analysis of non-model bacteria.
 - [**GenomeDrawer**](https://github.com/JAEYOONSUNG/GenomeDrawer/):	a Circos-based genome map visualization tool.
 - [**BPGAconverter**](https://github.com/JAEYOONSUNG/BPGAconverter/):	a combined scripts-based pipeline for comparative genomics analysis.
-- [**OGRIparser**](https://github.com/JAEYOONSUNG/OGRIparser/): 
+- [**OGRIparser**](https://github.com/JAEYOONSUNG/OGRIparser/): a combined scripts-based pipeline for calculating Overall Genome Realted Indexs from GenBank data to uncover hidden genomic features among genomes.
 - [**FINDER**](https://github.com/JAEYOONSUNG/FINDER/): a large-scale metagenomic study for enzyme profiles using the focused identification of the NGS-based definitive enzyme research (FINDER) strategy.
 - [**mRNAcal**](https://github.com/JAEYOONSUNG/mRNAcal/): a comprehensive R Package for streamlined mRNA region extraction and RNA secondary structure analysis with the viennaRNA.
 - [**breseqConverter**](https://github.com/JAEYOONSUNG/breseqConverter/): an R script to convert breseq output into a user-friendly xlsx format for easy ALE stage comparison with the original strain. 
