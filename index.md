@@ -68,9 +68,9 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
 ---
 
 ## PAPER IN PREPARATION
-9.	**Sung, J.Y.**, Lee, M.H., Kim, H.B., Ganbat, D., Cho, H.W., Lee, S.J., Kim, S.B.,<sup>* </sup>, and Lee, D.W.<sup>* </sup>. **A Strategic Blueprint for the Domestication of non-model *Geobacillus stearothermophilus* as a Thermophilic Platform using the DNMB Suite.**
+9.	**Sung, J.Y.**, Lee, M.H., Kim, H.B., Ganbat, D., Cho, H.W., Lee, S.J., Kim, S.B.<sup>* </sup>, and Lee, D.W.<sup>* </sup>. **A Strategic Blueprint for the Domestication of non-model *Geobacillus stearothermophilus* as a Thermophilic Platform using the DNMB Suite.**
 10.	**Sung, J.Y.<sup>£</sup>**, Kim, J.Y.<sup>£</sup>, Lee, E.M., Baek, J.H., Lee, Y.J., Jin, H.S., Kim, B.C., Lee, D.Y.<sup>* </sup>, and Lee, D.W.<sup>* </sup>. **Molecular insights into keratin degradation by *Fervidobacterium islandicum* AW-1: An evolutionary perspective on bacterial resilience to starvation.**
-11.	**Sung, J.Y.<sup>£</sup>**, Shin.S.M.<sup>£</sup>, Hoang, N.K.Q., Dhanasingh, I., Yoo, K.Y., Lim, H.C., Cao, T., Lee, S.J., Kim, S.B., Lee, S.H.,<sup>* </sup>, and Lee, D.W.,<sup>* </sup>. **Metal-mediated intermolecular interactions contribute to the thermostabilization of primordial sugar isomerases.** 
+11.	**Sung, J.Y.<sup>£</sup>**, Shin.S.M.<sup>£</sup>, Hoang, N.K.Q., Dhanasingh, I., Yoo, K.Y., Lim, H.C., Cao, T., Lee, S.J., Kim, S.B., Lee, S.H.<sup>* </sup>, and Lee, D.W.,<sup>* </sup>. **Metal-mediated intermolecular interactions contribute to the thermostabilization of primordial sugar isomerases.** 
 12.	**Sung, J.Y.**, Park, M.K., Park, J.S., Lee, M.H., Lee, Y.J., Kim, K.S., Lee, S.J., and Lee, D.W.<sup>* </sup>. **Evolutionary genetic traits for thermal adaptation using a pan-genomic approach in the order Bacillales.**
 13.	**Sung, J.Y.<sup>£</sup>**, Yoo, Y.K.<sup>£</sup>, Lee, M.H., Yang, S.Y., Cho, H.S.<sup>* </sup> and Lee, D.W.<sup>* </sup>. **Structural basis mechanism of novel Type III Restriction-Methylation systems in hyperthermophilic *Fervidobacterium islandicum* AW-1.**
 
