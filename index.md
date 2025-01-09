@@ -80,24 +80,35 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
 
 - **Development of a Thermophilic Platform Host for Large-Scale Production of Natural Rare Sweeteners for Healthcare Applications**  
   (2023.03 - 2028.02, Ministry of Science and ICT) 
-  - Role: Lead Researcher  
-  - Enzyme engineering, kinetics analysis, and platform development.  
+  - Role: Lead Researcher
+  - Enhanced D-Fructose-to-D-Tagatose isomerase activity through enzyme engineering and novel enzyme discovery.
+  - Investigated substrate specificity change in sugar isomerases focused on phosphorylated state of sugar.
+  - Elucidated the D-Tagatose pathway in G. stearothermophilus and developed a cell growth-dependent enzyme engineering platform using metabolic engineering.
+
 
 - **Development of Biosafe Geobacillus Platform Cells and Enzyme Production Technology for Industrial Uses**  
   (2021.04 - 2023.12, Ministry of Trade, Industry and Energy)  
-  - Role: Lead Researcher  
-  - Development of transformation methods for non-model thermophilic bacteria and efficiency enhancement based on defense systems
-  - Development of a genetic toolkit utilizing plasmid origin identification, auxotrophic selection markers, promoter screening, and native Cas9
-  - Elucidation of the Tagatose Pathway and Development of a Cell-Growth-Dependent Enzyme Engineering Platform Using Metabolic Engineering
+  - Role: Lead Researcher
+  - Established transformation methods for non-model thermophilic bacteria with enhanced efficiency based on defense systems.
+  - Developed a genetic toolkit incorporating plasmid origin identification, auxotrophic selection markers, promoter and regulator screening, and native Cas9.
+  - Developed bio-safe auxotrophic selection markers for industrial enzyme production technology.
 
 
 - **Development of Multi-Omics-Based Technology for Discovering and Enhancing Valuable Genetic Resources in Agricultural and Food Microorganisms**  
   (2018.04 - 2021.12, Ministry of Agriculture, Food and Rural Affairs)  
-  - Role: Co-researcher  
+  - Role: Co-researcher
+  - Explored feather degradation mechanisms through multi-omics analysis.
+  - Developed genetic manipulation techniques for the hyperthermophilic bacterium *Fervidobacterium islandicum* AW-1.
+  - Identified genetic factors related to thermal stability using comparative genomics of the Bacillales order.
+  
 
 - **Study on the Molecular Evolution of Substrate Promiscuity in Hyperthermophilic Sugar Isomerases Using Comparative and Structural Genomics**
   (2016. 03 - 2018. 02, Ministry of Science and ICT)  
-  - Role: Co-researcher  
+  - Role: Co-researcher
+  - Constructed a cell-growth-dependent strain reliant on D-Galactose-to-D-Tagatose conversion activity.
+  - Characterized L-arabinose isomerase with enhanced D-Galactose-to-D-Tagatose conversion activity.
+  - Optimized D-Tagatose metabolism in E. coli using adaptive laboratory evolution (ALE).
+
     
 ---
 
