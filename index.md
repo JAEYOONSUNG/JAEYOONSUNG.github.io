@@ -53,7 +53,7 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
 
 ## PUBLICATIONS (2018-Present)
 
-1.	Ganbat, S., Ganbat, D., **Sung, J.Y.**, Kim, S,B., Lee, D.W., and Lee, S.J.* (2025) **Complete genome sequence of polyhydroxyalkaonate accumulating bacterium *Schlegelella aquatica* HS-12-14 isolated from Korean hot spring**. *Microbiol. Resour. Announc.*
+1.	Ganbat, D., Ganbat, S., **Sung, J.Y.**, Kim, S,B., Lee, D.W., and Lee, S.J.* (2025) **Complete genome sequence of polyhydroxyalkaonate accumulating bacterium *Schlegelella aquatica* HS-12-14 isolated from Korean hot spring**. *Microbiol. Resour. Announc.*
 2.	**Sung, J.Y.<sup>£</sup>**, Ganbat, D.<sup>£</sup>, Kim, S,B., Lee, S.J.*, and Lee, D.W.* (2024) **Complete genome sequences of *Geobacillus stearothermophilus* strains EF60045 and SJEF4-2 from Korean hot springs**. *Microbiol. Resour. Announc.* e00573-24.
 3.	Joo, Y.H. <sup>£</sup>, **Sung, J.Y.<sup>£</sup>**, Shin, S.M., Park, S.J., Kim, K.S., Park, K.D., Kim, S.B., and Lee, D.W.* (2023) **A retroaldol reaction prompted the evolvability of a phosphotransferase system for the utilization of a rare sugar.** *Microbiol. Spectr.* 11(2) e03660-22. 
 4.	**Sung, J.Y.<sup>£</sup>**, Lee, Y.J.<sup>£</sup>, Cho, Y.J., Lee, S.J., Lee, H.S., Bae, J.W., Shin, J.H., Koh, H., Kim, H.J.*, and Lee, D.W.* (2021) **A large scale metagenomic study for enzyme profiles using the focused identification of the NGS-based definitive enzyme research (FINDER) strategy.** _Biotechnol. Bioeng._ 118: 4360-4374.* (Editor’s choice articles/Front cover paper) 
