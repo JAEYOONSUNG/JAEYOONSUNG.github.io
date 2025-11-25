@@ -75,7 +75,7 @@ Thesis: *“Elucidation of thermophily for Bacillales using a phylogenomic appro
 15.	Kim, K.N., Yang, J.O., Sung, J.Y., Lee, J.Y., Park, J.S., Lee, H.S., Lee, B.H., Ren, Y., Lee, D.W.*, and Lee, S.E.* (2019) *Minimization of energy transduction confers resistance to phosphine in crop arthropods.* [_Sci. Rep._ 9, 14605.](https://www.nature.com/articles/s41598-019-50972-w)
 
 
-*(For the full list, please refer to my [Google Scholar](https://scholar.google.com/citations?hl=ko&user=pSxoyuEAAAAJ).*  
+*For the full list, please refer to my [Google Scholar](https://scholar.google.com/citations?hl=ko&user=pSxoyuEAAAAJ).*  
 
 ---
 
