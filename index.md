@@ -151,8 +151,8 @@ Thesis: *“Elucidation of thermophily for Bacillales using a phylogenomic appro
 ## Conferences and Presentations
 
 - **Invited Talks**  
-  - A Strategic Blueprint for the Domestication of Geobacillus stearothermophilus as a Thermophilic Platform Cell using the DNMB Suite, KMB 2025, Busan, Korea
-  - A Strategic Blueprint for the Domestication of Geobacillus stearothermophilus as a Thermophilic Platform Cell using the DNMB Suite, MSK 2024, Jeju, Korea
+  - A Strategic Blueprint for the Domestication of _Geobacillus stearothermophilus_ as a Thermophilic Platform Cell using the DNMB Suite, KMB 2025, Busan, Korea
+  - A Strategic Blueprint for the Domestication of _Geobacillus stearothermophilus_ as a Thermophilic Platform Cell using the DNMB Suite, MSK 2024, Jeju, Korea
 
 - **Oral Presentations**  
   - Large-Scale Metagenomic Study for Enzyme Profiling Using the Focused Identification of the NGS-Based Definitive Enzyme Research (FINDER) Strategy, 2021 BK21 symposium, Yonsei University, Seoul, Korea
@@ -176,7 +176,7 @@ Thesis: *“Elucidation of thermophily for Bacillales using a phylogenomic appro
 ## PATENTS
 ### INTERNATIONAL
 - A recombinant strain having modified sugar metabolic pathway and method for screening sugar isomerase using same. *US 2020/0087647 A1*. Mar. 19, 2020
-- *Determination of rare sugar utilization genes in non-metabolizing strains*. KR 10-2590888 (2023).  
+- Determination of rare sugar utilization genes in non-metabolizing strains. KR 10-2590888 (2023).  
 
 ### DOMESTIC
 1.	초호열균 유래 깃털 분해능 결정 유전자군 및 이를 포함한 깃털 분해용 호열균의 제조 방법과 이의 용도 (출원)
