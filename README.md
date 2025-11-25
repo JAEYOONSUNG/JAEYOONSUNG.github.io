@@ -21,7 +21,7 @@ Advisor: Dong-Woo Lee
 - **Ph.D.** 2018.09-2024.08
 Department of Biotechnology, Yonsei University, Seoul, Korea
 Thesis Advisor: Dong-Woo Lee
-Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approach and the development of a thermophilic platform host”
+Thesis: *“Elucidation of thermophily for Bacillales using a phylogenomic approach and the development of a thermophilic platform host”*
 
 - **B.S.** 2012.02-2018.02 (including 2 years of military service)
   School of Applied Life Science, Kyungpook National University, Daegu, Korea
@@ -67,7 +67,7 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
 7.	Ganbat, D.£, Ganbat, S.£, Park, B.H, Kim, M.K, Sung, J.Y., Chi, W.j., Kim,S.B., Lee, D.W and Lee, S.J.* (2025) Thermohahella caldifontis gen. nov. sp. nov., thermo-halophilic bacterium isolated from hot spring. Int. J. Syst. Evol. Microbiol. 2025;75:006843.
 8.	Ganbat, S., Ganbat, D., Sung, J.Y., Kim, S,B., Lee, D.W., and Lee, S.J.* (2024) *Complete genome sequence of polyhydroxyalkaonate accumulating bacterium Schlegelella aquatica HS-12-14 isolated from Korean hot spring*. _Microbiol. Resour. Announc._
 9.	Sung, J.Y.£, Ganbat, D.£, Kim, S,B., Lee, S.J.*, and Lee, D.W.* (2024) *Complete genome sequences of _Geobacillus stearothermophilus_ strains EF60045 and SJEF4-2 from Korean hot springs*. _Microbiol. Resour. Announc._ e00573-24.
-10.	Joo, Y.H. £, Sung, J.Y.£, Shin, S.M., Park, S.J., Kim, K.S., Park, K.D., Kim, S.B., and Lee, D.W.* (2023) *A retroaldol reaction prompted the evolvability of a phosphotransferase system for the utilization of a rare sugar.* _Microbiol. Spectr._ 11(2) e03660-22. [🔗](https://doi.org/10.1128/mra.00573-24)
+10.	Joo, Y.H. £, Sung, J.Y.£, Shin, S.M., Park, S.J., Kim, K.S., Park, K.D., Kim, S.B., and Lee, D.W.* (2023) *A retroaldol reaction prompted the evolvability of a phosphotransferase system for the utilization of a rare sugar.* _Microbiol. Spectr._ 11(2) e03660-22.(https://doi.org/10.1128/mra.00573-24)
 11.	Sung, J.Y. £, Lee, Y.J. £, Cho, Y.J., Lee, S.J., Lee, H.S., Bae, J.W., Shin, J.H., Koh, H., Kim, H.J.*, and Lee, D.W.* (2021) *A large scale metagenomic study for enzyme profiles using the focused identification of the NGS-based definitive enzyme research (FINDER) strategy. _Biotechnol. Bioeng._ 118: 4360-4374.* (Editor’s choice articles/Front cover paper)
 12.	Jin, H.S. £, Dhanasingh, I. £, Sung, J.Y., La, J.W., Lee, Y., Lee, E.M., Kang, Y.J., Lee, D.Y., Lee, S.H.*, and Lee, D.W.* (2021) *The sulfur formation system mediating extracellular cysteine-cystine recycling in _Fervidobacterium islandicum_ AW-1 is associated with keratin degradation.* _Microb, Biotechnol._ 14, 938-952.
 13.	Dhanasingh, I.£, Sung, J.Y.£, Ghosh, S., La, J.W., Kang, E.J., Lee, D.W., and Lee, S.H.*. (2021) *Structure of oxidized pyrrolidone carboxypeptidase from _Fervidobacterium islandicum_ AW-1 reveals unique structural features for thermostability and keratinolysis.* _Biochem. Biophys. Res. Commun._ 540, 101-107.
@@ -75,7 +75,7 @@ Thesis: “Elucidation of thermophily for Bacillales using a phylogenomic approa
 15.	Kim, K.N., Yang, J.O., Sung, J.Y., Lee, J.Y., Park, J.S., Lee, H.S., Lee, B.H., Ren, Y., Lee, D.W.*, and Lee, S.E.* (2019) *Minimization of energy transduction confers resistance to phosphine in crop arthropods.* _Sci. Rep._ 9, 14605. 
 
 
-*(For the full list, please refer to my [Google Scholar][🔗](https://scholar.google.com/citations?hl=ko&user=pSxoyuEAAAAJ).*  
+*(For the full list, please refer to my [Google Scholar](https://scholar.google.com/citations?hl=ko&user=pSxoyuEAAAAJ).*  
 
 ---
 
