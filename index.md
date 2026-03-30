@@ -1,6 +1,6 @@
 ## JAE-YOON SUNG, Ph.D.
 
-**Postdoctoral Fellow**  
+**Research Professor**  
 **Department of Biotechnology**  
 **College of Life Science and Biotechnology, Yonsei University**  
 Seoul 03722, Korea  
@@ -13,7 +13,8 @@ Seoul 03722, Korea
 
 ## EDUCATION
 
--**Research Prof.** 2025.09-Present
+- **Research Prof.** 2025.09-Present
+  
 - **Postdoctoral Fellow** 2024.09-2025.08
 Department of Biotechnology, Yonsei University, Seoul, Korea
 Advisor: Dong-Woo Lee
