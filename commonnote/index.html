@@ -385,6 +385,85 @@ sub,sup{line-height:0}
 .cal-grid .d.today.due::after{background:#fff}
 .cal-legend{display:flex;gap:12px;margin-top:10px;font-size:10.5px;color:var(--muted);flex-wrap:wrap}
 
+/* handoff dialog */
+.hand-field{
+  display:flex;gap:8px;align-items:center;padding:8px 0;
+  border-bottom:1px solid var(--line-soft);font-size:13px;color:#3F3F46;
+}
+.hand-field .k{color:var(--faint);font-size:11.5px;width:52px;flex:none}
+.hand-note{
+  background:#FBFAF8;border:1px solid var(--line);border-radius:9px;
+  padding:9px 12px;font-size:12.5px;color:#3F3F46;margin:10px 0;line-height:1.55;
+}
+.hand-note .nk{font-size:10px;font-family:var(--mono);letter-spacing:.07em;color:var(--faint);display:block;margin-bottom:3px}
+.chain{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.chain .arrow{color:#B9B9C0}
+
+/* chat / messages */
+.chat{display:flex;flex-direction:column;gap:8px;padding:16px 18px}
+.chat-head{
+  display:flex;align-items:center;gap:8px;font-weight:650;font-size:13.5px;
+  padding-bottom:10px;border-bottom:1px solid var(--line-soft);margin-bottom:2px;
+}
+.chat-head .st{margin-left:auto;font-size:10.5px;color:var(--green);font-weight:600}
+.bubble{max-width:84%;border-radius:14px;padding:7px 12px;font-size:12.5px;line-height:1.45}
+.bubble.them{align-self:flex-start;background:var(--band);border:1px solid var(--line-soft);border-bottom-left-radius:5px;color:#3A3A40}
+.bubble.me{align-self:flex-end;background:linear-gradient(180deg,var(--crimson-hi),var(--crimson));color:#fff;border-bottom-right-radius:5px}
+.bubble .bt{font-size:9px;opacity:.6;margin-top:2px;text-align:right}
+.req-card{
+  align-self:stretch;border:1.5px solid var(--crimson);border-radius:12px;
+  padding:10px 13px;background:var(--crimson-tint);font-size:12.5px;color:#4a2a30;
+}
+.req-card .rq-head{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--crimson);font-size:11px;letter-spacing:.05em;margin-bottom:4px}
+.req-card .rq-actions{display:flex;gap:7px;margin-top:8px}
+
+/* bell request list */
+.bell-list .sig-row{align-items:center}
+.bell-list .mini-btn{margin-left:auto;flex:none}
+
+/* week calendar with event chips */
+.entry-wide{grid-column:1/-1;order:3;width:100%;max-width:880px;justify-self:center;margin-top:16px}
+.wkcal{padding:16px 20px}
+.wkcal-head{display:flex;align-items:baseline;gap:8px;margin-bottom:9px}
+.wkcal-head .m{font-weight:700;font-size:14px}
+.wkcal-head .y{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.wkcal-head .seg{
+  margin-left:auto;display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;
+  font-size:10px;
+}
+.wkcal-head .seg span{padding:2px 8px;color:var(--faint)}
+.wkcal-head .seg .on{background:var(--band);color:var(--ink);font-weight:600}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.wd{
+  border:1px solid var(--line-soft);border-radius:8px;padding:4px 4px 5px;
+  min-height:78px;background:#fff;min-width:0;
+}
+.wd .dn{
+  display:flex;justify-content:space-between;font-family:var(--mono);
+  font-size:10px;color:var(--faint);margin-bottom:5px;padding:0 2px;gap:4px;
+}
+.wd.today{border-color:var(--crimson);box-shadow:inset 0 2px 0 var(--crimson)}
+.wd.today .dn b{color:var(--crimson)}
+.wd .dn .sun{color:var(--rose)}
+.wd .dn .sat{color:#1D4ED8}
+.evt{
+  font-size:10.5px;line-height:1.35;border-radius:5px;padding:2.5px 6px;margin-bottom:3px;
+  color:#fff;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:600;
+}
+.evt.due{background:var(--crimson)}
+.evt.rec{background:#4338CA}
+.evt.hand{background:#B45309}
+.evt.soft{background:var(--band);color:#55555E;border:1px solid var(--line-soft);font-weight:550}
+.evt.holi{background:transparent;color:var(--rose);border:1px dashed #E8B4BC;font-weight:650}
+.nl-input{
+  display:flex;gap:8px;align-items:center;margin-top:10px;
+  border:1px solid var(--line);border-radius:9px;padding:7px 11px;
+  font-size:12px;background:#fff;
+}
+.nl-input .cursor{border-left:1.5px solid var(--crimson);height:12px}
+.nl-parse{color:var(--green);font-weight:600;font-size:11px;margin-left:auto;white-space:nowrap}
+.channels{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+
 /* toolbox card visuals */
 .tool-viz{
   height:76px;display:flex;align-items:center;justify-content:center;gap:8px;
@@ -473,8 +552,9 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
   .nav-links{display:none}
 }
 @media (max-width:640px){
-  #alerts .entry-mock{grid-template-columns:1fr !important;justify-items:center}
-  #alerts .entry-mock .mock.cal{width:100%;max-width:340px}
+  .wkcal{overflow-x:auto}
+  .wkcal .wk{min-width:600px}
+  .wkcal .nl-input{min-width:600px}
 }
 @media (max-width:560px){
   .tool-grid{grid-template-columns:1fr}
@@ -502,6 +582,8 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
       <a href="#editor"><span class="ko">에디터</span><span class="en">Editor</span></a>
       <a href="#collab"><span class="ko">공동 작업</span><span class="en">Collaboration</span></a>
       <a href="#integrity"><span class="ko">기록 무결성</span><span class="en">Integrity</span></a>
+      <a href="#handoff"><span class="ko">위임</span><span class="en">Handoff</span></a>
+      <a href="#alerts"><span class="ko">알림·기한</span><span class="en">Alerts</span></a>
       <a href="#security"><span class="ko">보안</span><span class="en">Security</span></a>
       <a href="#toolbox"><span class="ko">그 외</span><span class="en">More</span></a>
     </div>
@@ -778,10 +860,101 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
     </div>
   </section>
 
-  <!-- 06 ALERTS & DEADLINES -->
+  <!-- 06 DELEGATION & HANDOVER -->
+  <section class="entry flip" id="handoff">
+    <div class="entry-copy">
+      <span class="eyebrow"><span class="ko">Entry 06 · 위임과 인수인계</span><span class="en">Entry 06 · Delegation &amp; handover</span></span>
+      <h2>
+        <span class="ko">일은 넘겨도, 맥락은 흘리지 않는다</span>
+        <span class="en">Hand off the task, not the confusion</span>
+      </h2>
+      <p class="entry-body">
+        <span class="ko">담당자, 기한, 인수인계 노트를 붙여 일을 넘깁니다. 받은 사람이 수락하거나 거절하고, 그 흐름이 상태 체인으로 남으며, 응답이 없으면 리마인더가 대신 조릅니다. 메시지로도 같이 전달됩니다.</span>
+        <span class="en">Pass work along with an assignee, a due date, and a handover note attached. The receiver accepts or declines, the whole flow is recorded as a status chain, and reminders do the chasing when there's no answer. It lands in their messages too.</span>
+      </p>
+      <ul class="points">
+        <li><span class="ko">담당자 + 기한 + 인수인계 노트를 한 번에</span><span class="en">Assignee + due date + handover note, in one dialog</span></li>
+        <li><span class="ko">수락·거절·완료가 남는 위임 상태 체인, 자동 리마인더</span><span class="en">Accept / decline / done recorded in a chain — reminders automatic</span></li>
+        <li><span class="ko">받는 사람 메시지함과 알림으로 동시에 도착</span><span class="en">Arrives in their messages and notifications at the same time</span></li>
+      </ul>
+    </div>
+    <div class="entry-mock">
+      <div class="mock" aria-hidden="true">
+        <div class="mock-pad" style="padding-left:24px">
+          <div class="mock-meta"><span>HAND OFF TASK</span></div>
+          <div class="mock-title" style="font-size:15px">Miniprep 12 colonies</div>
+          <div class="hand-field"><span class="k">To</span><span class="avatar" style="background:#4338CA">M</span><b>Minji Kim</b><span class="tag-chip" style="margin-left:auto">colleague</span></div>
+          <div class="hand-field"><span class="k">Due</span><b>Fri, Aug 21</b><span class="tag-chip" style="margin-left:auto">reminder Wed ↻</span></div>
+          <div class="hand-note">
+            <span class="nk">HANDOVER NOTE</span>
+            Colonies 1–12 in rack B3, cold room shelf 2. Elute in 30 µL EB.
+            Lanes 3 / 7 / 11 already verified — prioritize those.
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span class="mini-btn primary">Send handoff</span>
+            <span class="mini-btn">Cancel</span>
+            <span style="margin-left:auto;font-size:11px;color:var(--muted)">✓ also send as message</span>
+          </div>
+        </div>
+        <div class="mock-pad" style="padding-left:24px;border-top:1px solid var(--line-soft)">
+          <div class="mock-meta"><span>DELEGATION CHAIN</span></div>
+          <div class="chain">
+            <span class="avatar" style="background:#A51C30">J</span><b>Jae</b>
+            <span class="arrow">→</span>
+            <span class="avatar" style="background:#4338CA">M</span><b>Minji</b>
+            <span class="pill ok">✓ Accepted · Aug 15 09:12</span>
+            <span class="tag-chip">due Fri</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 REQUESTS & MESSAGES -->
+  <section class="entry" id="requests">
+    <div class="entry-copy">
+      <span class="eyebrow"><span class="ko">Entry 07 · 요청과 메시지</span><span class="en">Entry 07 · Requests &amp; messages</span></span>
+      <h2>
+        <span class="ko">응답이 필요한 일은 묻히지 않는다</span>
+        <span class="en">Requests that need you, front and center</span>
+      </h2>
+      <p class="entry-body">
+        <span class="ko">검토, 증인 서명, 인수인계 — 답이 필요한 요청은 벨, 응답 대기 목록, 휴대폰 팝업으로 한꺼번에 떠오릅니다. 내장 메시지 대화 안에 요청 카드가 그대로 박혀서, 채팅하다가 바로 수락하면 됩니다.</span>
+        <span class="en">Reviews, witness co-signs, handoffs — anything awaiting your answer surfaces in the bell, a pending-response list, and a phone popup all at once. Request cards sit right inside the built-in chat, so you accept without leaving the conversation.</span>
+      </p>
+      <ul class="points">
+        <li><span class="ko">응답 대기 요청이 벨 배지·목록·폰 팝업으로</span><span class="en">Pending requests in the bell badge, the list, and a phone popup</span></li>
+        <li><span class="ko">메시지 대화 속 요청 카드에서 바로 수락·거절</span><span class="en">Accept or decline straight from the card inside the chat</span></li>
+        <li><span class="ko">답이 늦으면 동료 찌르기(nudge) 한 번으로 재알림</span><span class="en">Slow reply? One nudge re-pings them everywhere</span></li>
+      </ul>
+    </div>
+    <div class="entry-mock">
+      <div class="mock" aria-hidden="true">
+        <div class="chat">
+          <div class="chat-head"><span class="avatar" style="background:#4338CA">M</span>Minji Kim<span class="st">● online</span></div>
+          <div class="bubble them">Gel photo is up on <span style="color:var(--crimson);font-weight:600">[[Colony PCR]]</span> — can you check lane 7?<div class="bt">10:41</div></div>
+          <div class="bubble me">On it. Sending the miniprep handoff your way.<div class="bt">10:44</div></div>
+          <div class="req-card">
+            <div class="rq-head">🔔 RESPONSE NEEDED</div>
+            <b>Handoff — Miniprep 12 colonies</b><br>from Jae · due Fri, Aug 21 · handover note attached
+            <div class="rq-actions"><span class="mini-btn primary">Accept</span><span class="mini-btn">Decline</span></div>
+          </div>
+          <div class="bubble them">Accepted ✓ rack B3, got it.<div class="bt">10:52</div></div>
+        </div>
+        <div class="mock-pad bell-list" style="padding-left:24px;border-top:1px solid var(--line-soft)">
+          <div class="mock-meta"><span>🔔 3 NEED YOUR RESPONSE</span></div>
+          <div class="sig-row"><span>✍️ Witness co-sign — <b>Gibson assembly</b></span><span class="mini-btn primary">Sign</span></div>
+          <div class="sig-row"><span>🔍 Review — <b>Sequencing chromatograms</b></span><span class="mini-btn">Open</span></div>
+          <div class="sig-row"><span>🤝 Handoff — <b>−80 °C check</b> · Fri</span><span class="mini-btn">Accept</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 ALERTS & DEADLINES -->
   <section class="entry flip" id="alerts">
     <div class="entry-copy">
-      <span class="eyebrow"><span class="ko">Entry 06 · 알림과 기한</span><span class="en">Entry 06 · Alerts &amp; deadlines</span></span>
+      <span class="eyebrow"><span class="ko">Entry 08 · 알림과 기한</span><span class="en">Entry 08 · Alerts &amp; deadlines</span></span>
       <h2>
         <span class="ko">완료·성공·지연 — 상황이 먼저 알려온다</span>
         <span class="en">Done, success, delayed — the status finds you</span>
@@ -796,7 +969,7 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
         <li><span class="ko">기한 캘린더 — 요일 반복·공휴일·자연어 날짜 입력</span><span class="en">Due-date calendar — recurrence, holidays, natural-language dates</span></li>
       </ul>
     </div>
-    <div class="entry-mock" style="display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start">
+    <div class="entry-mock">
       <div class="phone" aria-hidden="true">
         <div class="phone-screen">
           <div class="phone-island"></div>
@@ -806,30 +979,41 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
           <div class="phone-homebar"></div>
         </div>
       </div>
-      <div class="mock cal" aria-hidden="true">
-        <div class="cal-head"><span class="m">August</span><span class="y">2026</span></div>
-        <div class="cal-grid">
-          <span class="dow sun">S</span><span class="dow">M</span><span class="dow">T</span><span class="dow">W</span><span class="dow">T</span><span class="dow">F</span><span class="dow sat">S</span>
-          <span class="d hol mut">26</span><span class="d mut">27</span><span class="d mut">28</span><span class="d mut">29</span><span class="d mut">30</span><span class="d mut">31</span><span class="d sat">1</span>
-          <span class="d hol">2</span><span class="d rec">3</span><span class="d">4</span><span class="d">5</span><span class="d rec">6</span><span class="d due">7</span><span class="d sat">8</span>
-          <span class="d hol">9</span><span class="d rec">10</span><span class="d">11</span><span class="d">12</span><span class="d rec">13</span><span class="d today due">14</span><span class="d hol">15</span>
-          <span class="d hol">16</span><span class="d rec">17</span><span class="d due">18</span><span class="d">19</span><span class="d rec">20</span><span class="d">21</span><span class="d sat">22</span>
-          <span class="d hol">23</span><span class="d rec">24</span><span class="d">25</span><span class="d due">26</span><span class="d rec">27</span><span class="d">28</span><span class="d sat">29</span>
-          <span class="d hol">30</span><span class="d rec">31</span><span class="d mut">1</span><span class="d mut">2</span><span class="d mut">3</span><span class="d mut">4</span><span class="d sat mut">5</span>
+    </div>
+    <div class="entry-wide">
+      <div class="mock wkcal" aria-hidden="true">
+        <div class="wkcal-head">
+          <span class="m">August</span><span class="y">2026 · W33</span>
+          <span class="seg"><span class="on">Week</span><span>Month</span></span>
         </div>
-        <div class="cal-legend">
-          <span><span class="dot" style="background:var(--crimson)"></span>due</span>
-          <span><span class="dot" style="background:var(--indigo)"></span>↻ recurring</span>
-          <span style="color:var(--rose)">15 — holiday</span>
+        <div class="wk">
+          <div class="wd"><div class="dn"><span class="sun">SUN</span><b class="sun">9</b></div></div>
+          <div class="wd"><div class="dn"><span>MON</span><b>10</b></div><div class="evt rec">↻ Subculture</div></div>
+          <div class="wd"><div class="dn"><span>TUE</span><b>11</b></div><div class="evt rec">↻ Media prep</div></div>
+          <div class="wd"><div class="dn"><span>WED</span><b>12</b></div><div class="evt soft">Seq results in</div></div>
+          <div class="wd"><div class="dn"><span>THU</span><b>13</b></div><div class="evt rec">↻ Subculture</div></div>
+          <div class="wd today"><div class="dn"><span>FRI</span><b>14</b></div><div class="evt due">Miniprep — due</div><div class="evt hand">🤝 −80 °C check</div></div>
+          <div class="wd"><div class="dn"><span class="sat">SAT</span><b class="sun">15</b></div><div class="evt holi">Liberation Day</div></div>
+        </div>
+        <div class="nl-input">
+          <span style="color:var(--faint)">＋</span>
+          <span class="mono" style="font-size:11.5px">seq review next fri 3pm</span><span class="cursor"></span>
+          <span class="nl-parse">→ Fri, Aug 21 · 15:00 ✓</span>
+        </div>
+        <div class="channels">
+          <span class="viz-chip">🔔 Web push ✓</span>
+          <span class="viz-chip">📱 iPhone ✓</span>
+          <span class="viz-chip">💻 Desktop ✓</span>
+          <span class="viz-chip">✉️ Email ✓</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 07 SECURITY -->
+  <!-- 09 SECURITY -->
   <section class="entry" id="security">
     <div class="entry-copy">
-      <span class="eyebrow">Entry 07 · Security</span>
+      <span class="eyebrow">Entry 09 · Security</span>
       <h2>
         <span class="ko">잠글 곳은 잠그고, 열 곳은 연다</span>
         <span class="en">Locked where it matters, open where it helps</span>
@@ -867,7 +1051,7 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
 <section class="toolbox" id="toolbox">
   <div class="wrap">
     <div class="toolbox-head">
-      <span class="eyebrow"><span class="ko">Entry 08 · 그 외</span><span class="en">Entry 08 · Everything else</span></span>
+      <span class="eyebrow"><span class="ko">Entry 10 · 그 외</span><span class="en">Entry 10 · Everything else</span></span>
       <h2><span class="ko">그리고 나머지 실험대 위 도구들</span><span class="en">And the rest of the bench</span></h2>
       <p class="toolbox-sub">
         <span class="ko">매일 쓰게 되는 작은 도구들 — 하나하나가 브라우저 탭 하나씩을 줄입니다.</span>
