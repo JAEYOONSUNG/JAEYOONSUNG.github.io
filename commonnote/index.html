@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="ko" data-lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CommonNote — 연구실이 함께 쓰는 실험 노트</title>
+<meta name="description" content="CommonNote is a collaborative electronic lab notebook: real-time co-editing, reagent math, witness signatures — self-hosted on your lab's own server. 연구실이 함께 쓰는 전자연구노트.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta property="og:title" content="CommonNote — Electronic Lab Notebook">
+<meta property="og:description" content="The lab notebook your whole lab writes together. Real-time co-editing, reagent math, witness signatures — on your own server.">
+<meta property="og:image" content="icon.svg">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --paper:#FCFCFB;
+  --panel:#FFFFFF;
+  --band:#F6F6F5;
+  --ink:#18181B;
+  --muted:#55555E;
+  --faint:#8B8B94;
+  --line:#E4E4E7;
+  --line-soft:#EEEEEF;
+  --crimson:#A51C30;
+  --crimson-hi:#C92A44;
+  --crimson-lo:#7F1425;
+  --crimson-tint:#FBF1F2;
+  --indigo:#4338CA;
+  --green:#166534;
+  --rose:#BE123C;
+  --sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Segoe UI','Malgun Gothic',system-ui,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.65;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+::selection{background:rgba(165,28,48,.14)}
+
+/* language switching */
+html[data-lang="ko"] .en{display:none !important}
+html[data-lang="en"] .ko{display:none !important}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+img,svg{max-width:100%}
+kbd{
+  font-family:var(--mono);font-size:.78em;
+  border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;
+  padding:.05em .4em;background:#fff;color:var(--muted);white-space:nowrap;
+}
+.mono{font-family:var(--mono)}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(252,252,251,.86);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-in{display:flex;align-items:center;gap:28px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:650;font-size:17px;letter-spacing:-.01em}
+.brand img{width:28px;height:28px;border-radius:7px}
+.nav-links{display:flex;gap:22px;margin-left:8px;font-size:14.5px;color:var(--muted)}
+.nav-links a{text-decoration:none}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.lang-btn{
+  font-family:var(--sans);font-size:13px;font-weight:550;cursor:pointer;
+  border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--muted);
+  padding:5px 13px;line-height:1.4;
+}
+.lang-btn:hover{color:var(--ink);border-color:#d0d0d5}
+.btn{
+  display:inline-block;text-decoration:none;font-weight:600;font-size:14.5px;
+  border-radius:9px;padding:8px 17px;line-height:1.5;white-space:nowrap;transition:transform .12s ease, box-shadow .12s ease;
+}
+.btn-crimson{
+  background:linear-gradient(180deg,var(--crimson-hi) 0%,var(--crimson) 55%,var(--crimson-lo) 100%);
+  color:#fff;box-shadow:0 1px 2px rgba(127,20,37,.35), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.btn-crimson:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(127,20,37,.28), inset 0 1px 0 rgba(255,255,255,.18)}
+.btn-ghost{border:1px solid var(--line);background:#fff;color:var(--ink)}
+.btn-ghost:hover{border-color:#cfcfd4}
+.btn-lg{font-size:16px;padding:12px 24px;border-radius:11px}
+
+/* ---------- hero ---------- */
+.hero{padding:84px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.eyebrow{
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;
+  color:var(--crimson);font-weight:600;text-transform:uppercase;
+}
+h1{
+  font-size:clamp(34px,4.6vw,52px);line-height:1.14;letter-spacing:-.024em;
+  font-weight:750;margin:14px 0 20px;text-wrap:balance;
+}
+.hero-sub{font-size:18px;color:var(--muted);max-width:34em;margin-bottom:30px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.platforms{
+  margin-top:34px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;
+  color:var(--faint);display:flex;gap:0;flex-wrap:wrap;align-items:center;
+}
+.platforms span{white-space:nowrap}
+.platforms span + span::before{content:"·";margin:0 10px;color:var(--line)}
+
+/* ---------- mock chrome ---------- */
+.mock{
+  position:relative;background:var(--panel);
+  border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 1px 2px rgba(24,24,27,.04), 0 12px 32px -12px rgba(24,24,27,.10);
+  font-size:13.5px;line-height:1.55;word-break:normal;
+  overflow:hidden;
+}
+.mock-margin::before{ /* the red margin rule of a paper lab notebook */
+  content:"";position:absolute;top:0;bottom:0;left:30px;width:1px;
+  background:var(--crimson);opacity:.30;
+}
+.mock-pad{padding:20px 24px 22px 46px;position:relative}
+.mock-meta{
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint);
+  display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px;
+}
+.mock-title{font-size:18px;font-weight:700;letter-spacing:-.015em;margin-bottom:12px}
+.mock p{margin:8px 0;color:#3A3A40}
+.mock .chem{font-variant-numeric:tabular-nums}
+sub,sup{line-height:0}
+
+/* collaborator carets & authorship */
+.caret{
+  display:inline-block;width:2px;height:1.05em;vertical-align:-.16em;border-radius:1px;
+  background:var(--c,#4338CA);position:relative;animation:blink 1.15s steps(2,start) infinite;
+}
+.caret::after{
+  content:attr(data-name);position:absolute;bottom:1.28em;left:-2px;
+  font-family:var(--sans);font-size:9.5px;font-weight:650;color:#fff;
+  background:var(--c,#4338CA);border-radius:3px 3px 3px 0;padding:1px 5px;line-height:1.45;
+  white-space:nowrap;animation:none;
+}
+@keyframes blink{50%{background:transparent}}
+.caret::after{background:var(--c,#4338CA)} /* flag never blinks */
+.sel{background:rgba(22,101,52,.14);border-radius:2px;padding:0 1px}
+.auth-i{box-shadow:inset 0 -2px 0 rgba(67,56,202,.35)}
+.auth-g{box-shadow:inset 0 -2px 0 rgba(22,101,52,.35)}
+.auth-c{box-shadow:inset 0 -2px 0 rgba(165,28,48,.35)}
+
+/* checklist inside mocks */
+.check{list-style:none;margin:10px 0}
+.check li{
+  display:flex;gap:9px;align-items:baseline;padding:5px 0;
+  border-bottom:1px dashed var(--line-soft);color:#3A3A40;
+}
+.check li:last-child{border-bottom:none}
+.box{
+  flex:none;width:14px;height:14px;border-radius:4px;border:1.5px solid #C9C9CE;
+  position:relative;top:2px;background:#fff;
+}
+.box.on{background:var(--crimson);border-color:var(--crimson)}
+.box.on::after{
+  content:"";position:absolute;left:3.2px;top:.8px;width:4px;height:7px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg);
+}
+.done-txt{color:var(--faint);text-decoration:line-through;text-decoration-color:#c9c9ce}
+
+.callout{
+  display:flex;gap:10px;background:var(--crimson-tint);border:1px solid #F2DCDF;
+  border-radius:10px;padding:10px 14px;margin-top:12px;color:#5d2830;font-size:13px;
+}
+.wikilink{color:var(--crimson);font-weight:550;text-decoration:none;border-bottom:1px solid rgba(165,28,48,.3)}
+
+.tag-chip{
+  display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;
+  border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--muted);background:#fafafa;
+}
+
+/* ---------- feature entries ---------- */
+.entries{padding:48px 0 8px}
+.entry{
+  display:grid;grid-template-columns:1fr 1.08fr;gap:72px;align-items:center;
+  padding:64px 0;
+}
+.entry + .entry{border-top:1px solid var(--line-soft)}
+.entry.flip .entry-copy{order:2}
+.entry.flip .entry-mock{order:1}
+.entry h2{font-size:clamp(24px,2.8vw,32px);letter-spacing:-.017em;font-weight:700;line-height:1.22;margin:12px 0 14px}
+.entry-body{color:var(--muted);font-size:16.5px;max-width:34em}
+.entry ul.points{list-style:none;margin-top:18px}
+.entry ul.points li{
+  position:relative;padding:7px 0 7px 26px;color:#3F3F46;font-size:15px;
+}
+.entry ul.points li::before{
+  content:"";position:absolute;left:2px;top:14px;width:12px;height:5px;
+  border:solid var(--crimson);border-width:0 0 1.5px 1.5px;transform:rotate(-45deg);opacity:.85;
+}
+
+/* small ui bits in mocks */
+.mini-btn{
+  display:inline-block;font-size:12px;font-weight:600;border-radius:7px;padding:4px 12px;
+  border:1px solid var(--line);background:#fff;color:var(--ink);
+}
+.mini-btn.primary{background:var(--crimson);border-color:var(--crimson);color:#fff}
+.pill{
+  display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;
+  border-radius:999px;padding:2px 10px;
+}
+.pill.ok{background:#EAF3ED;color:var(--green)}
+.pill.warn{background:#FBF1F2;color:var(--crimson)}
+
+/* comment thread */
+.thread{border:1px solid var(--line);border-radius:10px;margin-top:14px;overflow:hidden}
+.thread .cm{padding:9px 13px;font-size:13px;display:flex;gap:9px}
+.thread .cm + .cm{border-top:1px solid var(--line-soft)}
+.avatar{
+  flex:none;width:20px;height:20px;border-radius:50%;color:#fff;font-size:10px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;top:1px;position:relative;
+}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;font-size:12.5px;color:var(--muted)}
+.legend b{font-weight:600;color:var(--ink)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;position:relative;top:-1px}
+
+/* calculator mock */
+.calc-rows{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
+.calc-rows .row{
+  display:flex;justify-content:space-between;gap:16px;padding:8px 0;
+  border-bottom:1px solid var(--line-soft);
+}
+.calc-rows .row:last-child{border-bottom:none}
+.calc-rows .k{color:var(--faint)}
+.calc-rows .v{color:var(--ink);text-align:right}
+.calc-rows .v strong{color:var(--crimson);font-weight:700}
+
+/* signature mock */
+.sig-row{display:flex;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line-soft);font-size:13.5px}
+.sig-row:last-child{border-bottom:none}
+.sig-row .who{font-weight:650}
+.sig-row .when{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-left:auto;white-space:nowrap}
+.stamp{
+  position:absolute;right:22px;top:18px;transform:rotate(6deg);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--crimson);
+  border:1.5px solid var(--crimson);border-radius:6px;padding:3px 9px;opacity:.75;text-transform:uppercase;
+}
+
+/* kanban mock */
+.kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px}
+.kcol{background:var(--band);border-radius:10px;padding:9px 9px 11px;min-width:0}
+.kcol h4{
+  font-size:11px;font-family:var(--mono);letter-spacing:.09em;text-transform:uppercase;
+  color:var(--faint);font-weight:600;margin:2px 4px 9px;display:flex;align-items:center;gap:6px;
+}
+.kcol h4 .cnt{margin-left:auto;color:#c0c0c6}
+.kcard{
+  background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:8px 10px;font-size:12.5px;line-height:1.45;color:#3A3A40;
+  box-shadow:0 1px 2px rgba(24,24,27,.04);margin-bottom:8px;
+}
+.kcard:last-child{margin-bottom:0}
+.kcard .sub{display:flex;gap:6px;margin-top:6px;align-items:center;flex-wrap:wrap}
+.recur{color:var(--indigo);font-family:var(--mono);font-size:10.5px}
+
+/* lock mock */
+.lockcard{padding:18px 22px}
+.lockcard + .lockcard{border-top:1px solid var(--line-soft)}
+.lock-title{display:flex;gap:9px;align-items:center;font-weight:650;font-size:14.5px;margin-bottom:6px}
+.lock-sub{color:var(--muted);font-size:13px;margin-bottom:12px}
+
+/* ---------- toolbox ---------- */
+.toolbox{background:var(--band);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:84px 0}
+.toolbox-head{max-width:38em;margin-bottom:40px}
+.toolbox h2{font-size:clamp(24px,2.8vw,32px);letter-spacing:-.017em;margin:12px 0 10px}
+.toolbox-sub{color:var(--muted)}
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tool{
+  background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;
+  transition:transform .14s ease, box-shadow .14s ease;
+}
+.tool:hover{transform:translateY(-2px);box-shadow:0 8px 22px -10px rgba(24,24,27,.14)}
+.tool h3{font-size:15px;font-weight:650;letter-spacing:-.01em;margin-bottom:5px}
+.tool p{font-size:13.5px;color:var(--muted);line-height:1.55}
+
+/* ---------- CTA ---------- */
+.cta{padding:100px 0;text-align:center}
+.cta .eyebrow{display:block}
+.cta h2{font-size:clamp(28px,3.6vw,40px);letter-spacing:-.02em;margin:14px auto 14px;line-height:1.2}
+.cta p{color:var(--muted);max-width:36em;margin:0 auto 32px;font-size:17px}
+.cta-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--faint);font-size:13.5px}
+.foot-in{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.foot-in img{width:22px;height:22px;border-radius:6px}
+.foot-links{margin-left:auto;display:flex;gap:20px}
+.foot-links a{text-decoration:none;color:var(--muted)}
+.foot-links a:hover{color:var(--ink)}
+
+/* ---------- responsive ---------- */
+@media (max-width:920px){
+  .hero{padding:56px 0 24px}
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .entry{grid-template-columns:1fr;gap:32px;padding:52px 0}
+  .entry.flip .entry-copy{order:1}
+  .entry.flip .entry-mock{order:2}
+  .tool-grid{grid-template-columns:repeat(2,1fr)}
+  .nav-links{display:none}
+}
+@media (max-width:560px){
+  .tool-grid{grid-template-columns:1fr}
+  .kanban{grid-template-columns:1fr 1fr}
+  .kanban .kcol:nth-child(3){display:none}
+  .mock-pad{padding-left:40px}
+  .mock-margin::before{left:24px}
+}
+:focus-visible{outline:2px solid var(--crimson);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <img src="icon.svg" alt="" width="28" height="28">
+      CommonNote
+    </a>
+    <div class="nav-links">
+      <a href="#editor"><span class="ko">에디터</span><span class="en">Editor</span></a>
+      <a href="#collab"><span class="ko">공동 작업</span><span class="en">Collaboration</span></a>
+      <a href="#integrity"><span class="ko">기록 무결성</span><span class="en">Integrity</span></a>
+      <a href="#security"><span class="ko">보안</span><span class="en">Security</span></a>
+      <a href="#toolbox"><span class="ko">그 외</span><span class="en">More</span></a>
+    </div>
+    <div class="nav-right">
+      <button class="lang-btn" id="langToggle" aria-label="Switch language">
+        <span class="ko">EN</span><span class="en">한국어</span>
+      </button>
+      <a class="btn btn-crimson" href="https://commonnote.app" target="_blank" rel="noopener">
+        <span class="ko">앱 열기</span><span class="en">Open app</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="ko">Electronic Lab Notebook</span><span class="en">Electronic Lab Notebook</span></span>
+      <h1>
+        <span class="ko">연구실이 함께 쓰는<br>실험 노트</span>
+        <span class="en">The lab notebook your whole lab writes together</span>
+      </h1>
+      <p class="hero-sub">
+        <span class="ko">실시간 공동 편집, 시약 계산, 증인 서명 — 그리고 연구실 서버 밖으로는 한 바이트도 나가지 않는 데이터. CommonNote는 실험 기록을 위해 만든 노트입니다.</span>
+        <span class="en">Real-time co-editing, reagent math, witness signatures — and data that never leaves your lab's own server. CommonNote is a notebook built for experiments.</span>
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-crimson btn-lg" href="https://commonnote.app" target="_blank" rel="noopener">
+          <span class="ko">CommonNote 시작하기</span><span class="en">Start with CommonNote</span>
+        </a>
+        <a class="btn btn-ghost btn-lg" href="https://commonnote.app/downloads/" target="_blank" rel="noopener">
+          <span class="ko">macOS 다운로드</span><span class="en">Download for macOS</span>
+        </a>
+      </div>
+      <div class="platforms">
+        <span>WEB</span><span>MACOS</span><span>IOS</span><span>OFFLINE</span><span>SELF-HOSTED</span>
+      </div>
+    </div>
+
+    <!-- hero mock: a real experiment note -->
+    <div class="mock mock-margin" aria-hidden="true">
+      <div class="mock-pad">
+        <div class="mock-meta">
+          <span>CLONING / pET-28a</span><span>2026-08-14</span><span>SHARED · 3 EDITORS</span><span>SAVED</span>
+        </div>
+        <div class="mock-title">Gibson assembly — pET-28a × <em>dnaK</em> insert</div>
+        <p class="chem">Buffer: 50 mM Tris·HCl (pH 8.0), 10 mM MgCl<sub>2</sub>, 1 mM DTT, 5% PEG-8000.</p>
+        <p><span class="auth-i">Digested 2 µg vector with NcoI / XhoI at 37 °C for 1 h, then heat-inactivated 20 min.<span class="caret" style="--c:#4338CA" data-name="Minji"></span></span></p>
+        <ul class="check">
+          <li><span class="box on"></span><span class="done-txt chem">Gel-purify insert — 1.9 kb band, 68 ng/µL</span></li>
+          <li><span class="box on"></span><span class="done-txt">Assembly mix, 50 °C · 60 min</span></li>
+          <li><span class="box"></span><span class="chem">Transform DH5α — heat shock 42 °C, 45 s <span class="sel">then SOC, 1 h shaking</span></span></li>
+        </ul>
+        <div class="callout">
+          <span>💡</span>
+          <span>Use <a class="wikilink" href="#integrity">[[Gibson master mix v3]]</a> — protocol pinned to this record.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="entries wrap">
+
+  <!-- 01 EDITOR -->
+  <section class="entry" id="editor">
+    <div class="entry-copy">
+      <span class="eyebrow">Entry 01 · Editor</span>
+      <h2>
+        <span class="ko">실험하던 그대로 적는다</span>
+        <span class="en">Write experiments the way you run them</span>
+      </h2>
+      <p class="entry-body">
+        <span class="ko">슬래시 메뉴 하나로 종이 노트에 못 담던 것을 넣습니다 — 표, 체크리스트, 콜아웃, 코드, Mermaid 다이어그램, LaTeX 수식까지. <span class="mono">H2SO4</span>라고 치면 알아서 H₂SO₄가 됩니다.</span>
+        <span class="en">One slash menu drops in what a paper notebook can't hold — tables, checklists, callouts, code, Mermaid diagrams, LaTeX math. Type <span class="mono">H2SO4</span> and it becomes H₂SO₄ on its own.</span>
+      </p>
+      <ul class="points">
+        <li><span class="ko">젤 사진·그래프를 위한 라벨/캡션 달린 Figure 틀</span><span class="en">Figure frames with labels and captions, built for gel photos and plots</span></li>
+        <li><span class="ko">노트 사이 <span class="mono">[[위키 링크]]</span>와 백링크</span><span class="en">Wiki-style <span class="mono">[[links]]</span> between notes, with backlinks</span></li>
+        <li><span class="ko">노트 안 찾기 <kbd>⌘F</kbd>, 블록 드래그 핸들, 접히는 섹션</span><span class="en">In-note find <kbd>⌘F</kbd>, block drag handles, collapsible sections</span></li>
+      </ul>
+    </div>
+    <div class="entry-mock">
+      <div class="mock mock-margin" aria-hidden="true">
+        <div class="mock-pad">
+          <div class="mock-meta"><span>/ SLASH MENU</span><span>AUTOFORMAT</span></div>
+          <p style="color:var(--faint)">Type <span class="mono" style="color:var(--crimson)">/</span> to insert…</p>
+          <ul class="check" style="margin-top:6px">
+            <li><span class="tag-chip">/table</span><span>3 × 3 table with header row</span></li>
+            <li><span class="tag-chip">/math</span><span class="chem">LaTeX block — K<sub>d</sub> = k<sub>off</sub> / k<sub>on</sub></span></li>
+            <li><span class="tag-chip">/mermaid</span><span>Diagram: sample → digest → ligate → screen</span></li>
+            <li><span class="tag-chip">/callout</span><span>Info · Warning · Tip blocks</span></li>
+            <li><span class="tag-chip">/figure</span><span>Figure frame — “Fig. 2 | Colony PCR, lanes 1–12”</span></li>
+          </ul>
+          <p style="margin-top:12px" class="chem">Autoformat: <span class="mono">H2O2</span> → H<sub>2</sub>O<sub>2</sub> · <span class="mono">Ca2+</span> → Ca<sup>2+</sup> · <span class="mono">CO2</span> → CO<sub>2</sub></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 COLLAB -->
+  <section class="entry flip" id="collab">
+    <div class="entry-copy">
+      <span class="eyebrow">Entry 02 · Collaboration</span>
+      <h2>
+        <span class="ko">한 노트에 커서 네 개, 충돌은 없다</span>
+        <span class="en">One note, four cursors, zero conflicts</span>
+      </h2>
+      <p class="entry-body">
+        <span class="ko">모두가 같은 노트를 동시에 고치고, 문장마다 누가 썼는지 남습니다. 노트 하나든 노트북 전체든 공유하면 그 안에 새로 만드는 노트까지 권한이 자동으로 따라갑니다.</span>
+        <span class="en">Everyone edits the same note at the same time, and every sentence remembers who wrote it. Share one note or a whole notebook — new notes inside inherit access automatically.</span>
+      </p>
+      <ul class="points">
+        <li><span class="ko">실시간 커서·선택 표시, 오프라인 편집도 깨끗하게 병합</span><span class="en">Live cursors and selections; offline edits merge back cleanly</span></li>
+        <li><span class="ko">문장 단위 저자 표시 — 누가 어디를 썼는지 색으로</span><span class="en">Per-author attribution — see who wrote which line, by color</span></li>
+        <li><span class="ko">인라인 댓글, @멘션, 연구실 안 메시지까지 내장</span><span class="en">Inline comments, @mentions, and built-in lab messages</span></li>
+      </ul>
+    </div>
+    <div class="entry-mock">
+      <div class="mock mock-margin" aria-hidden="true">
+        <div class="mock-pad">
+          <div class="legend">
+            <span><span class="dot" style="background:#A51C30"></span><b>Jae</b></span>
+            <span><span class="dot" style="background:#4338CA"></span><b>Minji</b></span>
+            <span><span class="dot" style="background:#166534"></span><b>Dokyun</b></span>
+          </div>
+          <p><span class="auth-c">Colonies appeared overnight on Kan plates — 40+ per transformation.</span></p>
+          <p><span class="auth-i chem">Picked 12 for colony PCR; T7 fwd / T7 rev, 25 cycles.</span><span class="caret" style="--c:#4338CA" data-name="Minji"></span></p>
+          <p><span class="auth-g"><span class="sel">Lanes 3, 7, 11 show the expected 1.9 kb product.</span></span><span class="caret" style="--c:#166534" data-name="Dokyun"></span></p>
+          <div class="thread">
+            <div class="cm">
+              <span class="avatar" style="background:#4338CA">M</span>
+              <span><b>Minji</b> · 14:22 — Should we DpnI-digest before the next transformation?</span>
+            </div>
+            <div class="cm">
+              <span class="avatar" style="background:#A51C30">J</span>
+              <span><b>Jae</b> · 14:31 — Added as step 4. <span class="pill ok">✓ Resolved</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 REAGENT -->
+  <section class="entry" id="reagent">
+    <div class="entry-copy">
+      <span class="eyebrow">Entry 03 · Reagent calculator</span>
+      <h2>
+        <span class="ko">시약 계산은 노트 안에서</span>
+        <span class="en">Buffer math without the second tab</span>
+      </h2>
+      <p class="entry-body">
+        <span class="ko">화학식이나 CAS 번호만 치면 분자량·몰수·희석 계산이 바로 나옵니다. PubChem 검색이 붙어 있고, 자주 쓰는 시약은 연구실 별칭으로 저장해 다음부터는 이름만 칩니다.</span>
+        <span class="en">Type a formula or a CAS number and get molar mass, moles, and dilutions instantly. PubChem lookup is built in, and your lab's common reagents get saved aliases.</span>
+      </p>
+      <ul class="points">
+        <li><span class="ko">화학식에서 분자량 자동 계산</span><span class="en">Molar mass straight from the formula</span></li>
+        <li><span class="ko">몰농도 → 칭량값, 스톡 희석 계산</span><span class="en">Molarity → weigh-out, stock dilution math</span></li>
+        <li><span class="ko">PubChem 이름·CAS 검색 + 연구실 공용 캐시</span><span class="en">PubChem name / CAS lookup, cached for the whole lab</span></li>
+      </ul>
+    </div>
+    <div class="entry-mock">
+      <div class="mock mock-margin" aria-hidden="true">
+        <div class="mock-pad">
+          <div class="mock-meta"><span>REAGENT CALCULATOR</span><span>PUBCHEM ✓</span></div>
+          <div class="calc-rows">
+            <div class="row"><span class="k">Reagent</span><span class="v">Tris base · CAS 77-86-1</span></div>
+            <div class="row"><span class="k">Formula</span><span class="v chem">C<sub>4</sub>H<sub>11</sub>NO<sub>3</sub></span></div>
+            <div class="row"><span class="k">Molar mass</span><span class="v">121.14 g/mol</span></div>
+            <div class="row"><span class="k">Target</span><span class="v">50 mM × 1.0 L</span></div>
+            <div class="row"><span class="k">Weigh out</span><span class="v"><strong>6.057 g</strong></span></div>
+            <div class="row"><span class="k">Dilution</span><span class="v chem">10× TAE → 1× : 100 mL + 900 mL H<sub>2</sub>O</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 INTEGRITY -->
+  <section class="entry flip" id="integrity">
+    <div class="entry-copy">
+      <span class="eyebrow">Entry 04 · Record integrity</span>
+      <h2>
+        <span class="ko">나중에 증거가 되는 기록</span>
+        <span class="en">Records that hold up later</span>
+      </h2>
+      <p class="entry-body">
+        <span class="ko">프로토콜을 연결하면 그 순간의 버전이 고정됩니다. 비밀번호로 확인하는 서명으로 기록을 확정하고 증인이 함께 서명합니다. 확정 이후에 바뀐 게 있으면, 반드시 표시가 남습니다.</span>
+        <span class="en">Link a protocol and the exact version you followed is pinned. Finalize the record with a password-confirmed signature, have a witness co-sign — and if anything changes afterward, it gets flagged.</span>
+      </p>
+      <ul class="points">
+        <li><span class="ko">실험–프로토콜 연결 시점의 버전 고정</span><span class="en">Protocol version pinned at the moment you link it</span></li>
+        <li><span class="ko">기록 확정 + 증인 공동 서명, 사후 변경 감지</span><span class="en">Finalization + witness co-signature, post-hoc change detection</span></li>
+        <li><span class="ko">10분마다 버전 스냅샷 — 두 버전 비교, 복원</span><span class="en">Version snapshots every 10 minutes — diff any two, restore</span></li>
+      </ul>
+    </div>
+    <div class="entry-mock">
+      <div class="mock mock-margin" aria-hidden="true">
+        <div class="mock-pad" style="padding-top:24px">
+          <div class="stamp">Finalized</div>
+          <div class="mock-meta"><span>RECORD SIGNATURES</span></div>
+          <div class="sig-row">
+            <span class="who">Jae-Yoon Sung</span>
+            <span class="pill ok">✓ Signed</span>
+            <span class="when">2026-08-12 18:41 KST</span>
+          </div>
+          <div class="sig-row">
+            <span class="who">D.W. Lee</span>
+            <span class="pill ok">✓ Witnessed</span>
+            <span class="when">2026-08-13 09:02 KST</span>
+          </div>
+          <div class="sig-row">
+            <span>Protocol pinned — <a class="wikilink" href="#editor">[[Heat-shock transformation]]</a> <span class="tag-chip">v7</span></span>
+          </div>
+          <div class="sig-row">
+            <span class="mono" style="font-size:12px;color:var(--faint)">History: v15 · snapshot every 10 min · compare v14 ↔ v15</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 SCHEDULE -->
+  <section class="entry" id="schedule">
+    <div class="entry-copy">
+      <span class="eyebrow">Entry 05 · Lab schedule</span>
+      <h2>
+        <span class="ko">연구실의 일주일을 레일에 올린다</span>
+        <span class="en">The lab week, on rails</span>
+      </h2>
+      <p class="entry-body">
+        <span class="ko">연구실 일에 맞춘 칸반 보드 — 열 이름은 각자 연구실 말투대로 바꿔 씁니다. 요일 반복 작업이 리듬을 챙깁니다: 계대는 월·목, 배지는 화, −80 °C 점검은 금.</span>
+        <span class="en">A kanban board tuned for lab work — rename the columns to match how your lab actually talks. Recurring weekday tasks keep the rhythm: subculture Mon/Thu, media prep Tue, −80 °C check Fri.</span>
+      </p>
+      <ul class="points">
+        <li><span class="ko">대기 · 진행 · 검토 · 완료 — 열 이름은 사람마다 자유롭게</span><span class="en">To&nbsp;do · Doing · Review · Done — columns renameable per person</span></li>
+        <li><span class="ko">요일 반복 작업 + 한국 공휴일 아는 캘린더</span><span class="en">Weekday recurrence + a calendar that knows the holidays</span></li>
+        <li><span class="ko">인수인계 노트와 리마인더가 붙는 위임</span><span class="en">Delegation with handover notes and reminders attached</span></li>
+      </ul>
+    </div>
+    <div class="entry-mock">
+      <div class="mock" aria-hidden="true">
+        <div class="kanban">
+          <div class="kcol">
+            <h4>To do <span class="cnt">3</span></h4>
+            <div class="kcard">Order NcoI-HF (NEB)</div>
+            <div class="kcard">Subculture — HEK293T
+              <div class="sub"><span class="recur">↻ Mon · Thu</span></div>
+            </div>
+            <div class="kcard">Media prep, DMEM ×2
+              <div class="sub"><span class="recur">↻ Tue</span></div>
+            </div>
+          </div>
+          <div class="kcol">
+            <h4>Doing <span class="cnt">2</span></h4>
+            <div class="kcard">Miniprep 12 colonies
+              <div class="sub"><span class="avatar" style="background:#A51C30;width:16px;height:16px;font-size:9px">J</span><span class="tag-chip">due today</span></div>
+            </div>
+            <div class="kcard">−80 °C freezer check
+              <div class="sub"><span class="recur">↻ Fri</span></div>
+            </div>
+          </div>
+          <div class="kcol">
+            <h4>Review <span class="cnt">1</span></h4>
+            <div class="kcard">Sequencing chromatograms — lanes 3 / 7 / 11
+              <div class="sub"><span class="avatar" style="background:#4338CA;width:16px;height:16px;font-size:9px">M</span><span class="pill ok">review requested</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 SECURITY -->
+  <section class="entry flip" id="security">
+    <div class="entry-copy">
+      <span class="eyebrow">Entry 06 · Security</span>
+      <h2>
+        <span class="ko">잠글 곳은 잠그고, 열 곳은 연다</span>
+        <span class="en">Locked where it matters, open where it helps</span>
+      </h2>
+      <p class="entry-body">
+        <span class="ko">관리자 승인 없이는 아무도 들어오지 못합니다. 패스키(Touch ID / Face ID)로 로그인하고, 노트 하나든 노트북 전체든 첨부파일까지 잠급니다. 그리고 원할 때만, 읽기 전용 공개 링크를 엽니다.</span>
+        <span class="en">Nobody gets in without admin approval. Sign in with passkeys (Touch ID / Face ID), lock a single note or a whole notebook — attachments included. And only when you choose, publish a read-only public link.</span>
+      </p>
+      <ul class="points">
+        <li><span class="ko">가입 승인제 + 이메일 인증, 로그인 시도 제한</span><span class="en">Admin-approved signup + email verification, sign-in rate limits</span></li>
+        <li><span class="ko">노트 잠금 <kbd>⌘L</kbd>·노트북 잠금, Touch ID로 해제</span><span class="en">Note lock <kbd>⌘L</kbd> and notebook lock, unlocked with Touch ID</span></li>
+        <li><span class="ko">셀프 호스팅 — 광고도, 추적도, 외부 서버도 없음</span><span class="en">Self-hosted — no ads, no analytics, no third-party servers</span></li>
+      </ul>
+    </div>
+    <div class="entry-mock">
+      <div class="mock" aria-hidden="true">
+        <div class="lockcard">
+          <div class="lock-title">🔒 Notebook “Human samples” is locked</div>
+          <div class="lock-sub">Everything inside is hidden — titles, contents, attachments.</div>
+          <span class="mini-btn primary">Unlock with Touch ID</span>
+          <span class="mini-btn">Use password…</span>
+        </div>
+        <div class="lockcard">
+          <div class="lock-title">👋 Signup request</div>
+          <div class="lock-sub"><b>hj.park@lab.ac.kr</b> — “2nd-year MS student, Lee lab. Need access to the cloning notebook.”</div>
+          <span class="mini-btn primary">Approve</span>
+          <span class="mini-btn">Decide later</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- toolbox -->
+<section class="toolbox" id="toolbox">
+  <div class="wrap">
+    <div class="toolbox-head">
+      <span class="eyebrow"><span class="ko">Entry 07 · 그 외</span><span class="en">Entry 07 · Everything else</span></span>
+      <h2><span class="ko">그리고 나머지 실험대 위 도구들</span><span class="en">And the rest of the bench</span></h2>
+      <p class="toolbox-sub">
+        <span class="ko">매일 쓰게 되는 작은 도구들 — 하나하나가 브라우저 탭 하나씩을 줄입니다.</span>
+        <span class="en">The small tools you end up using daily — each one closes another browser tab.</span>
+      </p>
+    </div>
+    <div class="tool-grid">
+      <div class="tool"><h3><span class="ko">읽기 전용 공개 링크</span><span class="en">Public read-only links</span></h3><p><span class="ko">로그인 없이 누구나 읽는 페이지를 링크 하나로 공유합니다.</span><span class="en">Share a page anyone can read — no sign-in required.</span></p></div>
+      <div class="tool"><h3><span class="ko">오프라인 편집</span><span class="en">Offline editing</span></h3><p><span class="ko">인터넷이 끊겨도 계속 쓰고, 연결되면 자동으로 동기화됩니다.</span><span class="en">Keep writing without a connection; changes sync when you're back.</span></p></div>
+      <div class="tool"><h3><span class="ko">가져오기·내보내기</span><span class="en">Import &amp; export</span></h3><p><span class="ko">Markdown으로 들어오고 <kbd>⌘E</kbd> Markdown·HTML·PDF로 나가며, 전체 ZIP 백업도 됩니다.</span><span class="en">Markdown in; <kbd>⌘E</kbd> Markdown, HTML, or PDF out — plus a full ZIP backup.</span></p></div>
+      <div class="tool"><h3><span class="ko">전체 검색 + 커맨드 팔레트</span><span class="en">Full-text search + command palette</span></h3><p><span class="ko">모든 노트를 본문까지 검색하고, 키보드로 어디든 이동합니다.</span><span class="en">Search every note's body and jump anywhere from the keyboard.</span></p></div>
+      <div class="tool"><h3><span class="ko">템플릿</span><span class="en">Templates</span></h3><p><span class="ko">자주 쓰는 실험 양식을 템플릿으로 저장해 새 기록을 초 단위로 시작합니다.</span><span class="en">Save your recurring experiment formats and start new records in seconds.</span></p></div>
+      <div class="tool"><h3><span class="ko">팀과 조직도</span><span class="en">Teams &amp; org chart</span></h3><p><span class="ko">연구실 구성원을 팀으로 묶고 조직도로 봅니다. 동료에겐 나만 보는 별명도 붙습니다.</span><span class="en">Group members into teams with an org chart — plus private nicknames for colleagues.</span></p></div>
+      <div class="tool"><h3><span class="ko">알림, 어디서든</span><span class="en">Notifications, everywhere</span></h3><p><span class="ko">웹 푸시, iOS 네이티브 푸시, 데스크톱 알림, 이메일까지 — 응답이 필요한 요청은 놓치지 않게.</span><span class="en">Web push, native iOS push, desktop alerts, email — requests that need you don't get buried.</span></p></div>
+      <div class="tool"><h3><span class="ko">다크 모드와 액센트 색</span><span class="en">Dark mode &amp; accent colors</span></h3><p><span class="ko">원하는 색을 고르면 밝기 단계까지 자동으로 만들어집니다.</span><span class="en">Pick any accent color; the full shade scale is generated for you.</span></p></div>
+      <div class="tool"><h3><span class="ko">노트 탭·즐겨찾기·커버</span><span class="en">Note tabs, favorites &amp; covers</span></h3><p><span class="ko">브라우저처럼 노트를 탭으로 열고, 자주 가는 노트는 고정하고, 커버 이미지로 꾸밉니다.</span><span class="en">Open notes in tabs like a browser, pin the ones you live in, add cover images.</span></p></div>
+      <div class="tool"><h3><span class="ko">버전 기록</span><span class="en">Version history</span></h3><p><span class="ko">10분마다 자동 저장 — 아무 두 버전이나 비교하고 확인 후 복원합니다.</span><span class="en">Auto-saved every 10 minutes — compare any two versions and restore.</span></p></div>
+      <div class="tool"><h3><span class="ko">관리자 대시보드</span><span class="en">Admin dashboard</span></h3><p><span class="ko">저장소·백업 상태, 구성원별 사용량, 실패한 로그인까지 한 화면에서.</span><span class="en">Storage and backup health, per-member usage, failed sign-ins — one screen.</span></p></div>
+      <div class="tool"><h3><span class="ko">웹 · macOS · iOS</span><span class="en">Web · macOS · iOS</span></h3><p><span class="ko">브라우저로 바로, 데스크톱 앱은 자동 업데이트, iPhone에서는 네이티브 앱으로.</span><span class="en">Straight from the browser, a self-updating desktop app, and native on iPhone.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <span class="eyebrow"><span class="ko">시작하기</span><span class="en">Get started</span></span>
+    <h2>
+      <span class="ko">연구실은 무료.<br>데이터는 연구실 서버에.</span>
+      <span class="en">Free for your lab.<br>Yours, on your own server.</span>
+    </h2>
+    <p>
+      <span class="ko">무료 클라우드 VM 한 대에 자동 HTTPS와 야간 백업으로 올릴 수 있습니다. 아니면 호스팅된 앱을 지금 바로 열어도 됩니다.</span>
+      <span class="en">Deploy on a free-tier cloud VM with automatic HTTPS and nightly backups — or just open the hosted app right now.</span>
+    </p>
+    <div class="cta-ctas">
+      <a class="btn btn-crimson btn-lg" href="https://commonnote.app" target="_blank" rel="noopener">
+        <span class="ko">CommonNote 열기</span><span class="en">Open CommonNote</span>
+      </a>
+      <a class="btn btn-ghost btn-lg" href="https://commonnote.app/downloads/" target="_blank" rel="noopener">
+        <span class="ko">macOS 다운로드</span><span class="en">Download for macOS</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <img src="icon.svg" alt="">
+    <span>CommonNote · <span class="ko">연구실 실험 노트</span><span class="en">Electronic Lab Notebook</span></span>
+    <div class="foot-links">
+      <a href="https://commonnote.app" target="_blank" rel="noopener">commonnote.app</a>
+      <a href="https://commonnote.app/privacy" target="_blank" rel="noopener"><span class="ko">개인정보 처리방침</span><span class="en">Privacy</span></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KEY='cn.landing.lang';
+  var saved=null;
+  try{saved=localStorage.getItem(KEY)}catch(e){}
+  var lang=saved || ((navigator.language||'').toLowerCase().indexOf('ko')===0 ? 'ko' : 'en');
+  apply(lang);
+  document.getElementById('langToggle').addEventListener('click',function(){
+    lang = (lang==='ko') ? 'en' : 'ko';
+    try{localStorage.setItem(KEY,lang)}catch(e){}
+    apply(lang);
+  });
+  function apply(l){
+    document.documentElement.setAttribute('data-lang',l);
+    document.documentElement.setAttribute('lang',l);
+    document.title = (l==='ko')
+      ? 'CommonNote — 연구실이 함께 쓰는 실험 노트'
+      : 'CommonNote — The lab notebook your whole lab writes together';
+  }
+})();
+</script>
+</body>
+</html>
