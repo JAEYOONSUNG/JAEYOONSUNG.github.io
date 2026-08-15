@@ -93,7 +93,12 @@ kbd{
 .btn-lg{font-size:16px;padding:12px 24px;border-radius:11px}
 
 /* ---------- hero ---------- */
-.hero{padding:84px 0 40px}
+.hero{
+  padding:84px 0 40px;
+  background:
+    radial-gradient(52% 46% at 76% 30%, rgba(165,28,48,.055), transparent 70%),
+    radial-gradient(40% 38% at 12% 78%, rgba(67,56,202,.04), transparent 70%);
+}
 .hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
 .eyebrow{
   font-family:var(--mono);font-size:12px;letter-spacing:.14em;
@@ -171,8 +176,8 @@ sub,sup{line-height:0}
 .done-txt{color:var(--faint);text-decoration:line-through;text-decoration-color:#c9c9ce}
 
 .callout{
-  display:flex;gap:10px;background:var(--crimson-tint);border:1px solid #F2DCDF;
-  border-radius:10px;padding:10px 14px;margin-top:12px;color:#5d2830;font-size:13px;
+  display:flex;gap:10px;background:#FEF7E8;border:1px solid #F3E3BE;
+  border-radius:10px;padding:10px 14px;margin-top:12px;color:#6b4e14;font-size:13px;
 }
 .wikilink{color:var(--crimson);font-weight:550;text-decoration:none;border-bottom:1px solid rgba(165,28,48,.3)}
 
@@ -279,40 +284,80 @@ sub,sup{line-height:0}
 }
 .hero-pill .ic{font-size:14px}
 
-/* phone frame + live status toasts */
+/* iPhone (Dynamic Island generation) + live status toasts */
 .phone{
-  width:248px;margin:0 auto;background:#101014;border-radius:36px;padding:11px 10px 15px;
-  box-shadow:0 2px 4px rgba(24,24,27,.15), 0 24px 48px -18px rgba(24,24,27,.35), inset 0 0 0 2px #2a2a31;
+  position:relative;width:262px;margin:0 auto;border-radius:46px;padding:7px;
+  background:linear-gradient(150deg,#5a5a60 0%,#3c3c42 35%,#26262b 100%); /* titanium */
+  box-shadow:
+    inset 0 0 0 1.5px rgba(255,255,255,.22),
+    inset 0 0 0 6px #060607,
+    0 2px 6px rgba(24,24,27,.22),
+    0 30px 60px -20px rgba(24,24,27,.45);
+}
+.phone::before{ /* volume buttons */
+  content:"";position:absolute;left:-2.5px;top:96px;width:3px;height:54px;border-radius:2px;
+  background:linear-gradient(90deg,#6a6a70,#3c3c42);
+  box-shadow:0 66px 0 0 #4a4a50;
+}
+.phone::after{ /* power button */
+  content:"";position:absolute;right:-2.5px;top:126px;width:3px;height:64px;border-radius:2px;
+  background:linear-gradient(90deg,#3c3c42,#6a6a70);
 }
 .phone-screen{
-  position:relative;border-radius:26px;min-height:348px;overflow:hidden;
-  background:linear-gradient(165deg,#43434e 0%,#26262e 55%,#1a1a20 100%);
-  padding:40px 9px 14px;
+  position:relative;border-radius:39px;min-height:372px;overflow:hidden;
+  /* iOS 기본 배경화면풍 비비드 그러데이션 */
+  background:
+    radial-gradient(130% 85% at 18% 8%, rgba(126,87,255,.85) 0%, rgba(126,87,255,0) 55%),
+    radial-gradient(120% 90% at 88% 22%, rgba(255,94,158,.75) 0%, rgba(255,94,158,0) 55%),
+    radial-gradient(140% 100% at 55% 105%, rgba(58,134,255,.85) 0%, rgba(58,134,255,0) 60%),
+    linear-gradient(180deg,#2b2260 0%,#141335 60%,#0b0d26 100%);
+  padding:14px 9px 16px;
 }
-.phone-notch{
-  position:absolute;top:9px;left:50%;transform:translateX(-50%);
-  width:78px;height:20px;background:#101014;border-radius:11px;
+.phone-island{
+  width:86px;height:23px;background:#000;border-radius:14px;margin:0 auto;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);position:relative;
+}
+.phone-island::after{ /* 전면 카메라 */
+  content:"";position:absolute;right:7px;top:50%;transform:translateY(-50%);
+  width:9px;height:9px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, #2c3a55 0%, #0a0f1c 60%);
+}
+.phone-date{
+  color:rgba(255,255,255,.85);text-align:center;font-size:11.5px;font-weight:600;
+  margin:14px 0 0;text-shadow:0 1px 6px rgba(0,0,0,.35);
 }
 .phone-time{
-  color:#fff;text-align:center;font-weight:650;font-size:26px;letter-spacing:-.01em;
-  margin:4px 0 2px;text-shadow:0 1px 4px rgba(0,0,0,.3);
+  color:#fff;text-align:center;font-weight:250;font-size:52px;line-height:1.05;
+  letter-spacing:-.01em;margin:0 0 14px;font-variant-numeric:tabular-nums;
+  text-shadow:0 2px 14px rgba(0,0,0,.35);
 }
-.phone-date{color:rgba(255,255,255,.75);text-align:center;font-size:11px;margin-bottom:12px}
 .toast{
-  background:rgba(252,252,251,.94);border-radius:13px;padding:8px 11px;margin-bottom:7px;
-  box-shadow:0 5px 16px rgba(0,0,0,.28);font-size:11px;line-height:1.4;color:#3A3A40;
+  display:flex;gap:9px;align-items:flex-start;
+  background:rgba(250,250,252,.78);
+  backdrop-filter:blur(14px) saturate(1.6);-webkit-backdrop-filter:blur(14px) saturate(1.6);
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:16px;padding:9px 11px;margin-bottom:7px;
+  box-shadow:0 8px 22px rgba(10,10,30,.30);font-size:11px;line-height:1.4;color:#3A3A40;
   transition:transform .45s ease, opacity .45s ease;
 }
-.toast .t-head{display:flex;align-items:center;gap:6px;margin-bottom:2px}
-.toast .t-app{font-size:9px;letter-spacing:.06em;color:#8B8B94;font-family:var(--mono)}
-.toast .t-when{margin-left:auto;font-size:9px;color:#8B8B94}
+.toast .t-icon{
+  flex:none;width:26px;height:26px;border-radius:6.5px;margin-top:1px;
+  box-shadow:0 1px 3px rgba(0,0,0,.18);
+}
+.toast .t-body{min-width:0;flex:1}
+.toast .t-head{display:flex;align-items:center;gap:6px;margin-bottom:1px}
+.toast .t-when{margin-left:auto;font-size:9px;color:#75757e;flex:none}
 .toast .t-tag{
   font-size:8.5px;font-weight:700;letter-spacing:.05em;border-radius:4px;padding:1px 5px;color:#fff;
-  font-family:var(--mono);
+  font-family:var(--mono);flex:none;
 }
-.toast b{font-size:11.5px;color:#18181B}
+.toast b{font-size:11.5px;color:#141418}
 .toast.enter{transform:translateY(-16px);opacity:0}
 .toast.leave{opacity:0;transform:translateY(8px)}
+.phone-homebar{
+  position:absolute;bottom:7px;left:50%;transform:translateX(-50%);
+  width:96px;height:4px;border-radius:3px;background:rgba(255,255,255,.85);
+}
 
 /* mini calendar */
 .cal{padding:16px 18px}
@@ -321,11 +366,15 @@ sub,sup{line-height:0}
 .cal-head .y{font-family:var(--mono);font-size:11px;color:var(--faint)}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:11px}
 .cal-grid .dow{font-family:var(--mono);font-size:9px;color:var(--faint);padding:2px 0}
+.cal-grid .dow.sun{color:var(--rose)}
+.cal-grid .dow.sat{color:#1D4ED8}
 .cal-grid .d{
   position:relative;padding:4px 0 8px;border-radius:7px;color:#3F3F46;font-variant-numeric:tabular-nums;
 }
 .cal-grid .d.mut{color:#C6C6CC}
 .cal-grid .d.hol{color:var(--rose)}
+.cal-grid .d.sat{color:#1D4ED8}
+.cal-grid .d.sat.mut,.cal-grid .d.hol.mut{color:#C6C6CC}
 .cal-grid .d.today{background:var(--crimson);color:#fff;font-weight:700}
 .cal-grid .d.due::after,.cal-grid .d.rec::after{
   content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:3px;
@@ -700,7 +749,7 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
       <div class="mock" aria-hidden="true">
         <div class="kanban">
           <div class="kcol">
-            <h4>To do <span class="cnt">3</span></h4>
+            <h4><span class="dot" style="background:#A1A1AA"></span>To do <span class="cnt">3</span></h4>
             <div class="kcard">Order NcoI-HF (NEB)</div>
             <div class="kcard">Subculture — HEK293T
               <div class="sub"><span class="recur">↻ Mon · Thu</span></div>
@@ -710,7 +759,7 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
             </div>
           </div>
           <div class="kcol">
-            <h4>Doing <span class="cnt">2</span></h4>
+            <h4><span class="dot" style="background:#4338CA"></span>Doing <span class="cnt">2</span></h4>
             <div class="kcard">Miniprep 12 colonies
               <div class="sub"><span class="avatar" style="background:#A51C30;width:16px;height:16px;font-size:9px">J</span><span class="tag-chip">due today</span></div>
             </div>
@@ -719,7 +768,7 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
             </div>
           </div>
           <div class="kcol">
-            <h4>Review <span class="cnt">1</span></h4>
+            <h4><span class="dot" style="background:#B45309"></span>Review <span class="cnt">1</span></h4>
             <div class="kcard">Sequencing chromatograms — lanes 3 / 7 / 11
               <div class="sub"><span class="avatar" style="background:#4338CA;width:16px;height:16px;font-size:9px">M</span><span class="pill ok">review requested</span></div>
             </div>
@@ -750,22 +799,23 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
     <div class="entry-mock" style="display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start">
       <div class="phone" aria-hidden="true">
         <div class="phone-screen">
-          <div class="phone-notch"></div>
-          <div class="phone-time">17:42</div>
+          <div class="phone-island"></div>
           <div class="phone-date">Friday, August 14</div>
+          <div class="phone-time">17:42</div>
           <div id="toastStack"></div>
+          <div class="phone-homebar"></div>
         </div>
       </div>
       <div class="mock cal" aria-hidden="true">
         <div class="cal-head"><span class="m">August</span><span class="y">2026</span></div>
         <div class="cal-grid">
-          <span class="dow">S</span><span class="dow">M</span><span class="dow">T</span><span class="dow">W</span><span class="dow">T</span><span class="dow">F</span><span class="dow">S</span>
-          <span class="d mut">26</span><span class="d mut">27</span><span class="d mut">28</span><span class="d mut">29</span><span class="d mut">30</span><span class="d mut">31</span><span class="d">1</span>
-          <span class="d hol">2</span><span class="d rec">3</span><span class="d">4</span><span class="d">5</span><span class="d rec">6</span><span class="d due">7</span><span class="d">8</span>
+          <span class="dow sun">S</span><span class="dow">M</span><span class="dow">T</span><span class="dow">W</span><span class="dow">T</span><span class="dow">F</span><span class="dow sat">S</span>
+          <span class="d hol mut">26</span><span class="d mut">27</span><span class="d mut">28</span><span class="d mut">29</span><span class="d mut">30</span><span class="d mut">31</span><span class="d sat">1</span>
+          <span class="d hol">2</span><span class="d rec">3</span><span class="d">4</span><span class="d">5</span><span class="d rec">6</span><span class="d due">7</span><span class="d sat">8</span>
           <span class="d hol">9</span><span class="d rec">10</span><span class="d">11</span><span class="d">12</span><span class="d rec">13</span><span class="d today due">14</span><span class="d hol">15</span>
-          <span class="d hol">16</span><span class="d rec">17</span><span class="d due">18</span><span class="d">19</span><span class="d rec">20</span><span class="d">21</span><span class="d">22</span>
-          <span class="d hol">23</span><span class="d rec">24</span><span class="d">25</span><span class="d due">26</span><span class="d rec">27</span><span class="d">28</span><span class="d">29</span>
-          <span class="d hol">30</span><span class="d rec">31</span><span class="d mut">1</span><span class="d mut">2</span><span class="d mut">3</span><span class="d mut">4</span><span class="d mut">5</span>
+          <span class="d hol">16</span><span class="d rec">17</span><span class="d due">18</span><span class="d">19</span><span class="d rec">20</span><span class="d">21</span><span class="d sat">22</span>
+          <span class="d hol">23</span><span class="d rec">24</span><span class="d">25</span><span class="d due">26</span><span class="d rec">27</span><span class="d">28</span><span class="d sat">29</span>
+          <span class="d hol">30</span><span class="d rec">31</span><span class="d mut">1</span><span class="d mut">2</span><span class="d mut">3</span><span class="d mut">4</span><span class="d sat mut">5</span>
         </div>
         <div class="cal-legend">
           <span><span class="dot" style="background:var(--crimson)"></span>due</span>
@@ -840,9 +890,9 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
         <h3><span class="ko">오프라인 편집</span><span class="en">Offline editing</span></h3><p><span class="ko">인터넷이 끊겨도 계속 쓰고, 연결되면 자동으로 동기화됩니다.</span><span class="en">Keep writing without a connection; changes sync when you're back.</span></p></div>
       <div class="tool">
         <div class="tool-viz" aria-hidden="true">
-          <span class="viz-chip">.md</span><span class="viz-arrow">→</span>
+          <span class="viz-chip" style="color:#4338CA;border-color:#D8D6F2">.md</span><span class="viz-arrow">→</span>
           <span class="viz-chip" style="color:var(--crimson);border-color:#F2DCDF;font-weight:700">CN</span>
-          <span class="viz-arrow">→</span><span class="viz-chip">.md</span><span class="viz-chip">.pdf</span><span class="viz-chip">.zip</span>
+          <span class="viz-arrow">→</span><span class="viz-chip" style="color:#4338CA;border-color:#D8D6F2">.md</span><span class="viz-chip" style="color:#B91C1C;border-color:#F2D9D9">.pdf</span><span class="viz-chip" style="color:#B45309;border-color:#F0E2C8">.zip</span>
         </div>
         <h3><span class="ko">가져오기·내보내기</span><span class="en">Import &amp; export</span></h3><p><span class="ko">Markdown으로 들어오고 <kbd>⌘E</kbd> Markdown·HTML·PDF로 나가며, 전체 ZIP 백업도 됩니다.</span><span class="en">Markdown in; <kbd>⌘E</kbd> Markdown, HTML, or PDF out — plus a full ZIP backup.</span></p></div>
       <div class="tool">
@@ -990,9 +1040,10 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
   function make(t){
     var el=document.createElement('div');
     el.className='toast enter';
-    el.innerHTML='<div class="t-head"><span>'+t.icon+'</span><span class="t-app">COMMONNOTE</span>'+
+    el.innerHTML='<img class="t-icon" src="icon.svg" alt="">'+
+      '<div class="t-body"><div class="t-head"><b>'+t.title+'</b>'+
       '<span class="t-tag" style="background:'+t.c+'">'+t.tag+'</span>'+
-      '<span class="t-when">'+t.when+'</span></div><b>'+t.title+'</b><br>'+t.body;
+      '<span class="t-when">'+t.when+'</span></div>'+t.body+'</div>';
     return el;
   }
   var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
