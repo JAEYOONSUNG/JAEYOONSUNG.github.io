@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ko" data-lang="ko">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CommonNote — 연구실이 함께 쓰는 실험 노트</title>
+<title>CommonNote — The lab notebook your whole lab writes together</title>
 <meta name="description" content="CommonNote is a collaborative electronic lab notebook: real-time co-editing, reagent math, witness signatures — self-hosted on your lab's own server. 연구실이 함께 쓰는 전자연구노트.">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <meta property="og:title" content="CommonNote — Electronic Lab Notebook">
@@ -714,7 +714,7 @@ footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--fai
   var KEY='cn.landing.lang';
   var saved=null;
   try{saved=localStorage.getItem(KEY)}catch(e){}
-  var lang=saved || ((navigator.language||'').toLowerCase().indexOf('ko')===0 ? 'ko' : 'en');
+  var lang=saved || 'en';
   apply(lang);
   document.getElementById('langToggle').addEventListener('click',function(){
     lang = (lang==='ko') ? 'en' : 'ko';
