@@ -1,1254 +1,440 @@
 <!doctype html>
-<html lang="en" data-lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CommonNote — The lab notebook your whole lab writes together</title>
-<meta name="description" content="CommonNote is a collaborative electronic lab notebook: real-time co-editing, reagent math, witness signatures — self-hosted on your lab's own server. 연구실이 함께 쓰는 전자연구노트.">
-<link rel="icon" href="icon.svg" type="image/svg+xml">
-<meta property="og:title" content="CommonNote — Electronic Lab Notebook">
-<meta property="og:description" content="The lab notebook your whole lab writes together. Real-time co-editing, reagent math, witness signatures — on your own server.">
-<meta property="og:image" content="icon.svg">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<style>
-:root{
-  --paper:#FCFCFB;
-  --panel:#FFFFFF;
-  --band:#F6F6F5;
-  --ink:#18181B;
-  --muted:#55555E;
-  --faint:#8B8B94;
-  --line:#E4E4E7;
-  --line-soft:#EEEEEF;
-  --crimson:#A51C30;
-  --crimson-hi:#C92A44;
-  --crimson-lo:#7F1425;
-  --crimson-tint:#FBF1F2;
-  --indigo:#4338CA;
-  --green:#166534;
-  --rose:#BE123C;
-  --sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Segoe UI','Malgun Gothic',system-ui,sans-serif;
-  --mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:var(--sans);
-  background:var(--paper);
-  color:var(--ink);
-  font-size:16px;
-  line-height:1.65;
-  word-break:keep-all;
-  overflow-wrap:break-word;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-::selection{background:rgba(165,28,48,.14)}
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f7fb" />
+    <meta
+      name="description"
+      content="CommonNote는 관찰, 근거, 결정, 할 일을 한 흐름으로 연결하는 공동 연구 노트입니다."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:title" content="CommonNote — 관찰에서 실행까지" />
+    <meta
+      property="og:description"
+      content="노트, 관계 맵, 할 일, 캘린더가 같은 연구 맥락을 공유합니다."
+    />
+    <meta
+      property="og:image"
+      content="https://jaeyoonsung.github.io/commonnote/assets/og-card.png"
+    />
+    <meta property="og:url" content="https://jaeyoonsung.github.io/commonnote/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://jaeyoonsung.github.io/commonnote/" />
+    <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./assets/icon-192.png" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./fonts/pretendard/pretendard.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./site.js" defer></script>
+    <title>CommonNote — 관찰에서 실행까지 이어지는 연구 노트</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
 
-/* language switching */
-html[data-lang="ko"] .en{display:none !important}
-html[data-lang="en"] .ko{display:none !important}
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="CommonNote 소개 처음으로">
+        <img src="./assets/icon.svg" width="38" height="38" alt="" />
+        <span>CommonNote</span>
+      </a>
 
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-a{color:inherit}
-img,svg{max-width:100%}
-kbd{
-  font-family:var(--mono);font-size:.78em;
-  border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;
-  padding:.05em .4em;background:#fff;color:var(--muted);white-space:nowrap;
-}
-.mono{font-family:var(--mono)}
-
-/* ---------- nav ---------- */
-.nav{
-  position:sticky;top:0;z-index:50;
-  background:rgba(252,252,251,.86);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--line-soft);
-}
-.nav-in{display:flex;align-items:center;gap:28px;height:60px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:650;font-size:17px;letter-spacing:-.01em}
-.brand img{width:28px;height:28px;border-radius:7px}
-.nav-links{display:flex;gap:22px;margin-left:8px;font-size:14.5px;color:var(--muted)}
-.nav-links a{text-decoration:none}
-.nav-links a:hover{color:var(--ink)}
-.nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-.lang-btn{
-  font-family:var(--sans);font-size:13px;font-weight:550;cursor:pointer;
-  border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--muted);
-  padding:5px 13px;line-height:1.4;
-}
-.lang-btn:hover{color:var(--ink);border-color:#d0d0d5}
-.btn{
-  display:inline-block;text-decoration:none;font-weight:600;font-size:14.5px;
-  border-radius:9px;padding:8px 17px;line-height:1.5;white-space:nowrap;transition:transform .12s ease, box-shadow .12s ease;
-}
-.btn-crimson{
-  background:linear-gradient(180deg,var(--crimson-hi) 0%,var(--crimson) 55%,var(--crimson-lo) 100%);
-  color:#fff;box-shadow:0 1px 2px rgba(127,20,37,.35), inset 0 1px 0 rgba(255,255,255,.18);
-}
-.btn-crimson:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(127,20,37,.28), inset 0 1px 0 rgba(255,255,255,.18)}
-.btn-ghost{border:1px solid var(--line);background:#fff;color:var(--ink)}
-.btn-ghost:hover{border-color:#cfcfd4}
-.btn-lg{font-size:16px;padding:12px 24px;border-radius:11px}
-
-/* ---------- hero ---------- */
-.hero{
-  padding:84px 0 40px;
-  background:
-    radial-gradient(52% 46% at 76% 30%, rgba(165,28,48,.055), transparent 70%),
-    radial-gradient(40% 38% at 12% 78%, rgba(67,56,202,.04), transparent 70%);
-}
-.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
-.eyebrow{
-  font-family:var(--mono);font-size:12px;letter-spacing:.14em;
-  color:var(--crimson);font-weight:600;text-transform:uppercase;
-}
-h1{
-  font-size:clamp(34px,4.6vw,52px);line-height:1.14;letter-spacing:-.024em;
-  font-weight:750;margin:14px 0 20px;text-wrap:balance;
-}
-.hero-sub{font-size:18px;color:var(--muted);max-width:34em;margin-bottom:30px}
-.hero-ctas{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.platforms{
-  margin-top:34px;font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;
-  color:var(--faint);display:flex;gap:0;flex-wrap:wrap;align-items:center;
-}
-.platforms span{white-space:nowrap}
-.platforms span + span::before{content:"·";margin:0 10px;color:var(--line)}
-
-/* ---------- mock chrome ---------- */
-.mock{
-  position:relative;background:var(--panel);
-  border:1px solid var(--line);border-radius:14px;
-  box-shadow:0 1px 2px rgba(24,24,27,.04), 0 12px 32px -12px rgba(24,24,27,.10);
-  font-size:13.5px;line-height:1.55;word-break:normal;
-  overflow:hidden;
-}
-.mock-margin::before{ /* the red margin rule of a paper lab notebook */
-  content:"";position:absolute;top:0;bottom:0;left:30px;width:1px;
-  background:var(--crimson);opacity:.30;
-}
-.mock-pad{padding:20px 24px 22px 46px;position:relative}
-.mock-meta{
-  font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint);
-  display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px;
-}
-.mock-title{font-size:18px;font-weight:700;letter-spacing:-.015em;margin-bottom:12px}
-.mock p{margin:8px 0;color:#3A3A40}
-.mock .chem{font-variant-numeric:tabular-nums}
-sub,sup{line-height:0}
-
-/* collaborator carets & authorship */
-.caret{
-  display:inline-block;width:2px;height:1.05em;vertical-align:-.16em;border-radius:1px;
-  background:var(--c,#4338CA);position:relative;animation:blink 1.15s steps(2,start) infinite;
-}
-.caret::after{
-  content:attr(data-name);position:absolute;bottom:1.28em;left:-2px;
-  font-family:var(--sans);font-size:9.5px;font-weight:650;color:#fff;
-  background:var(--c,#4338CA);border-radius:3px 3px 3px 0;padding:1px 5px;line-height:1.45;
-  white-space:nowrap;animation:none;
-}
-@keyframes blink{50%{background:transparent}}
-.caret::after{background:var(--c,#4338CA)} /* flag never blinks */
-.sel{background:rgba(22,101,52,.14);border-radius:2px;padding:0 1px}
-.auth-i{box-shadow:inset 0 -2px 0 rgba(67,56,202,.35)}
-.auth-g{box-shadow:inset 0 -2px 0 rgba(22,101,52,.35)}
-.auth-c{box-shadow:inset 0 -2px 0 rgba(165,28,48,.35)}
-
-/* checklist inside mocks */
-.check{list-style:none;margin:10px 0}
-.check li{
-  display:flex;gap:9px;align-items:baseline;padding:5px 0;
-  border-bottom:1px dashed var(--line-soft);color:#3A3A40;
-}
-.check li:last-child{border-bottom:none}
-.box{
-  flex:none;width:14px;height:14px;border-radius:4px;border:1.5px solid #C9C9CE;
-  position:relative;top:2px;background:#fff;
-}
-.box.on{background:var(--crimson);border-color:var(--crimson)}
-.box.on::after{
-  content:"";position:absolute;left:3.2px;top:.8px;width:4px;height:7px;
-  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg);
-}
-.done-txt{color:var(--faint);text-decoration:line-through;text-decoration-color:#c9c9ce}
-
-.callout{
-  display:flex;gap:10px;background:#FEF7E8;border:1px solid #F3E3BE;
-  border-radius:10px;padding:10px 14px;margin-top:12px;color:#6b4e14;font-size:13px;
-}
-.wikilink{color:var(--crimson);font-weight:550;text-decoration:none;border-bottom:1px solid rgba(165,28,48,.3)}
-
-.tag-chip{
-  display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;
-  border:1px solid var(--line);border-radius:5px;padding:1px 7px;color:var(--muted);background:#fafafa;
-}
-
-/* ---------- feature entries ---------- */
-.entries{padding:48px 0 8px}
-.entry{
-  display:grid;grid-template-columns:1fr 1.08fr;gap:72px;align-items:center;
-  padding:64px 0;
-}
-.entry + .entry{border-top:1px solid var(--line-soft)}
-.entry.flip .entry-copy{order:2}
-.entry.flip .entry-mock{order:1}
-.entry h2{font-size:clamp(24px,2.8vw,32px);letter-spacing:-.017em;font-weight:700;line-height:1.22;margin:12px 0 14px}
-.entry-body{color:var(--muted);font-size:16.5px;max-width:34em}
-.entry ul.points{list-style:none;margin-top:18px}
-.entry ul.points li{
-  position:relative;padding:7px 0 7px 26px;color:#3F3F46;font-size:15px;
-}
-.entry ul.points li::before{
-  content:"";position:absolute;left:2px;top:14px;width:12px;height:5px;
-  border:solid var(--crimson);border-width:0 0 1.5px 1.5px;transform:rotate(-45deg);opacity:.85;
-}
-
-/* small ui bits in mocks */
-.mini-btn{
-  display:inline-block;font-size:12px;font-weight:600;border-radius:7px;padding:4px 12px;
-  border:1px solid var(--line);background:#fff;color:var(--ink);
-}
-.mini-btn.primary{background:var(--crimson);border-color:var(--crimson);color:#fff}
-.pill{
-  display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;
-  border-radius:999px;padding:2px 10px;
-}
-.pill.ok{background:#EAF3ED;color:var(--green)}
-.pill.warn{background:#FBF1F2;color:var(--crimson)}
-
-/* comment thread */
-.thread{border:1px solid var(--line);border-radius:10px;margin-top:14px;overflow:hidden}
-.thread .cm{padding:9px 13px;font-size:13px;display:flex;gap:9px}
-.thread .cm + .cm{border-top:1px solid var(--line-soft)}
-.avatar{
-  flex:none;width:20px;height:20px;border-radius:50%;color:#fff;font-size:10px;font-weight:700;
-  display:inline-flex;align-items:center;justify-content:center;top:1px;position:relative;
-}
-.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:12px;font-size:12.5px;color:var(--muted)}
-.legend b{font-weight:600;color:var(--ink)}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;position:relative;top:-1px}
-
-/* calculator mock */
-.calc-rows{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
-.calc-rows .row{
-  display:flex;justify-content:space-between;gap:16px;padding:8px 0;
-  border-bottom:1px solid var(--line-soft);
-}
-.calc-rows .row:last-child{border-bottom:none}
-.calc-rows .k{color:var(--faint)}
-.calc-rows .v{color:var(--ink);text-align:right}
-.calc-rows .v strong{color:var(--crimson);font-weight:700}
-
-/* signature mock */
-.sig-row{display:flex;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line-soft);font-size:13.5px}
-.sig-row:last-child{border-bottom:none}
-.sig-row .who{font-weight:650}
-.sig-row .when{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-left:auto;white-space:nowrap}
-.stamp{
-  position:absolute;right:22px;top:18px;transform:rotate(6deg);
-  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--crimson);
-  border:1.5px solid var(--crimson);border-radius:6px;padding:3px 9px;opacity:.75;text-transform:uppercase;
-}
-
-/* kanban mock */
-.kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:16px}
-.kcol{background:var(--band);border-radius:10px;padding:9px 9px 11px;min-width:0}
-.kcol h4{
-  font-size:11px;font-family:var(--mono);letter-spacing:.09em;text-transform:uppercase;
-  color:var(--faint);font-weight:600;margin:2px 4px 9px;display:flex;align-items:center;gap:6px;
-}
-.kcol h4 .cnt{margin-left:auto;color:#c0c0c6}
-.kcard{
-  background:#fff;border:1px solid var(--line);border-radius:8px;
-  padding:8px 10px;font-size:12.5px;line-height:1.45;color:#3A3A40;
-  box-shadow:0 1px 2px rgba(24,24,27,.04);margin-bottom:8px;
-}
-.kcard:last-child{margin-bottom:0}
-.kcard .sub{display:flex;gap:6px;margin-top:6px;align-items:center;flex-wrap:wrap}
-.recur{color:var(--indigo);font-family:var(--mono);font-size:10.5px}
-
-/* lock mock */
-.lockcard{padding:18px 22px}
-.lockcard + .lockcard{border-top:1px solid var(--line-soft)}
-.lock-title{display:flex;gap:9px;align-items:center;font-weight:650;font-size:14.5px;margin-bottom:6px}
-.lock-sub{color:var(--muted);font-size:13px;margin-bottom:12px}
-
-/* hero pills */
-.hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
-.hero-pill{
-  display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;
-  border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:#fff;color:#3F3F46;
-}
-.hero-pill .ic{font-size:14px}
-
-/* iPhone (Dynamic Island generation) + live status toasts */
-.phone{
-  position:relative;width:262px;margin:0 auto;border-radius:46px;padding:7px;
-  background:linear-gradient(150deg,#5a5a60 0%,#3c3c42 35%,#26262b 100%); /* titanium */
-  box-shadow:
-    inset 0 0 0 1.5px rgba(255,255,255,.22),
-    inset 0 0 0 6px #060607,
-    0 2px 6px rgba(24,24,27,.22),
-    0 30px 60px -20px rgba(24,24,27,.45);
-}
-.phone::before{ /* volume buttons */
-  content:"";position:absolute;left:-2.5px;top:96px;width:3px;height:54px;border-radius:2px;
-  background:linear-gradient(90deg,#6a6a70,#3c3c42);
-  box-shadow:0 66px 0 0 #4a4a50;
-}
-.phone::after{ /* power button */
-  content:"";position:absolute;right:-2.5px;top:126px;width:3px;height:64px;border-radius:2px;
-  background:linear-gradient(90deg,#3c3c42,#6a6a70);
-}
-.phone-screen{
-  position:relative;border-radius:39px;min-height:372px;overflow:hidden;
-  /* iOS 기본 배경화면풍 비비드 그러데이션 */
-  background:
-    radial-gradient(130% 85% at 18% 8%, rgba(126,87,255,.85) 0%, rgba(126,87,255,0) 55%),
-    radial-gradient(120% 90% at 88% 22%, rgba(255,94,158,.75) 0%, rgba(255,94,158,0) 55%),
-    radial-gradient(140% 100% at 55% 105%, rgba(58,134,255,.85) 0%, rgba(58,134,255,0) 60%),
-    linear-gradient(180deg,#2b2260 0%,#141335 60%,#0b0d26 100%);
-  padding:14px 9px 16px;
-}
-.phone-island{
-  width:86px;height:23px;background:#000;border-radius:14px;margin:0 auto;
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);position:relative;
-}
-.phone-island::after{ /* 전면 카메라 */
-  content:"";position:absolute;right:7px;top:50%;transform:translateY(-50%);
-  width:9px;height:9px;border-radius:50%;
-  background:radial-gradient(circle at 35% 35%, #2c3a55 0%, #0a0f1c 60%);
-}
-.phone-date{
-  color:rgba(255,255,255,.85);text-align:center;font-size:11.5px;font-weight:600;
-  margin:14px 0 0;text-shadow:0 1px 6px rgba(0,0,0,.35);
-}
-.phone-time{
-  color:#fff;text-align:center;font-weight:250;font-size:52px;line-height:1.05;
-  letter-spacing:-.01em;margin:0 0 14px;font-variant-numeric:tabular-nums;
-  text-shadow:0 2px 14px rgba(0,0,0,.35);
-}
-.toast{
-  display:flex;gap:9px;align-items:flex-start;
-  background:rgba(250,250,252,.78);
-  backdrop-filter:blur(14px) saturate(1.6);-webkit-backdrop-filter:blur(14px) saturate(1.6);
-  border:1px solid rgba(255,255,255,.55);
-  border-radius:16px;padding:9px 11px;margin-bottom:7px;
-  box-shadow:0 8px 22px rgba(10,10,30,.30);font-size:11px;line-height:1.4;color:#3A3A40;
-  transition:transform .45s ease, opacity .45s ease;
-}
-.toast .t-icon{
-  flex:none;width:26px;height:26px;border-radius:6.5px;margin-top:1px;
-  box-shadow:0 1px 3px rgba(0,0,0,.18);
-}
-.toast .t-body{min-width:0;flex:1}
-.toast .t-head{display:flex;align-items:center;gap:6px;margin-bottom:1px}
-.toast .t-when{margin-left:auto;font-size:9px;color:#75757e;flex:none}
-.toast .t-tag{
-  font-size:8.5px;font-weight:700;letter-spacing:.05em;border-radius:4px;padding:1px 5px;color:#fff;
-  font-family:var(--mono);flex:none;
-}
-.toast b{font-size:11.5px;color:#141418}
-.toast.enter{transform:translateY(-16px);opacity:0}
-.toast.leave{opacity:0;transform:translateY(8px)}
-.phone-homebar{
-  position:absolute;bottom:7px;left:50%;transform:translateX(-50%);
-  width:96px;height:4px;border-radius:3px;background:rgba(255,255,255,.85);
-}
-
-/* mini calendar */
-.cal{padding:16px 18px}
-.cal-head{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
-.cal-head .m{font-weight:700;font-size:14px;letter-spacing:-.01em}
-.cal-head .y{font-family:var(--mono);font-size:11px;color:var(--faint)}
-.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:11px}
-.cal-grid .dow{font-family:var(--mono);font-size:9px;color:var(--faint);padding:2px 0}
-.cal-grid .dow.sun{color:var(--rose)}
-.cal-grid .dow.sat{color:#1D4ED8}
-.cal-grid .d{
-  position:relative;padding:4px 0 8px;border-radius:7px;color:#3F3F46;font-variant-numeric:tabular-nums;
-}
-.cal-grid .d.mut{color:#C6C6CC}
-.cal-grid .d.hol{color:var(--rose)}
-.cal-grid .d.sat{color:#1D4ED8}
-.cal-grid .d.sat.mut,.cal-grid .d.hol.mut{color:#C6C6CC}
-.cal-grid .d.today{background:var(--crimson);color:#fff;font-weight:700}
-.cal-grid .d.due::after,.cal-grid .d.rec::after{
-  content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:3px;
-  width:4px;height:4px;border-radius:50%;
-}
-.cal-grid .d.due::after{background:var(--crimson)}
-.cal-grid .d.rec::after{background:var(--indigo)}
-.cal-grid .d.today.due::after{background:#fff}
-.cal-legend{display:flex;gap:12px;margin-top:10px;font-size:10.5px;color:var(--muted);flex-wrap:wrap}
-
-/* handoff dialog */
-.hand-field{
-  display:flex;gap:8px;align-items:center;padding:8px 0;
-  border-bottom:1px solid var(--line-soft);font-size:13px;color:#3F3F46;
-}
-.hand-field .k{color:var(--faint);font-size:11.5px;width:52px;flex:none}
-.hand-note{
-  background:#FBFAF8;border:1px solid var(--line);border-radius:9px;
-  padding:9px 12px;font-size:12.5px;color:#3F3F46;margin:10px 0;line-height:1.55;
-}
-.hand-note .nk{font-size:10px;font-family:var(--mono);letter-spacing:.07em;color:var(--faint);display:block;margin-bottom:3px}
-.chain{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
-.chain .arrow{color:#B9B9C0}
-
-/* chat / messages */
-.chat{display:flex;flex-direction:column;gap:8px;padding:16px 18px}
-.chat-head{
-  display:flex;align-items:center;gap:8px;font-weight:650;font-size:13.5px;
-  padding-bottom:10px;border-bottom:1px solid var(--line-soft);margin-bottom:2px;
-}
-.chat-head .st{margin-left:auto;font-size:10.5px;color:var(--green);font-weight:600}
-.bubble{max-width:84%;border-radius:14px;padding:7px 12px;font-size:12.5px;line-height:1.45}
-.bubble.them{align-self:flex-start;background:var(--band);border:1px solid var(--line-soft);border-bottom-left-radius:5px;color:#3A3A40}
-.bubble.me{align-self:flex-end;background:linear-gradient(180deg,var(--crimson-hi),var(--crimson));color:#fff;border-bottom-right-radius:5px}
-.bubble .bt{font-size:9px;opacity:.6;margin-top:2px;text-align:right}
-.req-card{
-  align-self:stretch;border:1.5px solid var(--crimson);border-radius:12px;
-  padding:10px 13px;background:var(--crimson-tint);font-size:12.5px;color:#4a2a30;
-}
-.req-card .rq-head{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--crimson);font-size:11px;letter-spacing:.05em;margin-bottom:4px}
-.req-card .rq-actions{display:flex;gap:7px;margin-top:8px}
-
-/* bell request list */
-.bell-list .sig-row{align-items:center}
-.bell-list .mini-btn{margin-left:auto;flex:none}
-
-/* week calendar with event chips */
-.entry-wide{grid-column:1/-1;order:3;width:100%;max-width:880px;justify-self:center;margin-top:16px}
-.wkcal{padding:16px 20px}
-.wkcal-head{display:flex;align-items:baseline;gap:8px;margin-bottom:9px}
-.wkcal-head .m{font-weight:700;font-size:14px}
-.wkcal-head .y{font-family:var(--mono);font-size:11px;color:var(--faint)}
-.wkcal-head .seg{
-  margin-left:auto;display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;
-  font-size:10px;
-}
-.wkcal-head .seg span{padding:2px 8px;color:var(--faint)}
-.wkcal-head .seg .on{background:var(--band);color:var(--ink);font-weight:600}
-.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.wd{
-  border:1px solid var(--line-soft);border-radius:8px;padding:4px 4px 5px;
-  min-height:78px;background:#fff;min-width:0;
-}
-.wd .dn{
-  display:flex;justify-content:space-between;font-family:var(--mono);
-  font-size:10px;color:var(--faint);margin-bottom:5px;padding:0 2px;gap:4px;
-}
-.wd.today{border-color:var(--crimson);box-shadow:inset 0 2px 0 var(--crimson)}
-.wd.today .dn b{color:var(--crimson)}
-.wd .dn .sun{color:var(--rose)}
-.wd .dn .sat{color:#1D4ED8}
-.evt{
-  font-size:10.5px;line-height:1.35;border-radius:5px;padding:2.5px 6px;margin-bottom:3px;
-  color:#fff;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-weight:600;
-}
-.evt.due{background:var(--crimson)}
-.evt.rec{background:#4338CA}
-.evt.hand{background:#B45309}
-.evt.soft{background:var(--band);color:#55555E;border:1px solid var(--line-soft);font-weight:550}
-.evt.holi{background:transparent;color:var(--rose);border:1px dashed #E8B4BC;font-weight:650}
-.nl-input{
-  display:flex;gap:8px;align-items:center;margin-top:10px;
-  border:1px solid var(--line);border-radius:9px;padding:7px 11px;
-  font-size:12px;background:#fff;
-}
-.nl-input .cursor{border-left:1.5px solid var(--crimson);height:12px}
-.nl-parse{color:var(--green);font-weight:600;font-size:11px;margin-left:auto;white-space:nowrap}
-.channels{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-
-/* toolbox card visuals */
-.tool-viz{
-  height:76px;display:flex;align-items:center;justify-content:center;gap:8px;
-  background:var(--band);border:1px solid var(--line-soft);border-radius:9px;
-  margin-bottom:14px;overflow:hidden;position:relative;flex-wrap:wrap;padding:8px;
-}
-.viz-chip{
-  display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;
-  background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:#3F3F46;
-  white-space:nowrap;
-}
-.viz-arrow{color:#B9B9C0;font-size:11px}
-.viz-tab{
-  font-size:10px;padding:4px 10px;border:1px solid var(--line);border-bottom:none;
-  border-radius:7px 7px 0 0;background:#fff;color:var(--faint);white-space:nowrap;
-}
-.viz-tab.on{color:var(--crimson);font-weight:650;box-shadow:inset 0 2px 0 var(--crimson)}
-.viz-bar{width:11px;border-radius:3px 3px 0 0;background:#D8D8DD;align-self:flex-end}
-.viz-bar.hi{background:var(--crimson)}
-.viz-avatar{
-  width:22px;height:22px;border-radius:50%;color:#fff;font-size:10px;font-weight:700;
-  display:inline-flex;align-items:center;justify-content:center;border:2px solid #fff;
-  box-shadow:0 1px 2px rgba(24,24,27,.15);
-}
-.viz-node{position:relative}
-.viz-line{position:absolute;background:#C9C9CE}
-.viz-dotline{display:flex;align-items:center;gap:0}
-.viz-vdot{width:9px;height:9px;border-radius:50%;background:#D8D8DD}
-.viz-vdot.hi{background:var(--crimson)}
-.viz-vseg{width:26px;height:2px;background:#E0E0E4}
-.viz-swatch{width:26px;height:26px;border-radius:50%;border:1px solid var(--line)}
-.viz-bell{font-size:22px;position:relative}
-.viz-badge{
-  position:absolute;top:-4px;right:-7px;background:var(--crimson);color:#fff;font-size:8.5px;
-  font-weight:700;border-radius:999px;padding:1px 4.5px;border:1.5px solid var(--band);
-}
-@keyframes bellring{0%,100%{transform:rotate(0)}6%{transform:rotate(13deg)}12%{transform:rotate(-11deg)}18%{transform:rotate(7deg)}24%{transform:rotate(-4deg)}30%{transform:rotate(0)}}
-.viz-bell{animation:bellring 3.2s ease-in-out infinite;transform-origin:top center;display:inline-block}
-.viz-stack{position:relative;width:64px;height:48px}
-.viz-stack i{
-  position:absolute;inset:0;background:#fff;border:1px solid var(--line);border-radius:7px;
-  display:flex;align-items:center;justify-content:center;font-style:normal;font-size:9px;
-  font-family:var(--mono);color:var(--faint);
-}
-.viz-stack i:nth-child(1){transform:rotate(-5deg) translate(-7px,2px)}
-.viz-stack i:nth-child(2){transform:rotate(3deg) translate(6px,-1px)}
-.viz-stack i:nth-child(3){box-shadow:0 3px 8px rgba(24,24,27,.10)}
-
-/* ---------- toolbox ---------- */
-.toolbox{background:var(--band);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:84px 0}
-.toolbox-head{max-width:38em;margin-bottom:40px}
-.toolbox h2{font-size:clamp(24px,2.8vw,32px);letter-spacing:-.017em;margin:12px 0 10px}
-.toolbox-sub{color:var(--muted)}
-.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.tool{
-  background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;
-  transition:transform .14s ease, box-shadow .14s ease;
-}
-.tool:hover{transform:translateY(-2px);box-shadow:0 8px 22px -10px rgba(24,24,27,.14)}
-.tool h3{font-size:15px;font-weight:650;letter-spacing:-.01em;margin-bottom:5px}
-.tool p{font-size:13.5px;color:var(--muted);line-height:1.55}
-
-/* ---------- CTA ---------- */
-.cta{padding:100px 0;text-align:center}
-.cta .eyebrow{display:block}
-.cta h2{font-size:clamp(28px,3.6vw,40px);letter-spacing:-.02em;margin:14px auto 14px;line-height:1.2}
-.cta p{color:var(--muted);max-width:36em;margin:0 auto 32px;font-size:17px}
-.cta-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-
-/* ---------- footer ---------- */
-footer{border-top:1px solid var(--line-soft);padding:36px 0 48px;color:var(--faint);font-size:13.5px}
-.foot-in{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.foot-in img{width:22px;height:22px;border-radius:6px}
-.foot-links{margin-left:auto;display:flex;gap:20px}
-.foot-links a{text-decoration:none;color:var(--muted)}
-.foot-links a:hover{color:var(--ink)}
-
-/* ---------- responsive ---------- */
-@media (max-width:920px){
-  .hero{padding:56px 0 24px}
-  .hero-grid{grid-template-columns:1fr;gap:40px}
-  .entry{grid-template-columns:1fr;gap:32px;padding:52px 0}
-  .entry.flip .entry-copy{order:1}
-  .entry.flip .entry-mock{order:2}
-  .tool-grid{grid-template-columns:repeat(2,1fr)}
-  .nav-links{display:none}
-}
-@media (max-width:640px){
-  .wkcal{overflow-x:auto}
-  .wkcal .wk{min-width:600px}
-  .wkcal .nl-input{min-width:600px}
-}
-@media (max-width:560px){
-  .tool-grid{grid-template-columns:1fr}
-  .kanban{grid-template-columns:1fr 1fr}
-  .kanban .kcol:nth-child(3){display:none}
-  .mock-pad{padding-left:40px}
-  .mock-margin::before{left:24px}
-}
-:focus-visible{outline:2px solid var(--crimson);outline-offset:2px;border-radius:4px}
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none !important;transition:none !important}
-  html{scroll-behavior:auto}
-}
-</style>
-</head>
-<body>
-
-<nav class="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="#top">
-      <img src="icon.svg" alt="" width="28" height="28">
-      CommonNote
-    </a>
-    <div class="nav-links">
-      <a href="#editor"><span class="ko">에디터</span><span class="en">Editor</span></a>
-      <a href="#collab"><span class="ko">공동 작업</span><span class="en">Collaboration</span></a>
-      <a href="#integrity"><span class="ko">기록 무결성</span><span class="en">Integrity</span></a>
-      <a href="#handoff"><span class="ko">위임</span><span class="en">Handoff</span></a>
-      <a href="#alerts"><span class="ko">알림·기한</span><span class="en">Alerts</span></a>
-      <a href="#security"><span class="ko">보안</span><span class="en">Security</span></a>
-      <a href="#toolbox"><span class="ko">그 외</span><span class="en">More</span></a>
-    </div>
-    <div class="nav-right">
-      <button class="lang-btn" id="langToggle" aria-label="Switch language">
-        <span class="ko">EN</span><span class="en">한국어</span>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="메뉴 열기"
+        aria-expanded="false"
+        aria-controls="site-navigation"
+        data-nav-toggle
+      >
+        <span></span><span></span>
       </button>
-      <a class="btn btn-crimson" href="https://commonnote.app" target="_blank" rel="noopener">
-        <span class="ko">앱 열기</span><span class="en">Open app</span>
-      </a>
-    </div>
-  </div>
-</nav>
 
-<header class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="eyebrow"><span class="ko">Electronic Lab Notebook</span><span class="en">Electronic Lab Notebook</span></span>
-      <h1>
-        <span class="ko">연구실이 함께 쓰는<br>실험 노트</span>
-        <span class="en">The lab notebook your whole lab writes together</span>
-      </h1>
-      <p class="hero-sub">
-        <span class="ko">실시간 공동 편집, 시약 계산, 증인 서명 — 그리고 연구실 서버 밖으로는 한 바이트도 나가지 않는 데이터. CommonNote는 실험 기록을 위해 만든 노트입니다.</span>
-        <span class="en">Real-time co-editing, reagent math, witness signatures — and data that never leaves your lab's own server. CommonNote is a notebook built for experiments.</span>
-      </p>
-      <div class="hero-ctas">
-        <a class="btn btn-crimson btn-lg" href="https://commonnote.app" target="_blank" rel="noopener">
-          <span class="ko">CommonNote 시작하기</span><span class="en">Start with CommonNote</span>
-        </a>
-        <a class="btn btn-ghost btn-lg" href="https://commonnote.app/downloads/" target="_blank" rel="noopener">
-          <span class="ko">macOS 다운로드</span><span class="en">Download for macOS</span>
-        </a>
-      </div>
-      <div class="hero-pills">
-        <span class="hero-pill"><span class="ic">🌐</span><span class="ko">설치 없음 — 브라우저에서 바로</span><span class="en">No install — runs in the browser</span></span>
-        <span class="hero-pill"><span class="ic">📱</span><span class="ko">iPhone에서도 그대로</span><span class="en">Works on your phone</span></span>
-        <span class="hero-pill"><span class="ic">📡</span><span class="ko">오프라인도 OK</span><span class="en">Offline OK</span></span>
-      </div>
-    </div>
+      <nav id="site-navigation" class="site-nav" aria-label="소개 페이지" data-nav>
+        <a href="#flow">흐름</a>
+        <a href="#rooms">작업 공간</a>
+        <a href="#principles">원칙</a>
+        <a class="nav-cta" href="https://commonnote.app/">앱 열기</a>
+      </nav>
+    </header>
 
-    <!-- hero mock: a real experiment note -->
-    <div class="mock mock-margin" aria-hidden="true">
-      <div class="mock-pad">
-        <div class="mock-meta">
-          <span>CLONING / pET-28a</span><span>2026-08-14</span><span>SHARED · 3 EDITORS</span><span>SAVED</span>
+    <main id="main">
+      <section id="top" class="launch-hero" aria-labelledby="launch-title">
+        <div class="launch-field" aria-hidden="true">
+          <span class="launch-orbit orbit-one"></span>
+          <span class="launch-orbit orbit-two"></span>
+          <span class="launch-glow glow-one"></span>
+          <span class="launch-glow glow-two"></span>
+          <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+            <path d="M-80 640 C260 410 410 744 704 481 S1120 164 1530 376" />
+          </svg>
         </div>
-        <div class="mock-title">Gibson assembly — pET-28a × <em>dnaK</em> insert</div>
-        <p class="chem">Buffer: 50 mM Tris·HCl (pH 8.0), 10 mM MgCl<sub>2</sub>, 1 mM DTT, 5% PEG-8000.</p>
-        <p><span class="auth-i">Digested 2 µg vector with NcoI / XhoI at 37 °C for 1 h, then heat-inactivated 20 min.<span class="caret" style="--c:#4338CA" data-name="Minji"></span></span></p>
-        <ul class="check">
-          <li><span class="box on"></span><span class="done-txt chem">Gel-purify insert — 1.9 kb band, 68 ng/µL</span></li>
-          <li><span class="box on"></span><span class="done-txt">Assembly mix, 50 °C · 60 min</span></li>
-          <li><span class="box"></span><span class="chem">Transform DH5α — heat shock 42 °C, 45 s <span class="sel">then SOC, 1 h shaking</span></span></li>
-        </ul>
-        <div class="callout">
-          <span>💡</span>
-          <span>Use <a class="wikilink" href="#integrity">[[Gibson master mix v3]]</a> — protocol pinned to this record.</span>
+
+        <div class="launch-copy reveal" data-reveal>
+          <div class="launch-mark">
+            <span class="launch-mark-halo"></span>
+            <img src="./assets/icon.svg" width="72" height="72" alt="" />
+          </div>
+          <p class="launch-kicker">COMMONNOTE · CONNECTED RESEARCH</p>
+          <h1 id="launch-title">관찰을 담는 순간,<br />연구가 움직입니다.</h1>
+          <p>
+            흩어진 노트와 판단, 할 일과 일정을<br class="mobile-break" />
+            하나의 살아 있는 연구 맥락으로.
+          </p>
+          <div class="launch-actions">
+            <a class="button button-light" href="https://commonnote.app/">
+              CommonNote 열기
+              <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5" /></svg>
+            </a>
+            <a class="launch-text-link" href="#story">어떻게 이어지는지 보기 <span>↓</span></a>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</header>
 
-<main class="entries wrap">
+        <div class="launch-status" aria-hidden="true">
+          <span>OBSERVATION</span><i></i><span>EVIDENCE</span><i></i><span>ACTION</span>
+        </div>
+      </section>
 
-  <!-- 01 EDITOR -->
-  <section class="entry" id="editor">
-    <div class="entry-copy">
-      <span class="eyebrow">Entry 01 · Editor</span>
-      <h2>
-        <span class="ko">실험하던 그대로 적는다</span>
-        <span class="en">Write experiments the way you run them</span>
-      </h2>
-      <p class="entry-body">
-        <span class="ko">슬래시 메뉴 하나로 종이 노트에 못 담던 것을 넣습니다 — 표, 체크리스트, 콜아웃, 코드, Mermaid 다이어그램, LaTeX 수식까지. <span class="mono">H2SO4</span>라고 치면 알아서 H₂SO₄가 됩니다.</span>
-        <span class="en">One slash menu drops in what a paper notebook can't hold — tables, checklists, callouts, code, Mermaid diagrams, LaTeX math. Type <span class="mono">H2SO4</span> and it becomes H₂SO₄ on its own.</span>
-      </p>
-      <ul class="points">
-        <li><span class="ko">젤 사진·그래프를 위한 라벨/캡션 달린 Figure 틀</span><span class="en">Figure frames with labels and captions, built for gel photos and plots</span></li>
-        <li><span class="ko">노트 사이 <span class="mono">[[위키 링크]]</span>와 백링크</span><span class="en">Wiki-style <span class="mono">[[links]]</span> between notes, with backlinks</span></li>
-        <li><span class="ko">노트 안 찾기 <kbd>⌘F</kbd>, 블록 드래그 핸들, 접히는 섹션</span><span class="en">In-note find <kbd>⌘F</kbd>, block drag handles, collapsible sections</span></li>
-      </ul>
-    </div>
-    <div class="entry-mock">
-      <div class="mock mock-margin" aria-hidden="true">
-        <div class="mock-pad">
-          <div class="mock-meta"><span>/ SLASH MENU</span><span>AUTOFORMAT</span></div>
-          <p style="color:var(--faint)">Type <span class="mono" style="color:var(--crimson)">/</span> to insert…</p>
-          <ul class="check" style="margin-top:6px">
-            <li><span class="tag-chip">/table</span><span>3 × 3 table with header row</span></li>
-            <li><span class="tag-chip">/math</span><span class="chem">LaTeX block — K<sub>d</sub> = k<sub>off</sub> / k<sub>on</sub></span></li>
-            <li><span class="tag-chip">/mermaid</span><span>Diagram: sample → digest → ligate → screen</span></li>
-            <li><span class="tag-chip">/callout</span><span>Info · Warning · Tip blocks</span></li>
-            <li><span class="tag-chip">/figure</span><span>Figure frame — “Fig. 2 | Colony PCR, lanes 1–12”</span></li>
+      <section id="story" class="hero story-intro section-shell" aria-labelledby="hero-title">
+        <div class="hero-copy reveal" data-reveal>
+          <p class="eyebrow"><span></span> Research workspace, connected</p>
+          <h2 id="hero-title">
+            관찰이<br />
+            <span class="kinetic-wrap">
+              <span class="kinetic-word" data-kinetic-word>근거</span><span data-kinetic-particle>로</span><span class="kinetic-caret"></span>
+            </span> 이어지는 속도.
+          </h2>
+          <p class="hero-lede">
+            실험 노트에 남긴 한 줄이 관계 맵의 근거가 되고, 팀의 할 일과 다음 일정으로
+            이어집니다. 맥락을 다시 조립하지 않아도 되는 공동 연구 노트.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="https://commonnote.app/">
+              웹에서 시작하기
+              <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5" /></svg>
+            </a>
+            <a class="button button-quiet" href="#flow">흐름 살펴보기</a>
+          </div>
+          <ul class="hero-proof" aria-label="주요 특성">
+            <li><span>01</span> 실시간 공동 편집</li>
+            <li><span>02</span> 근거와 실행의 연결</li>
+            <li><span>03</span> 내보내기 가능한 기록</li>
           </ul>
-          <p style="margin-top:12px" class="chem">Autoformat: <span class="mono">H2O2</span> → H<sub>2</sub>O<sub>2</sub> · <span class="mono">Ca2+</span> → Ca<sup>2+</sup> · <span class="mono">CO2</span> → CO<sub>2</sub></p>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- 02 COLLAB -->
-  <section class="entry flip" id="collab">
-    <div class="entry-copy">
-      <span class="eyebrow">Entry 02 · Collaboration</span>
-      <h2>
-        <span class="ko">한 노트에 커서 네 개, 충돌은 없다</span>
-        <span class="en">One note, four cursors, zero conflicts</span>
-      </h2>
-      <p class="entry-body">
-        <span class="ko">모두가 같은 노트를 동시에 고치고, 문장마다 누가 썼는지 남습니다. 노트 하나든 노트북 전체든 공유하면 그 안에 새로 만드는 노트까지 권한이 자동으로 따라갑니다.</span>
-        <span class="en">Everyone edits the same note at the same time, and every sentence remembers who wrote it. Share one note or a whole notebook — new notes inside inherit access automatically.</span>
-      </p>
-      <ul class="points">
-        <li><span class="ko">실시간 커서·선택 표시, 오프라인 편집도 깨끗하게 병합</span><span class="en">Live cursors and selections; offline edits merge back cleanly</span></li>
-        <li><span class="ko">문장 단위 저자 표시 — 누가 어디를 썼는지 색으로</span><span class="en">Per-author attribution — see who wrote which line, by color</span></li>
-        <li><span class="ko">인라인 댓글, @멘션, 연구실 안 메시지까지 내장</span><span class="en">Inline comments, @mentions, and built-in lab messages</span></li>
-      </ul>
-    </div>
-    <div class="entry-mock">
-      <div class="mock mock-margin" aria-hidden="true">
-        <div class="mock-pad">
-          <div class="legend">
-            <span><span class="dot" style="background:#A51C30"></span><b>Jae</b></span>
-            <span><span class="dot" style="background:#4338CA"></span><b>Minji</b></span>
-            <span><span class="dot" style="background:#166534"></span><b>Dokyun</b></span>
+        <div class="motion-heading reveal" data-reveal>
+          <p><span>ONE SOURCE / FOUR VIEWS</span> 한 기록이 필요한 화면으로 이동합니다.</p>
+          <div><i></i> LIVE CONTEXT</div>
+        </div>
+
+        <div class="motion-lab reveal" data-reveal data-motion-lab aria-label="CommonNote의 네 작업 화면">
+          <div class="motion-grid">
+            <article class="motion-tile note-tile is-active" data-scene-tile="0">
+              <header>
+                <span class="tile-index">01</span>
+                <span>LIVE NOTE</span>
+                <i class="live-dot"></i>
+              </header>
+              <div class="note-date">2026.08.26 · 09:41</div>
+              <h2>Collagenase activity</h2>
+              <p class="typed-observation">
+                <span>37°C에서 활성 유지</span><b></b>
+              </p>
+              <div class="author-chip"><span>JY</span> 관찰 기록됨</div>
+            </article>
+
+            <article class="motion-tile map-tile" data-scene-tile="1">
+              <header>
+                <span class="tile-index">02</span>
+                <span>RELATION MAP</span>
+                <i>3 links</i>
+              </header>
+              <svg class="map-lines" viewBox="0 0 480 250" aria-hidden="true">
+                <defs>
+                  <linearGradient id="map-line-gradient" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#2fd3a5" />
+                    <stop offset="0.52" stop-color="#6f5aff" />
+                    <stop offset="1" stop-color="#eb5a70" />
+                  </linearGradient>
+                  <filter id="map-glow">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                </defs>
+                <path d="M86 74 C166 70 188 132 250 134 S346 87 406 104" />
+                <path d="M250 134 C286 172 321 190 387 197" />
+              </svg>
+              <div class="map-node node-observation"><small>관찰</small><strong>활성 유지</strong></div>
+              <div class="map-node node-evidence"><small>근거</small><strong>assay #24</strong></div>
+              <div class="map-node node-decision"><small>결정</small><strong>조건 확정</strong></div>
+              <div class="map-node node-next"><small>다음</small><strong>scale-up</strong></div>
+            </article>
+
+            <article class="motion-tile task-tile" data-scene-tile="2">
+              <header>
+                <span class="tile-index">03</span>
+                <span>ACTION QUEUE</span>
+                <i>Today</i>
+              </header>
+              <div class="task-row task-done">
+                <span class="task-check">✓</span>
+                <div><strong>활성 데이터 검토</strong><small>근거 노트 · assay #24</small></div>
+                <b>완료</b>
+              </div>
+              <div class="task-row task-live">
+                <span class="task-check"></span>
+                <div><strong>3일 배양 조건 확정</strong><small>담당 · JY</small></div>
+                <b>진행</b>
+              </div>
+              <div class="task-row">
+                <span class="task-check"></span>
+                <div><strong>scale-up 준비</strong><small>Source Thread · Collagenase</small></div>
+                <b>대기</b>
+              </div>
+            </article>
+
+            <article class="motion-tile calendar-tile" data-scene-tile="3">
+              <header>
+                <span class="tile-index">04</span>
+                <span>CALENDAR</span>
+                <i>AUG 26</i>
+              </header>
+              <div class="calendar-week" aria-hidden="true">
+                <span><small>M</small>24</span>
+                <span><small>T</small>25</span>
+                <span class="calendar-today"><small>W</small>26</span>
+                <span><small>T</small>27</span>
+                <span><small>F</small>28</span>
+              </div>
+              <div class="calendar-event">
+                <i></i>
+                <div><small>14:00–16:00</small><strong>Scale-up run</strong></div>
+                <span>JY · DW</span>
+              </div>
+              <div class="calendar-line"><span></span></div>
+            </article>
           </div>
-          <p><span class="auth-c">Colonies appeared overnight on Kan plates — 40+ per transformation.</span></p>
-          <p><span class="auth-i chem">Picked 12 for colony PCR; T7 fwd / T7 rev, 25 cycles.</span><span class="caret" style="--c:#4338CA" data-name="Minji"></span></p>
-          <p><span class="auth-g"><span class="sel">Lanes 3, 7, 11 show the expected 1.9 kb product.</span></span><span class="caret" style="--c:#166534" data-name="Dokyun"></span></p>
-          <div class="thread">
-            <div class="cm">
-              <span class="avatar" style="background:#4338CA">M</span>
-              <span><b>Minji</b> · 14:22 — Should we DpnI-digest before the next transformation?</span>
+
+          <svg class="evidence-thread" viewBox="0 0 1000 720" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="thread-gradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#a51c30" />
+                <stop offset="0.4" stop-color="#6f5aff" />
+                <stop offset="0.72" stop-color="#2fd3a5" />
+                <stop offset="1" stop-color="#f3a24b" />
+              </linearGradient>
+              <filter id="thread-glow">
+                <feGaussianBlur stdDeviation="9" result="blur" />
+                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+            </defs>
+            <path class="thread-halo" d="M120 155 C360 105 395 230 500 270 S650 365 760 400 S735 560 875 595" />
+            <path class="thread-core" d="M120 155 C360 105 395 230 500 270 S650 365 760 400 S735 560 875 595" />
+          </svg>
+
+          <div class="motion-caption">
+            <span data-scene-count>01 / 04</span>
+            <p data-scene-label>관찰을 기록하는 순간</p>
+            <div class="scene-progress"><i data-scene-progress></i></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-strip" aria-label="한 기록의 네 가지 보기">
+        <p><span>ONE SOURCE</span> 같은 기록을 네 번 옮기지 않습니다.</p>
+        <div>
+          <span>노트</span><i></i><span>관계</span><i></i><span>할 일</span><i></i><span>일정</span>
+        </div>
+      </section>
+
+      <section id="flow" class="flow-section">
+        <div class="section-shell flow-shell">
+          <header class="section-heading reveal" data-reveal>
+            <p class="eyebrow light"><span></span> Evidence thread</p>
+            <h2>한 줄의 관찰이<br />사라지지 않도록.</h2>
+            <p>
+              문서, 회의, 메신저 사이를 떠돌던 판단 근거를 한 흐름에 남깁니다.
+              무엇을 보았고, 왜 결정했고, 누가 다음을 맡았는지 이어서 읽을 수 있습니다.
+            </p>
+          </header>
+
+          <div class="flow-rail reveal" data-reveal>
+            <ol>
+              <li class="is-current" data-flow-step="0">
+                <span>01</span>
+                <div><small>OBSERVATION</small><strong>37°C에서 활성이 유지됐다.</strong></div>
+                <i></i>
+              </li>
+              <li data-flow-step="1">
+                <span>02</span>
+                <div><small>EVIDENCE</small><strong>assay #24를 판단 근거로 연결.</strong></div>
+                <i></i>
+              </li>
+              <li data-flow-step="2">
+                <span>03</span>
+                <div><small>DECISION</small><strong>3일 배양 조건을 확정.</strong></div>
+                <i></i>
+              </li>
+              <li data-flow-step="3">
+                <span>04</span>
+                <div><small>ACTION</small><strong>scale-up 실행과 담당자를 예약.</strong></div>
+              </li>
+            </ol>
+
+            <div class="flow-instrument" aria-label="근거 흐름 예시">
+              <div class="instrument-topline">
+                <span>CN · EVIDENCE 024</span>
+                <span class="instrument-live"><i></i> synced now</span>
+              </div>
+              <div class="instrument-stage">
+                <p data-flow-kicker>Observation</p>
+                <strong data-flow-value>37°C / activity stable</strong>
+                <span data-flow-meta>notebook · Collagenase</span>
+              </div>
+              <div class="instrument-wave" aria-hidden="true">
+                <svg viewBox="0 0 640 160" preserveAspectRatio="none">
+                  <path d="M0 109 C54 109 66 44 119 48 S178 133 233 101 S311 49 356 74 S435 126 480 92 S542 24 640 42" />
+                </svg>
+                <i></i>
+              </div>
+              <div class="instrument-foot">
+                <span><b>↗</b> source retained</span>
+                <span><b>◎</b> authors visible</span>
+                <span><b>✓</b> next step linked</span>
+              </div>
             </div>
-            <div class="cm">
-              <span class="avatar" style="background:#A51C30">J</span>
-              <span><b>Jae</b> · 14:31 — Added as step 4. <span class="pill ok">✓ Resolved</span></span>
+          </div>
+        </div>
+      </section>
+
+      <section id="rooms" class="rooms-section section-shell" aria-labelledby="rooms-title">
+        <header class="section-heading reveal" data-reveal>
+          <p class="eyebrow"><span></span> Four useful views</p>
+          <h2 id="rooms-title">연구는 한 화면으로<br />끝나지 않으니까.</h2>
+          <p>같은 맥락을 각 순간에 가장 쓸모 있는 형태로 봅니다.</p>
+        </header>
+
+        <div class="rooms-grid">
+          <article class="room room-note reveal" data-reveal>
+            <div class="room-copy">
+              <span>01 · NOTEBOOK</span>
+              <h3>기록은 빠르게,<br />출처는 분명하게.</h3>
+              <p>공동 편집, 작성자 표시, 이미지와 표, 버전 기록을 한 노트 안에서 다룹니다.</p>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 03 REAGENT -->
-  <section class="entry" id="reagent">
-    <div class="entry-copy">
-      <span class="eyebrow">Entry 03 · Reagent calculator</span>
-      <h2>
-        <span class="ko">시약 계산은 노트 안에서</span>
-        <span class="en">Buffer math without the second tab</span>
-      </h2>
-      <p class="entry-body">
-        <span class="ko">화학식이나 CAS 번호만 치면 분자량·몰수·희석 계산이 바로 나옵니다. PubChem 검색이 붙어 있고, 자주 쓰는 시약은 연구실 별칭으로 저장해 다음부터는 이름만 칩니다.</span>
-        <span class="en">Type a formula or a CAS number and get molar mass, moles, and dilutions instantly. PubChem lookup is built in, and your lab's common reagents get saved aliases.</span>
-      </p>
-      <ul class="points">
-        <li><span class="ko">화학식에서 분자량 자동 계산</span><span class="en">Molar mass straight from the formula</span></li>
-        <li><span class="ko">몰농도 → 칭량값, 스톡 희석 계산</span><span class="en">Molarity → weigh-out, stock dilution math</span></li>
-        <li><span class="ko">PubChem 이름·CAS 검색 + 연구실 공용 캐시</span><span class="en">PubChem name / CAS lookup, cached for the whole lab</span></li>
-      </ul>
-    </div>
-    <div class="entry-mock">
-      <div class="mock mock-margin" aria-hidden="true">
-        <div class="mock-pad">
-          <div class="mock-meta"><span>REAGENT CALCULATOR</span><span>PUBCHEM ✓</span></div>
-          <div class="calc-rows">
-            <div class="row"><span class="k">Reagent</span><span class="v">Tris base · CAS 77-86-1</span></div>
-            <div class="row"><span class="k">Formula</span><span class="v chem">C<sub>4</sub>H<sub>11</sub>NO<sub>3</sub></span></div>
-            <div class="row"><span class="k">Molar mass</span><span class="v">121.14 g/mol</span></div>
-            <div class="row"><span class="k">Target</span><span class="v">50 mM × 1.0 L</span></div>
-            <div class="row"><span class="k">Weigh out</span><span class="v"><strong>6.057 g</strong></span></div>
-            <div class="row"><span class="k">Dilution</span><span class="v chem">10× TAE → 1× : 100 mL + 900 mL H<sub>2</sub>O</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 04 INTEGRITY -->
-  <section class="entry flip" id="integrity">
-    <div class="entry-copy">
-      <span class="eyebrow">Entry 04 · Record integrity</span>
-      <h2>
-        <span class="ko">나중에 증거가 되는 기록</span>
-        <span class="en">Records that hold up later</span>
-      </h2>
-      <p class="entry-body">
-        <span class="ko">프로토콜을 연결하면 그 순간의 버전이 고정됩니다. 비밀번호로 확인하는 서명으로 기록을 확정하고 증인이 함께 서명합니다. 확정 이후에 바뀐 게 있으면, 반드시 표시가 남습니다.</span>
-        <span class="en">Link a protocol and the exact version you followed is pinned. Finalize the record with a password-confirmed signature, have a witness co-sign — and if anything changes afterward, it gets flagged.</span>
-      </p>
-      <ul class="points">
-        <li><span class="ko">실험–프로토콜 연결 시점의 버전 고정</span><span class="en">Protocol version pinned at the moment you link it</span></li>
-        <li><span class="ko">기록 확정 + 증인 공동 서명, 사후 변경 감지</span><span class="en">Finalization + witness co-signature, post-hoc change detection</span></li>
-        <li><span class="ko">10분마다 버전 스냅샷 — 두 버전 비교, 복원</span><span class="en">Version snapshots every 10 minutes — diff any two, restore</span></li>
-      </ul>
-    </div>
-    <div class="entry-mock">
-      <div class="mock mock-margin" aria-hidden="true">
-        <div class="mock-pad" style="padding-top:24px">
-          <div class="stamp">Finalized</div>
-          <div class="mock-meta"><span>RECORD SIGNATURES</span></div>
-          <div class="sig-row">
-            <span class="who">Jae-Yoon Sung</span>
-            <span class="pill ok">✓ Signed</span>
-            <span class="when">2026-08-12 18:41 KST</span>
-          </div>
-          <div class="sig-row">
-            <span class="who">Supervisor</span>
-            <span class="pill ok">✓ Witnessed</span>
-            <span class="when">2026-08-13 09:02 KST</span>
-          </div>
-          <div class="sig-row">
-            <span>Protocol pinned — <a class="wikilink" href="#editor">[[Heat-shock transformation]]</a> <span class="tag-chip">v7</span></span>
-          </div>
-          <div class="sig-row">
-            <span class="mono" style="font-size:12px;color:var(--faint)">History: v15 · snapshot every 10 min · compare v14 ↔ v15</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05 SCHEDULE -->
-  <section class="entry" id="schedule">
-    <div class="entry-copy">
-      <span class="eyebrow">Entry 05 · Lab schedule</span>
-      <h2>
-        <span class="ko">연구실의 일주일을 레일에 올린다</span>
-        <span class="en">The lab week, on rails</span>
-      </h2>
-      <p class="entry-body">
-        <span class="ko">연구실 일에 맞춘 칸반 보드 — 열 이름은 각자 연구실 말투대로 바꿔 씁니다. 요일 반복 작업이 리듬을 챙깁니다: 계대는 월·목, 배지는 화, −80 °C 점검은 금.</span>
-        <span class="en">A kanban board tuned for lab work — rename the columns to match how your lab actually talks. Recurring weekday tasks keep the rhythm: subculture Mon/Thu, media prep Tue, −80 °C check Fri.</span>
-      </p>
-      <ul class="points">
-        <li><span class="ko">대기 · 진행 · 검토 · 완료 — 열 이름은 사람마다 자유롭게</span><span class="en">To&nbsp;do · Doing · Review · Done — columns renameable per person</span></li>
-        <li><span class="ko">요일 반복 작업 + 한국 공휴일 아는 캘린더</span><span class="en">Weekday recurrence + a calendar that knows the holidays</span></li>
-        <li><span class="ko">인수인계 노트와 리마인더가 붙는 위임</span><span class="en">Delegation with handover notes and reminders attached</span></li>
-      </ul>
-    </div>
-    <div class="entry-mock">
-      <div class="mock" aria-hidden="true">
-        <div class="kanban">
-          <div class="kcol">
-            <h4><span class="dot" style="background:#A1A1AA"></span>To do <span class="cnt">3</span></h4>
-            <div class="kcard">Order NcoI-HF (NEB)</div>
-            <div class="kcard">Subculture — HEK293T
-              <div class="sub"><span class="recur">↻ Mon · Thu</span></div>
+            <div class="note-demo" aria-hidden="true">
+              <div class="demo-toolbar"><i></i><i></i><i></i><span>2026.08.26</span></div>
+              <p><b>Observation</b></p>
+              <p>Enzyme activity remained stable at 37°C.</p>
+              <p class="demo-highlight">→ link as evidence <span>⌘K</span></p>
+              <div class="demo-caret"></div>
             </div>
-            <div class="kcard">Media prep, DMEM ×2
-              <div class="sub"><span class="recur">↻ Tue</span></div>
+          </article>
+
+          <article class="room room-map reveal" data-reveal>
+            <div class="room-copy">
+              <span>02 · RELATIONSHIP MAP</span>
+              <h3>판단의 이유를<br />선으로 남깁니다.</h3>
+              <p>노트와 메모를 연결하고 방향, 의미, 강도를 표시해 팀의 사고 경로를 읽습니다.</p>
             </div>
-          </div>
-          <div class="kcol">
-            <h4><span class="dot" style="background:#4338CA"></span>Doing <span class="cnt">2</span></h4>
-            <div class="kcard">Miniprep 12 colonies
-              <div class="sub"><span class="avatar" style="background:#A51C30;width:16px;height:16px;font-size:9px">J</span><span class="tag-chip">due today</span></div>
+            <div class="map-demo" aria-hidden="true">
+              <svg viewBox="0 0 600 330">
+                <path d="M120 95 C230 95 245 170 325 166 S425 95 505 120" />
+                <path d="M325 166 C350 218 400 249 488 252" />
+              </svg>
+              <span class="demo-node a">관찰</span>
+              <span class="demo-node b">근거</span>
+              <span class="demo-node c">결정</span>
+              <span class="demo-node d">실행</span>
             </div>
-            <div class="kcard">−80 °C freezer check
-              <div class="sub"><span class="recur">↻ Fri</span></div>
+          </article>
+
+          <article class="room room-task reveal" data-reveal>
+            <div class="room-copy">
+              <span>03 · TASKS</span>
+              <h3>노트에서 나온 일이<br />대기열에 바로 보입니다.</h3>
+              <p>담당자, 상태, 기한, 원본 노트를 잃지 않고 목록·카드·보드로 전환합니다.</p>
             </div>
-          </div>
-          <div class="kcol">
-            <h4><span class="dot" style="background:#B45309"></span>Review <span class="cnt">1</span></h4>
-            <div class="kcard">Sequencing chromatograms — lanes 3 / 7 / 11
-              <div class="sub"><span class="avatar" style="background:#4338CA;width:16px;height:16px;font-size:9px">M</span><span class="pill ok">review requested</span></div>
+            <div class="task-demo" aria-hidden="true">
+              <div><span class="check done">✓</span><p>assay 검토<small>완료 · JY</small></p><b>source ↗</b></div>
+              <div><span class="check"></span><p>배양 조건 확정<small>진행 · DW</small></p><b>today</b></div>
+              <div><span class="check"></span><p>scale-up 준비<small>대기 · team</small></p><b>Aug 28</b></div>
             </div>
+          </article>
+
+          <article class="room room-calendar reveal" data-reveal>
+            <div class="room-copy">
+              <span>04 · CALENDAR</span>
+              <h3>실험의 시간도<br />같은 맥락 안에서.</h3>
+              <p>기한과 실험 일정, 반복 업무를 원본 기록으로 돌아갈 수 있는 캘린더에 놓습니다.</p>
+            </div>
+            <div class="calendar-demo" aria-hidden="true">
+              <div class="calendar-demo-head"><b>AUGUST</b><span>2026</span></div>
+              <div class="calendar-demo-grid">
+                <span>24</span><span>25</span><span class="today">26<i></i></span><span>27</span><span>28</span>
+              </div>
+              <div class="calendar-demo-event"><i></i><span><b>Scale-up run</b><small>14:00 · JY + DW</small></span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="principles" class="principles-section">
+        <div class="section-shell">
+          <header class="section-heading reveal" data-reveal>
+            <p class="eyebrow light"><span></span> Built for research continuity</p>
+            <h2>팀의 속도보다<br />기록의 수명이 길도록.</h2>
+          </header>
+          <div class="principles-grid">
+            <article class="reveal" data-reveal>
+              <span>SHARED CONTEXT</span>
+              <h3>함께 써도 누가 남겼는지.</h3>
+              <p>실시간 협업과 작성자 맥락을 유지해 수정과 인계가 분리되지 않습니다.</p>
+            </article>
+            <article class="reveal" data-reveal>
+              <span>PRIVATE CONTROL</span>
+              <h3>공유와 잠금을 기록 단위로.</h3>
+              <p>공유 범위, 비밀번호 잠금, 개인 표시 설정을 연구 방식에 맞춰 선택합니다.</p>
+            </article>
+            <article class="reveal" data-reveal>
+              <span>DURABLE RECORD</span>
+              <h3>서비스 밖에서도 읽을 수 있게.</h3>
+              <p>Markdown·HTML·PDF·전체 백업으로 기록을 한 제품 안에 가두지 않습니다.</p>
+            </article>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- 06 DELEGATION & HANDOVER -->
-  <section class="entry flip" id="handoff">
-    <div class="entry-copy">
-      <span class="eyebrow"><span class="ko">Entry 06 · 위임과 인수인계</span><span class="en">Entry 06 · Delegation &amp; handover</span></span>
-      <h2>
-        <span class="ko">일은 넘겨도, 맥락은 흘리지 않는다</span>
-        <span class="en">Hand off the task, not the confusion</span>
-      </h2>
-      <p class="entry-body">
-        <span class="ko">담당자, 기한, 인수인계 노트를 붙여 일을 넘깁니다. 받은 사람이 수락하거나 거절하고, 그 흐름이 상태 체인으로 남으며, 응답이 없으면 리마인더가 대신 조릅니다. 메시지로도 같이 전달됩니다.</span>
-        <span class="en">Pass work along with an assignee, a due date, and a handover note attached. The receiver accepts or declines, the whole flow is recorded as a status chain, and reminders do the chasing when there's no answer. It lands in their messages too.</span>
-      </p>
-      <ul class="points">
-        <li><span class="ko">담당자 + 기한 + 인수인계 노트를 한 번에</span><span class="en">Assignee + due date + handover note, in one dialog</span></li>
-        <li><span class="ko">수락·거절·완료가 남는 위임 상태 체인, 자동 리마인더</span><span class="en">Accept / decline / done recorded in a chain — reminders automatic</span></li>
-        <li><span class="ko">받는 사람 메시지함과 알림으로 동시에 도착</span><span class="en">Arrives in their messages and notifications at the same time</span></li>
-      </ul>
-    </div>
-    <div class="entry-mock">
-      <div class="mock" aria-hidden="true">
-        <div class="mock-pad" style="padding-left:24px">
-          <div class="mock-meta"><span>HAND OFF TASK</span></div>
-          <div class="mock-title" style="font-size:15px">Miniprep 12 colonies</div>
-          <div class="hand-field"><span class="k">To</span><span class="avatar" style="background:#4338CA">M</span><b>Minji Kim</b><span class="tag-chip" style="margin-left:auto">colleague</span></div>
-          <div class="hand-field"><span class="k">Due</span><b>Fri, Aug 21</b><span class="tag-chip" style="margin-left:auto">reminder Wed ↻</span></div>
-          <div class="hand-note">
-            <span class="nk">HANDOVER NOTE</span>
-            Colonies 1–12 in rack B3, cold room shelf 2. Elute in 30 µL EB.
-            Lanes 3 / 7 / 11 already verified — prioritize those.
-          </div>
-          <div style="display:flex;gap:8px;align-items:center">
-            <span class="mini-btn primary">Send handoff</span>
-            <span class="mini-btn">Cancel</span>
-            <span style="margin-left:auto;font-size:11px;color:var(--muted)">✓ also send as message</span>
-          </div>
+      <section class="final-cta section-shell reveal" data-reveal aria-labelledby="cta-title">
+        <div>
+          <p class="eyebrow"><span></span> Keep the evidence moving</p>
+          <h2 id="cta-title">다음 결정은<br />이전 근거 위에서.</h2>
         </div>
-        <div class="mock-pad" style="padding-left:24px;border-top:1px solid var(--line-soft)">
-          <div class="mock-meta"><span>DELEGATION CHAIN</span></div>
-          <div class="chain">
-            <span class="avatar" style="background:#A51C30">J</span><b>Jae</b>
-            <span class="arrow">→</span>
-            <span class="avatar" style="background:#4338CA">M</span><b>Minji</b>
-            <span class="pill ok">✓ Accepted · Aug 15 09:12</span>
-            <span class="tag-chip">due Fri</span>
-          </div>
+        <div class="final-cta-copy">
+          <p>노트 하나로 시작해 보세요. 필요해지는 순간 관계, 업무, 일정이 같은 맥락으로 열립니다.</p>
+          <a class="button button-primary" href="https://commonnote.app/">
+            CommonNote 열기
+            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5" /></svg>
+          </a>
         </div>
-      </div>
-    </div>
-  </section>
+        <div class="cta-orbit" aria-hidden="true">
+          <span></span><i></i><b></b>
+        </div>
+      </section>
+    </main>
 
-  <!-- 07 REQUESTS & MESSAGES -->
-  <section class="entry" id="requests">
-    <div class="entry-copy">
-      <span class="eyebrow"><span class="ko">Entry 07 · 요청과 메시지</span><span class="en">Entry 07 · Requests &amp; messages</span></span>
-      <h2>
-        <span class="ko">응답이 필요한 일은 묻히지 않는다</span>
-        <span class="en">Requests that need you, front and center</span>
-      </h2>
-      <p class="entry-body">
-        <span class="ko">검토, 증인 서명, 인수인계 — 답이 필요한 요청은 벨, 응답 대기 목록, 휴대폰 팝업으로 한꺼번에 떠오릅니다. 내장 메시지 대화 안에 요청 카드가 그대로 박혀서, 채팅하다가 바로 수락하면 됩니다.</span>
-        <span class="en">Reviews, witness co-signs, handoffs — anything awaiting your answer surfaces in the bell, a pending-response list, and a phone popup all at once. Request cards sit right inside the built-in chat, so you accept without leaving the conversation.</span>
-      </p>
-      <ul class="points">
-        <li><span class="ko">응답 대기 요청이 벨 배지·목록·폰 팝업으로</span><span class="en">Pending requests in the bell badge, the list, and a phone popup</span></li>
-        <li><span class="ko">메시지 대화 속 요청 카드에서 바로 수락·거절</span><span class="en">Accept or decline straight from the card inside the chat</span></li>
-        <li><span class="ko">답이 늦으면 동료 찌르기(nudge) 한 번으로 재알림</span><span class="en">Slow reply? One nudge re-pings them everywhere</span></li>
-      </ul>
-    </div>
-    <div class="entry-mock">
-      <div class="mock" aria-hidden="true">
-        <div class="chat">
-          <div class="chat-head"><span class="avatar" style="background:#4338CA">M</span>Minji Kim<span class="st">● online</span></div>
-          <div class="bubble them">Gel photo is up on <span style="color:var(--crimson);font-weight:600">[[Colony PCR]]</span> — can you check lane 7?<div class="bt">10:41</div></div>
-          <div class="bubble me">On it. Sending the miniprep handoff your way.<div class="bt">10:44</div></div>
-          <div class="req-card">
-            <div class="rq-head">🔔 RESPONSE NEEDED</div>
-            <b>Handoff — Miniprep 12 colonies</b><br>from Jae · due Fri, Aug 21 · handover note attached
-            <div class="rq-actions"><span class="mini-btn primary">Accept</span><span class="mini-btn">Decline</span></div>
-          </div>
-          <div class="bubble them">Accepted ✓ rack B3, got it.<div class="bt">10:52</div></div>
-        </div>
-        <div class="mock-pad bell-list" style="padding-left:24px;border-top:1px solid var(--line-soft)">
-          <div class="mock-meta"><span>🔔 3 NEED YOUR RESPONSE</span></div>
-          <div class="sig-row"><span>✍️ Witness co-sign — <b>Gibson assembly</b></span><span class="mini-btn primary">Sign</span></div>
-          <div class="sig-row"><span>🔍 Review — <b>Sequencing chromatograms</b></span><span class="mini-btn">Open</span></div>
-          <div class="sig-row"><span>🤝 Handoff — <b>−80 °C check</b> · Fri</span><span class="mini-btn">Accept</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 08 ALERTS & DEADLINES -->
-  <section class="entry flip" id="alerts">
-    <div class="entry-copy">
-      <span class="eyebrow"><span class="ko">Entry 08 · 알림과 기한</span><span class="en">Entry 08 · Alerts &amp; deadlines</span></span>
-      <h2>
-        <span class="ko">완료·성공·지연 — 상황이 먼저 알려온다</span>
-        <span class="en">Done, success, delayed — the status finds you</span>
-      </h2>
-      <p class="entry-body">
-        <span class="ko">일이 끝나면, 검토가 필요하면, 기한이 밀리면 — 앱을 열기 전에 알림이 먼저 옵니다. 웹 푸시, iPhone 네이티브 푸시, 데스크톱 알림, 이메일 어디로든. 기한은 요일 반복과 공휴일을 아는 캘린더에 그대로 얹힙니다.</span>
-        <span class="en">When a task finishes, needs review, or slips past its deadline — the notification reaches you before you open the app. Web push, native iPhone push, desktop alerts, or email. Due dates land on a calendar that knows weekday recurrence and holidays.</span>
-      </p>
-      <ul class="points">
-        <li><span class="ko">완료·성공·지연·검토요청 상태 알림이 실시간으로</span><span class="en">Live status alerts: done, success, delayed, review requested</span></li>
-        <li><span class="ko">기한 지난 일은 지연 표시 + 담당자 찌르기(nudge)</span><span class="en">Overdue work gets flagged — with a one-tap nudge to the owner</span></li>
-        <li><span class="ko">기한 캘린더 — 요일 반복·공휴일·자연어 날짜 입력</span><span class="en">Due-date calendar — recurrence, holidays, natural-language dates</span></li>
-      </ul>
-    </div>
-    <div class="entry-mock">
-      <div class="phone" aria-hidden="true">
-        <div class="phone-screen">
-          <div class="phone-island"></div>
-          <div class="phone-date">Friday, August 14</div>
-          <div class="phone-time">17:42</div>
-          <div id="toastStack"></div>
-          <div class="phone-homebar"></div>
-        </div>
-      </div>
-    </div>
-    <div class="entry-wide">
-      <div class="mock wkcal" aria-hidden="true">
-        <div class="wkcal-head">
-          <span class="m">August</span><span class="y">2026 · W33</span>
-          <span class="seg"><span class="on">Week</span><span>Month</span></span>
-        </div>
-        <div class="wk">
-          <div class="wd"><div class="dn"><span class="sun">SUN</span><b class="sun">9</b></div></div>
-          <div class="wd"><div class="dn"><span>MON</span><b>10</b></div><div class="evt rec">↻ Subculture</div></div>
-          <div class="wd"><div class="dn"><span>TUE</span><b>11</b></div><div class="evt rec">↻ Media prep</div></div>
-          <div class="wd"><div class="dn"><span>WED</span><b>12</b></div><div class="evt soft">Seq results in</div></div>
-          <div class="wd"><div class="dn"><span>THU</span><b>13</b></div><div class="evt rec">↻ Subculture</div></div>
-          <div class="wd today"><div class="dn"><span>FRI</span><b>14</b></div><div class="evt due">Miniprep — due</div><div class="evt hand">🤝 −80 °C check</div></div>
-          <div class="wd"><div class="dn"><span class="sat">SAT</span><b class="sun">15</b></div><div class="evt holi">Liberation Day</div></div>
-        </div>
-        <div class="nl-input">
-          <span style="color:var(--faint)">＋</span>
-          <span class="mono" style="font-size:11.5px">seq review next fri 3pm</span><span class="cursor"></span>
-          <span class="nl-parse">→ Fri, Aug 21 · 15:00 ✓</span>
-        </div>
-        <div class="channels">
-          <span class="viz-chip">🔔 Web push ✓</span>
-          <span class="viz-chip">📱 iPhone ✓</span>
-          <span class="viz-chip">💻 Desktop ✓</span>
-          <span class="viz-chip">✉️ Email ✓</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 09 SECURITY -->
-  <section class="entry" id="security">
-    <div class="entry-copy">
-      <span class="eyebrow">Entry 09 · Security</span>
-      <h2>
-        <span class="ko">잠글 곳은 잠그고, 열 곳은 연다</span>
-        <span class="en">Locked where it matters, open where it helps</span>
-      </h2>
-      <p class="entry-body">
-        <span class="ko">관리자 승인 없이는 아무도 들어오지 못합니다. 패스키(Touch ID / Face ID)로 로그인하고, 노트 하나든 노트북 전체든 첨부파일까지 잠급니다. 그리고 원할 때만, 읽기 전용 공개 링크를 엽니다.</span>
-        <span class="en">Nobody gets in without admin approval. Sign in with passkeys (Touch ID / Face ID), lock a single note or a whole notebook — attachments included. And only when you choose, publish a read-only public link.</span>
-      </p>
-      <ul class="points">
-        <li><span class="ko">가입 승인제 + 이메일 인증, 로그인 시도 제한</span><span class="en">Admin-approved signup + email verification, sign-in rate limits</span></li>
-        <li><span class="ko">노트 잠금 <kbd>⌘L</kbd>·노트북 잠금, Touch ID로 해제</span><span class="en">Note lock <kbd>⌘L</kbd> and notebook lock, unlocked with Touch ID</span></li>
-        <li><span class="ko">셀프 호스팅 — 광고도, 추적도, 외부 서버도 없음</span><span class="en">Self-hosted — no ads, no analytics, no third-party servers</span></li>
-      </ul>
-    </div>
-    <div class="entry-mock">
-      <div class="mock" aria-hidden="true">
-        <div class="lockcard">
-          <div class="lock-title">🔒 Notebook “Human samples” is locked</div>
-          <div class="lock-sub">Everything inside is hidden — titles, contents, attachments.</div>
-          <span class="mini-btn primary">Unlock with Touch ID</span>
-          <span class="mini-btn">Use password…</span>
-        </div>
-        <div class="lockcard">
-          <div class="lock-title">👋 Signup request</div>
-          <div class="lock-sub"><b>hj.park@lab.ac.kr</b> — “2nd-year MS student, Lee lab. Need access to the cloning notebook.”</div>
-          <span class="mini-btn primary">Approve</span>
-          <span class="mini-btn">Decide later</span>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<!-- toolbox -->
-<section class="toolbox" id="toolbox">
-  <div class="wrap">
-    <div class="toolbox-head">
-      <span class="eyebrow"><span class="ko">Entry 10 · 그 외</span><span class="en">Entry 10 · Everything else</span></span>
-      <h2><span class="ko">그리고 나머지 실험대 위 도구들</span><span class="en">And the rest of the bench</span></h2>
-      <p class="toolbox-sub">
-        <span class="ko">매일 쓰게 되는 작은 도구들 — 하나하나가 브라우저 탭 하나씩을 줄입니다.</span>
-        <span class="en">The small tools you end up using daily — each one closes another browser tab.</span>
-      </p>
-    </div>
-    <div class="tool-grid">
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true">
-          <span class="viz-chip">🔗 commonnote.app/p/x7k2…</span>
-          <span class="viz-chip" style="color:var(--green);border-color:#CFE3D6">READ-ONLY</span>
-        </div>
-        <h3><span class="ko">읽기 전용 공개 링크</span><span class="en">Public read-only links</span></h3><p><span class="ko">로그인 없이 누구나 읽는 페이지를 링크 하나로 공유합니다.</span><span class="en">Share a page anyone can read — no sign-in required.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true">
-          <span class="viz-chip">✈️ offline · 3 edits</span>
-          <span class="viz-arrow">→</span>
-          <span class="viz-chip" style="color:var(--green);border-color:#CFE3D6">synced ✓</span>
-        </div>
-        <h3><span class="ko">오프라인 편집</span><span class="en">Offline editing</span></h3><p><span class="ko">인터넷이 끊겨도 계속 쓰고, 연결되면 자동으로 동기화됩니다.</span><span class="en">Keep writing without a connection; changes sync when you're back.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true">
-          <span class="viz-chip" style="color:#4338CA;border-color:#D8D6F2">.md</span><span class="viz-arrow">→</span>
-          <span class="viz-chip" style="color:var(--crimson);border-color:#F2DCDF;font-weight:700">CN</span>
-          <span class="viz-arrow">→</span><span class="viz-chip" style="color:#4338CA;border-color:#D8D6F2">.md</span><span class="viz-chip" style="color:#B91C1C;border-color:#F2D9D9">.pdf</span><span class="viz-chip" style="color:#B45309;border-color:#F0E2C8">.zip</span>
-        </div>
-        <h3><span class="ko">가져오기·내보내기</span><span class="en">Import &amp; export</span></h3><p><span class="ko">Markdown으로 들어오고 <kbd>⌘E</kbd> Markdown·HTML·PDF로 나가며, 전체 ZIP 백업도 됩니다.</span><span class="en">Markdown in; <kbd>⌘E</kbd> Markdown, HTML, or PDF out — plus a full ZIP backup.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true" style="flex-direction:column;gap:5px;justify-content:center">
-          <span class="viz-chip" style="width:150px;justify-content:flex-start">⌘K&nbsp; transform<span style="border-left:1.5px solid var(--crimson);height:11px;display:inline-block;margin-left:1px"></span></span>
-          <span class="viz-chip" style="width:150px;justify-content:flex-start;border-color:#F2DCDF;background:var(--crimson-tint)">📄 Heat-shock transformation</span>
-        </div>
-        <h3><span class="ko">전체 검색 + 커맨드 팔레트</span><span class="en">Full-text search + command palette</span></h3><p><span class="ko">모든 노트를 본문까지 검색하고, 키보드로 어디든 이동합니다.</span><span class="en">Search every note's body and jump anywhere from the keyboard.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true">
-          <span class="viz-stack"><i></i><i></i><i>PCR log</i></span>
-          <span class="viz-arrow">→</span>
-          <span class="viz-chip">new record ✚</span>
-        </div>
-        <h3><span class="ko">템플릿</span><span class="en">Templates</span></h3><p><span class="ko">자주 쓰는 실험 양식을 템플릿으로 저장해 새 기록을 초 단위로 시작합니다.</span><span class="en">Save your recurring experiment formats and start new records in seconds.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true" style="flex-direction:column;gap:2px">
-          <span class="viz-avatar" style="background:#A51C30">PI</span>
-          <span style="width:2px;height:8px;background:#C9C9CE"></span>
-          <span style="display:flex;gap:14px">
-            <span class="viz-avatar" style="background:#4338CA">M</span>
-            <span class="viz-avatar" style="background:#166534">D</span>
-            <span class="viz-avatar" style="background:#075985">H</span>
-          </span>
-        </div>
-        <h3><span class="ko">팀과 조직도</span><span class="en">Teams &amp; org chart</span></h3><p><span class="ko">연구실 구성원을 팀으로 묶고 조직도로 봅니다. 동료에겐 나만 보는 별명도 붙습니다.</span><span class="en">Group members into teams with an org chart — plus private nicknames for colleagues.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true">
-          <span class="viz-bell">🔔<span class="viz-badge">3</span></span>
-          <span class="viz-chip">Review requested — Minji</span>
-        </div>
-        <h3><span class="ko">알림, 어디서든</span><span class="en">Notifications, everywhere</span></h3><p><span class="ko">웹 푸시, iOS 네이티브 푸시, 데스크톱 알림, 이메일까지 — 응답이 필요한 요청은 놓치지 않게.</span><span class="en">Web push, native iOS push, desktop alerts, email — requests that need you don't get buried.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true">
-          <span class="viz-swatch" style="background:linear-gradient(90deg,#FCFCFB 50%,#18181B 50%)"></span>
-          <span class="dot" style="background:#A51C30;width:12px;height:12px"></span>
-          <span class="dot" style="background:#4338CA;width:12px;height:12px"></span>
-          <span class="dot" style="background:#166534;width:12px;height:12px"></span>
-          <span class="dot" style="background:#854D0E;width:12px;height:12px"></span>
-          <span class="dot" style="background:#86198F;width:12px;height:12px"></span>
-        </div>
-        <h3><span class="ko">다크 모드와 액센트 색</span><span class="en">Dark mode &amp; accent colors</span></h3><p><span class="ko">원하는 색을 고르면 밝기 단계까지 자동으로 만들어집니다.</span><span class="en">Pick any accent color; the full shade scale is generated for you.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true" style="align-items:flex-end;padding-bottom:0;gap:2px">
-          <span class="viz-tab">Gibson assembly</span>
-          <span class="viz-tab on">Colony PCR ★</span>
-          <span class="viz-tab">Seq results</span>
-        </div>
-        <h3><span class="ko">노트 탭·즐겨찾기·커버</span><span class="en">Note tabs, favorites &amp; covers</span></h3><p><span class="ko">브라우저처럼 노트를 탭으로 열고, 자주 가는 노트는 고정하고, 커버 이미지로 꾸밉니다.</span><span class="en">Open notes in tabs like a browser, pin the ones you live in, add cover images.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true">
-          <span class="viz-dotline">
-            <span class="viz-vdot"></span><span class="viz-vseg"></span>
-            <span class="viz-vdot"></span><span class="viz-vseg"></span>
-            <span class="viz-vdot hi"></span>
-          </span>
-          <span class="viz-chip">v14 ↔ v15 diff</span>
-        </div>
-        <h3><span class="ko">버전 기록</span><span class="en">Version history</span></h3><p><span class="ko">10분마다 자동 저장 — 아무 두 버전이나 비교하고 확인 후 복원합니다.</span><span class="en">Auto-saved every 10 minutes — compare any two versions and restore.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true" style="gap:4px">
-          <span class="viz-bar" style="height:18px"></span>
-          <span class="viz-bar" style="height:26px"></span>
-          <span class="viz-bar" style="height:22px"></span>
-          <span class="viz-bar hi" style="height:38px"></span>
-          <span class="viz-bar" style="height:30px"></span>
-          <span class="viz-chip" style="margin-left:8px;align-self:center">storage 62%</span>
-        </div>
-        <h3><span class="ko">관리자 대시보드</span><span class="en">Admin dashboard</span></h3><p><span class="ko">저장소·백업 상태, 구성원별 사용량, 실패한 로그인까지 한 화면에서.</span><span class="en">Storage and backup health, per-member usage, failed sign-ins — one screen.</span></p></div>
-      <div class="tool">
-        <div class="tool-viz" aria-hidden="true" style="font-size:24px;gap:14px">
-          <span>💻</span><span>🖥️</span><span>📱</span>
-        </div>
-        <h3><span class="ko">웹 · macOS · iOS</span><span class="en">Web · macOS · iOS</span></h3><p><span class="ko">브라우저로 바로, 데스크톱 앱은 자동 업데이트, iPhone에서는 네이티브 앱으로.</span><span class="en">Straight from the browser, a self-updating desktop app, and native on iPhone.</span></p></div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta">
-  <div class="wrap">
-    <span class="eyebrow"><span class="ko">시작하기</span><span class="en">Get started</span></span>
-    <h2>
-      <span class="ko">연구실은 무료.<br>데이터는 연구실 서버에.</span>
-      <span class="en">Free for your lab.<br>Yours, on your own server.</span>
-    </h2>
-    <p>
-      <span class="ko">무료 클라우드 VM 한 대에 자동 HTTPS와 야간 백업으로 올릴 수 있습니다. 아니면 호스팅된 앱을 지금 바로 열어도 됩니다.</span>
-      <span class="en">Deploy on a free-tier cloud VM with automatic HTTPS and nightly backups — or just open the hosted app right now.</span>
-    </p>
-    <div class="cta-ctas">
-      <a class="btn btn-crimson btn-lg" href="https://commonnote.app" target="_blank" rel="noopener">
-        <span class="ko">CommonNote 열기</span><span class="en">Open CommonNote</span>
+    <footer class="site-footer">
+      <a class="brand footer-brand" href="#top">
+        <img src="./assets/icon.svg" width="34" height="34" alt="" />
+        <span>CommonNote</span>
       </a>
-      <a class="btn btn-ghost btn-lg" href="https://commonnote.app/downloads/" target="_blank" rel="noopener">
-        <span class="ko">macOS 다운로드</span><span class="en">Download for macOS</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap foot-in">
-    <img src="icon.svg" alt="">
-    <span>CommonNote · <span class="ko">연구실 실험 노트</span><span class="en">Electronic Lab Notebook</span></span>
-    <div class="foot-links">
-      <a href="https://commonnote.app" target="_blank" rel="noopener">commonnote.app</a>
-      <a href="https://commonnote.app/privacy" target="_blank" rel="noopener"><span class="ko">개인정보 처리방침</span><span class="en">Privacy</span></a>
-    </div>
-  </div>
-</footer>
-
-<script>
-(function(){
-  var KEY='cn.landing.lang';
-  var saved=null;
-  try{saved=localStorage.getItem(KEY)}catch(e){}
-  var lang=saved || 'en';
-  apply(lang);
-  document.getElementById('langToggle').addEventListener('click',function(){
-    lang = (lang==='ko') ? 'en' : 'ko';
-    try{localStorage.setItem(KEY,lang)}catch(e){}
-    apply(lang);
-  });
-  function apply(l){
-    document.documentElement.setAttribute('data-lang',l);
-    document.documentElement.setAttribute('lang',l);
-    document.title = (l==='ko')
-      ? 'CommonNote — 연구실이 함께 쓰는 실험 노트'
-      : 'CommonNote — The lab notebook your whole lab writes together';
-  }
-})();
-
-/* Live status toasts on the phone mock — done / success / delayed / review / due. */
-(function(){
-  var stack=document.getElementById('toastStack');
-  if(!stack) return;
-  var TOASTS=[
-    {tag:'DONE',c:'#166534',icon:'✅',title:'Miniprep 12 colonies',body:'Marked done by Jae',when:'now'},
-    {tag:'DELAYED',c:'#A51C30',icon:'⏰',title:'−80 °C freezer check',body:'Overdue 2 h — nudge sent to Dokyun',when:'now'},
-    {tag:'SUCCESS',c:'#166534',icon:'🎉',title:'Sequencing verified',body:'Lanes 3 / 7 / 11 match — review closed',when:'now'},
-    {tag:'REVIEW',c:'#4338CA',icon:'🔍',title:'Review requested',body:'Minji asked you to check chromatograms',when:'now'},
-    {tag:'DUE TODAY',c:'#854D0E',icon:'📅',title:'Order NcoI-HF (NEB)',body:'Due Friday — calendar reminder',when:'now'}
-  ];
-  function make(t){
-    var el=document.createElement('div');
-    el.className='toast enter';
-    el.innerHTML='<img class="t-icon" src="icon.svg" alt="">'+
-      '<div class="t-body"><div class="t-head"><b>'+t.title+'</b>'+
-      '<span class="t-tag" style="background:'+t.c+'">'+t.tag+'</span>'+
-      '<span class="t-when">'+t.when+'</span></div>'+t.body+'</div>';
-    return el;
-  }
-  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var i=0;
-  // Seed the first three so the screen never looks empty.
-  for(var s=2;s>=0;s--){var e0=make(TOASTS[s]);e0.className='toast';stack.appendChild(e0);}
-  i=3;
-  if(reduced) return;
-  setInterval(function(){
-    if(document.hidden) return;
-    var el=make(TOASTS[i%TOASTS.length]); i++;
-    stack.insertBefore(el,stack.firstChild);
-    requestAnimationFrame(function(){requestAnimationFrame(function(){el.classList.remove('enter');});});
-    while(stack.children.length>3){
-      var last=stack.children[stack.children.length-1];
-      last.classList.add('leave');
-      (function(n){setTimeout(function(){n.remove();},460);})(last);
-      break;
-    }
-  },2800);
-})();
-</script>
-</body>
+      <p>관찰에서 실행까지 이어지는 공동 연구 노트.</p>
+      <nav aria-label="서비스 정보">
+        <a href="https://commonnote.app/privacy.html">개인정보처리방침</a>
+        <a href="https://commonnote.app/terms.html">이용약관</a>
+        <a href="https://commonnote.app/support.html">지원</a>
+        <a href="../">만든 사람</a>
+      </nav>
+      <small>© 2026 CommonNote</small>
+    </footer>
+  </body>
 </html>
