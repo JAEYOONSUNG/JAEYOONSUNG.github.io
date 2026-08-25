@@ -18,6 +18,7 @@ const requiredFiles = [
   ".nojekyll",
   "assets/icon.svg",
   "assets/icon-192.png",
+  "assets/hero-lab-v2.png",
   "assets/og-card.png",
   "fonts/pretendard/pretendard.css",
   "fonts/pretendard/LICENSE.txt",
@@ -41,7 +42,14 @@ check(/@media \(prefers-reduced-motion: reduce\)/.test(css), "CSS must support r
 check(/:focus-visible/.test(css), "CSS must provide visible keyboard focus");
 check(/prefers-reduced-motion: reduce/.test(js), "JavaScript must respect reduced motion");
 check(!/\bonclick\s*=/.test(html), "inline click handlers are not allowed");
-check(!/0 lost context|100%|완벽한|무조건/.test(html), "avoid unverifiable product claims");
+check(!/0 lost context|완벽한|무조건/.test(html), "avoid unverifiable product claims");
+check(
+  !/launch-hero|motion-lab|proof-strip|flow-instrument|rooms-grid|cta-orbit|evidence-thread/.test(html),
+  "stale v1 decorative components must be removed",
+);
+check(!/qa_surface|성재윤|nkim/.test(html), "published demo data must not contain QA or personal account names");
+check(/data-journey/.test(html), "page must include the evidence-to-action journey demo");
+check(/hero-lab-v2\.png/.test(html), "page must include the CommonNote laboratory hero asset");
 
 const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
 check(new Set(ids).size === ids.length, "all HTML ids must be unique");

@@ -3,28 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f7f7fb" />
-    <meta
-      name="description"
-      content="CommonNote는 관찰, 근거, 결정, 할 일을 한 흐름으로 연결하는 공동 연구 노트입니다."
-    />
+    <meta name="theme-color" content="#f7f8fa" />
+    <meta name="description" content="CommonNote는 관찰, 근거, 결정, 할 일과 일정을 한 흐름으로 연결하는 공동 연구 노트입니다." />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ko_KR" />
     <meta property="og:title" content="CommonNote — 관찰에서 실행까지" />
-    <meta
-      property="og:description"
-      content="노트, 관계 맵, 할 일, 캘린더가 같은 연구 맥락을 공유합니다."
-    />
-    <meta
-      property="og:image"
-      content="https://jaeyoonsung.github.io/commonnote/assets/og-card.png"
-    />
+    <meta property="og:description" content="연구 노트에 남긴 한 줄이 근거와 다음 실행으로 이어집니다." />
+    <meta property="og:image" content="https://jaeyoonsung.github.io/commonnote/assets/og-card.png" />
     <meta property="og:url" content="https://jaeyoonsung.github.io/commonnote/" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://jaeyoonsung.github.io/commonnote/" />
     <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./assets/icon-192.png" />
     <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="preload" href="./assets/hero-lab-v2.png" as="image" />
     <link rel="stylesheet" href="./fonts/pretendard/pretendard.css" />
     <link rel="stylesheet" href="./styles.css" />
     <script src="./site.js" defer></script>
@@ -34,407 +26,159 @@
     <a class="skip-link" href="#main">본문으로 건너뛰기</a>
 
     <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="CommonNote 소개 처음으로">
-        <img src="./assets/icon.svg" width="38" height="38" alt="" />
-        <span>CommonNote</span>
-      </a>
-
-      <button
-        class="nav-toggle"
-        type="button"
-        aria-label="메뉴 열기"
-        aria-expanded="false"
-        aria-controls="site-navigation"
-        data-nav-toggle
-      >
-        <span></span><span></span>
-      </button>
-
-      <nav id="site-navigation" class="site-nav" aria-label="소개 페이지" data-nav>
-        <a href="#flow">흐름</a>
-        <a href="#rooms">작업 공간</a>
-        <a href="#principles">원칙</a>
-        <a class="nav-cta" href="https://commonnote.app/">앱 열기</a>
-      </nav>
+      <div class="nav-shell">
+        <a class="brand" href="#top" aria-label="CommonNote 소개 처음으로">
+          <img src="./assets/icon.svg" width="30" height="30" alt="" />
+          <span>CommonNote</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="site-navigation" data-nav-toggle>
+          <span></span><span></span>
+        </button>
+        <nav id="site-navigation" class="site-nav" aria-label="소개 페이지" data-nav>
+          <a href="#flow">흐름</a>
+          <a href="#workspace">관계 맵</a>
+          <a href="#action">할 일과 일정</a>
+          <a class="nav-cta" href="https://commonnote.app/">앱 열기</a>
+        </nav>
+      </div>
     </header>
 
     <main id="main">
-      <section id="top" class="launch-hero" aria-labelledby="launch-title">
-        <div class="launch-field" aria-hidden="true">
-          <span class="launch-orbit orbit-one"></span>
-          <span class="launch-orbit orbit-two"></span>
-          <span class="launch-glow glow-one"></span>
-          <span class="launch-glow glow-two"></span>
-          <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
-            <path d="M-80 640 C260 410 410 744 704 481 S1120 164 1530 376" />
-          </svg>
-        </div>
-
-        <div class="launch-copy reveal" data-reveal>
-          <div class="launch-mark">
-            <span class="launch-mark-halo"></span>
-            <img src="./assets/icon.svg" width="72" height="72" alt="" />
-          </div>
-          <p class="launch-kicker">COMMONNOTE · CONNECTED RESEARCH</p>
-          <h1 id="launch-title">관찰을 담는 순간,<br />연구가 움직입니다.</h1>
-          <p>
-            흩어진 노트와 판단, 할 일과 일정을<br class="mobile-break" />
-            하나의 살아 있는 연구 맥락으로.
-          </p>
-          <div class="launch-actions">
-            <a class="button button-light" href="https://commonnote.app/">
-              CommonNote 열기
-              <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5" /></svg>
-            </a>
-            <a class="launch-text-link" href="#story">어떻게 이어지는지 보기 <span>↓</span></a>
-          </div>
-        </div>
-
-        <div class="launch-status" aria-hidden="true">
-          <span>OBSERVATION</span><i></i><span>EVIDENCE</span><i></i><span>ACTION</span>
-        </div>
-      </section>
-
-      <section id="story" class="hero story-intro section-shell" aria-labelledby="hero-title">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <img class="hero-media" src="./assets/hero-lab-v2.png" width="1672" height="941" alt="" fetchpriority="high" />
+        <div class="hero-shade" aria-hidden="true"></div>
         <div class="hero-copy reveal" data-reveal>
-          <p class="eyebrow"><span></span> Research workspace, connected</p>
-          <h2 id="hero-title">
-            관찰이<br />
-            <span class="kinetic-wrap">
-              <span class="kinetic-word" data-kinetic-word>근거</span><span data-kinetic-particle>로</span><span class="kinetic-caret"></span>
-            </span> 이어지는 속도.
-          </h2>
-          <p class="hero-lede">
-            실험 노트에 남긴 한 줄이 관계 맵의 근거가 되고, 팀의 할 일과 다음 일정으로
-            이어집니다. 맥락을 다시 조립하지 않아도 되는 공동 연구 노트.
-          </p>
+          <p class="hero-kicker">CONNECTED RESEARCH WORKSPACE</p>
+          <h1 id="hero-title">관찰에서 실행까지.<br />한 곳에서 이어집니다.</h1>
+          <p>노트에 남긴 한 줄이 판단의 근거가 되고,<br />팀의 할 일과 다음 실험 일정으로 이어집니다.</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="https://commonnote.app/">
-              웹에서 시작하기
-              <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5" /></svg>
-            </a>
-            <a class="button button-quiet" href="#flow">흐름 살펴보기</a>
+            <a class="button button-blue" href="https://commonnote.app/">웹에서 시작하기<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" /></svg></a>
+            <a class="button button-glass" href="#flow">제품 흐름 보기</a>
           </div>
-          <ul class="hero-proof" aria-label="주요 특성">
-            <li><span>01</span> 실시간 공동 편집</li>
-            <li><span>02</span> 근거와 실행의 연결</li>
-            <li><span>03</span> 내보내기 가능한 기록</li>
-          </ul>
+          <span class="hero-note">설치 없이 브라우저에서 시작 · 기록 내보내기 지원</span>
         </div>
 
-        <div class="motion-heading reveal" data-reveal>
-          <p><span>ONE SOURCE / FOUR VIEWS</span> 한 기록이 필요한 화면으로 이동합니다.</p>
-          <div><i></i> LIVE CONTEXT</div>
-        </div>
-
-        <div class="motion-lab reveal" data-reveal data-motion-lab aria-label="CommonNote의 네 작업 화면">
-          <div class="motion-grid">
-            <article class="motion-tile note-tile is-active" data-scene-tile="0">
-              <header>
-                <span class="tile-index">01</span>
-                <span>LIVE NOTE</span>
-                <i class="live-dot"></i>
-              </header>
-              <div class="note-date">2026.08.26 · 09:41</div>
-              <h2>Collagenase activity</h2>
-              <p class="typed-observation">
-                <span>37°C에서 활성 유지</span><b></b>
-              </p>
-              <div class="author-chip"><span>JY</span> 관찰 기록됨</div>
-            </article>
-
-            <article class="motion-tile map-tile" data-scene-tile="1">
-              <header>
-                <span class="tile-index">02</span>
-                <span>RELATION MAP</span>
-                <i>3 links</i>
-              </header>
-              <svg class="map-lines" viewBox="0 0 480 250" aria-hidden="true">
-                <defs>
-                  <linearGradient id="map-line-gradient" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#2fd3a5" />
-                    <stop offset="0.52" stop-color="#6f5aff" />
-                    <stop offset="1" stop-color="#eb5a70" />
-                  </linearGradient>
-                  <filter id="map-glow">
-                    <feGaussianBlur stdDeviation="4" result="blur" />
-                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                  </filter>
-                </defs>
-                <path d="M86 74 C166 70 188 132 250 134 S346 87 406 104" />
-                <path d="M250 134 C286 172 321 190 387 197" />
-              </svg>
-              <div class="map-node node-observation"><small>관찰</small><strong>활성 유지</strong></div>
-              <div class="map-node node-evidence"><small>근거</small><strong>assay #24</strong></div>
-              <div class="map-node node-decision"><small>결정</small><strong>조건 확정</strong></div>
-              <div class="map-node node-next"><small>다음</small><strong>scale-up</strong></div>
-            </article>
-
-            <article class="motion-tile task-tile" data-scene-tile="2">
-              <header>
-                <span class="tile-index">03</span>
-                <span>ACTION QUEUE</span>
-                <i>Today</i>
-              </header>
-              <div class="task-row task-done">
-                <span class="task-check">✓</span>
-                <div><strong>활성 데이터 검토</strong><small>근거 노트 · assay #24</small></div>
-                <b>완료</b>
-              </div>
-              <div class="task-row task-live">
-                <span class="task-check"></span>
-                <div><strong>3일 배양 조건 확정</strong><small>담당 · JY</small></div>
-                <b>진행</b>
-              </div>
-              <div class="task-row">
-                <span class="task-check"></span>
-                <div><strong>scale-up 준비</strong><small>Source Thread · Collagenase</small></div>
-                <b>대기</b>
-              </div>
-            </article>
-
-            <article class="motion-tile calendar-tile" data-scene-tile="3">
-              <header>
-                <span class="tile-index">04</span>
-                <span>CALENDAR</span>
-                <i>AUG 26</i>
-              </header>
-              <div class="calendar-week" aria-hidden="true">
-                <span><small>M</small>24</span>
-                <span><small>T</small>25</span>
-                <span class="calendar-today"><small>W</small>26</span>
-                <span><small>T</small>27</span>
-                <span><small>F</small>28</span>
-              </div>
-              <div class="calendar-event">
-                <i></i>
-                <div><small>14:00–16:00</small><strong>Scale-up run</strong></div>
-                <span>JY · DW</span>
-              </div>
-              <div class="calendar-line"><span></span></div>
-            </article>
-          </div>
-
-          <svg class="evidence-thread" viewBox="0 0 1000 720" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="thread-gradient" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#a51c30" />
-                <stop offset="0.4" stop-color="#6f5aff" />
-                <stop offset="0.72" stop-color="#2fd3a5" />
-                <stop offset="1" stop-color="#f3a24b" />
-              </linearGradient>
-              <filter id="thread-glow">
-                <feGaussianBlur stdDeviation="9" result="blur" />
-                <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-              </filter>
-            </defs>
-            <path class="thread-halo" d="M120 155 C360 105 395 230 500 270 S650 365 760 400 S735 560 875 595" />
-            <path class="thread-core" d="M120 155 C360 105 395 230 500 270 S650 365 760 400 S735 560 875 595" />
-          </svg>
-
-          <div class="motion-caption">
-            <span data-scene-count>01 / 04</span>
-            <p data-scene-label>관찰을 기록하는 순간</p>
-            <div class="scene-progress"><i data-scene-progress></i></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="proof-strip" aria-label="한 기록의 네 가지 보기">
-        <p><span>ONE SOURCE</span> 같은 기록을 네 번 옮기지 않습니다.</p>
-        <div>
-          <span>노트</span><i></i><span>관계</span><i></i><span>할 일</span><i></i><span>일정</span>
-        </div>
-      </section>
-
-      <section id="flow" class="flow-section">
-        <div class="section-shell flow-shell">
-          <header class="section-heading reveal" data-reveal>
-            <p class="eyebrow light"><span></span> Evidence thread</p>
-            <h2>한 줄의 관찰이<br />사라지지 않도록.</h2>
-            <p>
-              문서, 회의, 메신저 사이를 떠돌던 판단 근거를 한 흐름에 남깁니다.
-              무엇을 보았고, 왜 결정했고, 누가 다음을 맡았는지 이어서 읽을 수 있습니다.
-            </p>
-          </header>
-
-          <div class="flow-rail reveal" data-reveal>
-            <ol>
-              <li class="is-current" data-flow-step="0">
-                <span>01</span>
-                <div><small>OBSERVATION</small><strong>37°C에서 활성이 유지됐다.</strong></div>
-                <i></i>
-              </li>
-              <li data-flow-step="1">
-                <span>02</span>
-                <div><small>EVIDENCE</small><strong>assay #24를 판단 근거로 연결.</strong></div>
-                <i></i>
-              </li>
-              <li data-flow-step="2">
-                <span>03</span>
-                <div><small>DECISION</small><strong>3일 배양 조건을 확정.</strong></div>
-                <i></i>
-              </li>
-              <li data-flow-step="3">
-                <span>04</span>
-                <div><small>ACTION</small><strong>scale-up 실행과 담당자를 예약.</strong></div>
-              </li>
-            </ol>
-
-            <div class="flow-instrument" aria-label="근거 흐름 예시">
-              <div class="instrument-topline">
-                <span>CN · EVIDENCE 024</span>
-                <span class="instrument-live"><i></i> synced now</span>
-              </div>
-              <div class="instrument-stage">
-                <p data-flow-kicker>Observation</p>
-                <strong data-flow-value>37°C / activity stable</strong>
-                <span data-flow-meta>notebook · Collagenase</span>
-              </div>
-              <div class="instrument-wave" aria-hidden="true">
-                <svg viewBox="0 0 640 160" preserveAspectRatio="none">
-                  <path d="M0 109 C54 109 66 44 119 48 S178 133 233 101 S311 49 356 74 S435 126 480 92 S542 24 640 42" />
-                </svg>
-                <i></i>
-              </div>
-              <div class="instrument-foot">
-                <span><b>↗</b> source retained</span>
-                <span><b>◎</b> authors visible</span>
-                <span><b>✓</b> next step linked</span>
-              </div>
+        <div class="hero-window-wrap reveal" data-reveal>
+          <div class="product-window hero-window" aria-label="CommonNote 연구 노트 예시">
+            <div class="window-chrome">
+              <div class="traffic" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span class="window-title"><img src="./assets/icon.svg" alt="" /> CommonNote</span>
+              <div class="window-people" aria-label="현재 공동 편집자"><span>JY</span><span>DW</span><b>동기화됨</b></div>
+            </div>
+            <div class="hero-app-grid">
+              <aside class="app-sidebar" aria-hidden="true">
+                <strong>Workspace</strong>
+                <ul><li>모든 노트</li><li>할 일 <b>4</b></li><li class="is-selected">프로젝트 트리</li><li>캘린더</li></ul>
+                <small>PROJECTS</small>
+                <div class="side-tree"><span>⌄ 단백질 정제</span><span>　⌄ Collagenase</span><span class="is-current">　　활성 조건 재현</span></div>
+              </aside>
+              <article class="note-surface">
+                <div class="note-toolbar"><span>활성 조건 재현</span><div><i>공유</i><i>•••</i></div></div>
+                <div class="note-meta">2026.08.26　·　JY, DW 공동 편집</div>
+                <h2>Collagenase activity</h2>
+                <p class="note-lede">37°C에서 3일 동안 활성이 안정적으로 유지됐다.</p>
+                <div class="assay-table" aria-hidden="true">
+                  <div><span>조건</span><span>Day 1</span><span>Day 2</span><span>Day 3</span></div>
+                  <div><b>37°C</b><span>96%</span><span>94%</span><span class="cell-good">93%</span></div>
+                  <div><b>42°C</b><span>81%</span><span>62%</span><span>41%</span></div>
+                </div>
+                <div class="observation-line"><span class="author-dot">JY</span><p><b>관찰</b> 37°C 조건을 다음 배양 기준으로 사용.</p><em>근거로 연결됨</em></div>
+              </article>
+              <aside class="context-surface" aria-hidden="true">
+                <div class="context-head"><span>Source thread</span><b>3 links</b></div>
+                <div class="thread-step is-live"><i></i><small>관찰</small><strong>활성 유지</strong></div><div class="thread-line"></div>
+                <div class="thread-step"><i></i><small>근거</small><strong>assay #24</strong></div><div class="thread-line"></div>
+                <div class="thread-step"><i></i><small>다음</small><strong>scale-up run</strong></div>
+              </aside>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="rooms" class="rooms-section section-shell" aria-labelledby="rooms-title">
-        <header class="section-heading reveal" data-reveal>
-          <p class="eyebrow"><span></span> Four useful views</p>
-          <h2 id="rooms-title">연구는 한 화면으로<br />끝나지 않으니까.</h2>
-          <p>같은 맥락을 각 순간에 가장 쓸모 있는 형태로 봅니다.</p>
+      <section class="manifesto" aria-labelledby="manifesto-title">
+        <div class="section-shell manifesto-inner reveal" data-reveal>
+          <h2 id="manifesto-title">CommonNote는 기록에서 끝나지 않습니다.<br /><span>다음 판단과 실행까지.</span></h2>
+          <ol aria-label="CommonNote 연구 흐름">
+            <li><i>✎</i><span>기록</span></li><li><i>↗</i><span>연결</span></li><li><i>◇</i><span>결정</span></li><li><i>✓</i><span>할당</span></li><li><i>□</i><span>일정</span></li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="flow" class="chapter chapter-flow section-shell" aria-labelledby="flow-title">
+        <header class="chapter-heading centered reveal" data-reveal>
+          <p class="chapter-tag blue">기록에서 다음 행동까지</p>
+          <h2 id="flow-title">한 줄을 남기면,<br />필요한 곳으로 이어집니다.</h2>
+          <p>복사하거나 다시 설명하지 않아도 원본 노트와 판단 근거가 함께 이동합니다.</p>
         </header>
-
-        <div class="rooms-grid">
-          <article class="room room-note reveal" data-reveal>
-            <div class="room-copy">
-              <span>01 · NOTEBOOK</span>
-              <h3>기록은 빠르게,<br />출처는 분명하게.</h3>
-              <p>공동 편집, 작성자 표시, 이미지와 표, 버전 기록을 한 노트 안에서 다룹니다.</p>
-            </div>
-            <div class="note-demo" aria-hidden="true">
-              <div class="demo-toolbar"><i></i><i></i><i></i><span>2026.08.26</span></div>
-              <p><b>Observation</b></p>
-              <p>Enzyme activity remained stable at 37°C.</p>
-              <p class="demo-highlight">→ link as evidence <span>⌘K</span></p>
-              <div class="demo-caret"></div>
-            </div>
-          </article>
-
-          <article class="room room-map reveal" data-reveal>
-            <div class="room-copy">
-              <span>02 · RELATIONSHIP MAP</span>
-              <h3>판단의 이유를<br />선으로 남깁니다.</h3>
-              <p>노트와 메모를 연결하고 방향, 의미, 강도를 표시해 팀의 사고 경로를 읽습니다.</p>
-            </div>
-            <div class="map-demo" aria-hidden="true">
-              <svg viewBox="0 0 600 330">
-                <path d="M120 95 C230 95 245 170 325 166 S425 95 505 120" />
-                <path d="M325 166 C350 218 400 249 488 252" />
-              </svg>
-              <span class="demo-node a">관찰</span>
-              <span class="demo-node b">근거</span>
-              <span class="demo-node c">결정</span>
-              <span class="demo-node d">실행</span>
-            </div>
-          </article>
-
-          <article class="room room-task reveal" data-reveal>
-            <div class="room-copy">
-              <span>03 · TASKS</span>
-              <h3>노트에서 나온 일이<br />대기열에 바로 보입니다.</h3>
-              <p>담당자, 상태, 기한, 원본 노트를 잃지 않고 목록·카드·보드로 전환합니다.</p>
-            </div>
-            <div class="task-demo" aria-hidden="true">
-              <div><span class="check done">✓</span><p>assay 검토<small>완료 · JY</small></p><b>source ↗</b></div>
-              <div><span class="check"></span><p>배양 조건 확정<small>진행 · DW</small></p><b>today</b></div>
-              <div><span class="check"></span><p>scale-up 준비<small>대기 · team</small></p><b>Aug 28</b></div>
-            </div>
-          </article>
-
-          <article class="room room-calendar reveal" data-reveal>
-            <div class="room-copy">
-              <span>04 · CALENDAR</span>
-              <h3>실험의 시간도<br />같은 맥락 안에서.</h3>
-              <p>기한과 실험 일정, 반복 업무를 원본 기록으로 돌아갈 수 있는 캘린더에 놓습니다.</p>
-            </div>
-            <div class="calendar-demo" aria-hidden="true">
-              <div class="calendar-demo-head"><b>AUGUST</b><span>2026</span></div>
-              <div class="calendar-demo-grid">
-                <span>24</span><span>25</span><span class="today">26<i></i></span><span>27</span><span>28</span>
-              </div>
-              <div class="calendar-demo-event"><i></i><span><b>Scale-up run</b><small>14:00 · JY + DW</small></span></div>
-            </div>
-          </article>
+        <div class="journey-stage reveal" data-reveal data-journey>
+          <div class="journey-topbar"><span>활성 조건 재현</span><div><i></i> 팀과 동기화됨</div></div>
+          <div class="journey-canvas">
+            <article class="journey-card journey-note" data-journey-item="0">
+              <header><span class="mini-avatar">JY</span><div><b>실험 노트</b><small>오늘 09:41</small></div></header>
+              <h3>Observation</h3><p>37°C에서 3일 동안<br />효소 활성이 유지됐다.</p><span class="journey-link"><span>↗</span> 근거로 연결</span>
+            </article>
+            <div class="journey-node" data-journey-item="1"><span>Evidence</span><b>assay #24</b><small>원본 노트 유지</small></div>
+            <article class="journey-card journey-task" data-journey-item="2">
+              <header><span class="task-ring"></span><div><b>Scale-up run</b><small>프로젝트 · Collagenase</small></div></header>
+              <div class="task-details"><span>JY 담당</span><span>8월 28일</span></div><footer><i></i> Source thread 연결됨</footer>
+            </article>
+            <svg class="journey-lines" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true"><path class="journey-line-base" d="M245 250 C370 250 370 175 500 175 S640 250 755 250" /><path class="journey-line-active" d="M245 250 C370 250 370 175 500 175 S640 250 755 250" /></svg>
+            <div class="journey-cursor" aria-hidden="true"><svg viewBox="0 0 32 40"><path d="M3 2l24 22-12 2-6 11z" /></svg></div>
+          </div>
+          <div class="journey-footer"><p data-journey-label>관찰을 선택합니다.</p><div class="journey-controls" aria-label="흐름 장면 선택"><button class="is-active" type="button" aria-label="관찰 장면" data-journey-button="0"></button><button type="button" aria-label="근거 장면" data-journey-button="1"></button><button type="button" aria-label="할 일 장면" data-journey-button="2"></button></div></div>
         </div>
       </section>
 
-      <section id="principles" class="principles-section">
+      <section id="workspace" class="chapter map-chapter" aria-labelledby="map-title">
         <div class="section-shell">
-          <header class="section-heading reveal" data-reveal>
-            <p class="eyebrow light"><span></span> Built for research continuity</p>
-            <h2>팀의 속도보다<br />기록의 수명이 길도록.</h2>
+          <header class="chapter-heading centered reveal" data-reveal>
+            <p class="chapter-tag">관계 맵</p><h2 id="map-title">흩어진 기록이<br />하나의 판단 경로로.</h2><p>노트와 메모를 방향, 의미, 강도가 있는 관계로 연결해 사고의 흐름을 읽습니다.</p>
           </header>
-          <div class="principles-grid">
-            <article class="reveal" data-reveal>
-              <span>SHARED CONTEXT</span>
-              <h3>함께 써도 누가 남겼는지.</h3>
-              <p>실시간 협업과 작성자 맥락을 유지해 수정과 인계가 분리되지 않습니다.</p>
-            </article>
-            <article class="reveal" data-reveal>
-              <span>PRIVATE CONTROL</span>
-              <h3>공유와 잠금을 기록 단위로.</h3>
-              <p>공유 범위, 비밀번호 잠금, 개인 표시 설정을 연구 방식에 맞춰 선택합니다.</p>
-            </article>
-            <article class="reveal" data-reveal>
-              <span>DURABLE RECORD</span>
-              <h3>서비스 밖에서도 읽을 수 있게.</h3>
-              <p>Markdown·HTML·PDF·전체 백업으로 기록을 한 제품 안에 가두지 않습니다.</p>
-            </article>
+          <div class="map-stage reveal" data-reveal>
+            <div class="product-window map-window" aria-label="CommonNote 관계 맵 예시">
+              <div class="window-chrome light"><div class="traffic" aria-hidden="true"><i></i><i></i><i></i></div><span class="window-title"><img src="./assets/icon.svg" alt="" /> Relationship map</span><div class="map-actions"><span>100%</span><i>+ 연결</i></div></div>
+              <div class="map-app">
+                <aside class="map-lenses" aria-hidden="true"><strong>프로젝트 렌즈</strong><div class="is-selected"><i></i><b>활성 조건</b><small>노트 3 · 메모 2</small></div><div><i></i><b>정제 공정</b><small>노트 4 · 메모 1</small></div><div><i></i><b>Scale-up</b><small>노트 2 · 메모 3</small></div></aside>
+                <div class="map-canvas">
+                  <div class="map-toolbar"><span>자동 배치</span><span>관계 이름</span><span>화살표</span><span>색상</span></div>
+                  <svg viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true"><defs><marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" /></marker><marker id="arrow-crimson" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8z" /></marker></defs><path class="edge edge-blue" d="M195 185C310 185 330 275 455 275" marker-end="url(#arrow-blue)" /><path class="edge edge-crimson" d="M540 275C670 275 680 170 810 170" marker-end="url(#arrow-crimson)" /><path class="edge edge-soft" d="M540 300C660 340 675 430 805 430" marker-end="url(#arrow-blue)" /></svg>
+                  <article class="map-card map-card-a"><small>관찰 노트</small><b>37°C 활성 유지</b><span>JY · 09:41</span></article><article class="map-card map-card-b is-focus"><small>근거</small><b>assay #24</b><span>신뢰도 · 높음</span></article><article class="map-card map-card-c"><small>결정</small><b>배양 조건 확정</b><span>JY + DW</span></article><article class="map-card map-card-d"><small>다음 실행</small><b>Scale-up run</b><span>8월 28일</span></article>
+                  <div class="map-legend"><span><i class="blue-dot"></i>근거</span><span><i class="red-dot"></i>결정</span></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="final-cta section-shell reveal" data-reveal aria-labelledby="cta-title">
-        <div>
-          <p class="eyebrow"><span></span> Keep the evidence moving</p>
-          <h2 id="cta-title">다음 결정은<br />이전 근거 위에서.</h2>
+      <section id="action" class="chapter action-chapter section-shell" aria-labelledby="action-title">
+        <header class="chapter-heading centered reveal" data-reveal><p class="chapter-tag amber">할 일과 일정</p><h2 id="action-title">결정한 다음을<br />바로 실행할 수 있게.</h2><p>담당자, 상태, 기한, 원본 노트를 잃지 않은 채 목록과 캘린더로 전환합니다.</p></header>
+        <div class="action-grid">
+          <article class="action-panel task-panel reveal" data-reveal>
+            <header class="panel-copy"><span>TASKS</span><h3>오늘 해야 할 일이<br />근거와 함께 보입니다.</h3></header>
+            <div class="task-ui" aria-hidden="true"><div class="task-ui-head"><b>할 일</b><span>카드</span><i>+ 추가</i></div><div class="task-summary"><span><small>기한 지남</small><b>1</b></span><span><small>오늘</small><b>2</b></span><span><small>7일 안</small><b>3</b></span></div><div class="task-card-ui overdue"><div><i></i><b>배양 조건 검토</b><em>기한 지남</em></div><p>Source thread · assay #24</p><footer><span>JY</span><span>검토 중</span><span>원본 ↗</span></footer></div><div class="task-card-ui"><div><i></i><b>Scale-up 준비</b><em class="soon">8월 28일</em></div><p>프로젝트 · Collagenase</p><footer><span>DW</span><span>대기</span><span>원본 ↗</span></footer></div></div>
+          </article>
+          <article class="action-panel calendar-panel reveal" data-reveal>
+            <header class="panel-copy"><span>CALENDAR</span><h3>실험의 시간도<br />같은 맥락 안에서.</h3></header>
+            <div class="calendar-ui" aria-hidden="true"><div class="calendar-ui-head"><i>‹</i><b>2026년 8월</b><i>›</i></div><div class="week-head"><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span></div><div class="week-grid"><span>24</span><span>25</span><span class="is-today">26</span><span>27</span><span>28</span></div><div class="time-row"><small>10:00</small><i></i></div><div class="time-row"><small>14:00</small><i></i><div class="calendar-event"><b>Scale-up run</b><span>JY · DW　14:00–16:00</span><em>원본 노트 ↗</em></div></div><div class="time-row"><small>18:00</small><i></i></div></div>
+          </article>
         </div>
-        <div class="final-cta-copy">
-          <p>노트 하나로 시작해 보세요. 필요해지는 순간 관계, 업무, 일정이 같은 맥락으로 열립니다.</p>
-          <a class="button button-primary" href="https://commonnote.app/">
-            CommonNote 열기
-            <svg aria-hidden="true" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5" /></svg>
-          </a>
+      </section>
+
+      <section class="continuity" aria-labelledby="continuity-title">
+        <div class="section-shell continuity-grid">
+          <header class="chapter-heading light reveal" data-reveal><p class="chapter-tag dark">기록의 연속성</p><h2 id="continuity-title">누가, 무엇을,<br />왜 바꿨는지.</h2><p>공동 편집과 작성자 맥락, 버전 기록을 유지하고 필요할 때 서비스 밖으로 내보냅니다.</p><ul><li><span>✓</span> 작성자와 변경 시점 유지</li><li><span>✓</span> 공유 범위와 잠금 선택</li><li><span>✓</span> Markdown · HTML · PDF · 전체 백업</li></ul></header>
+          <div class="history-window reveal" data-reveal aria-hidden="true"><div class="history-head"><span>Version history</span><b>현재 버전</b></div><div class="history-item is-current"><i>JY</i><div><b>배양 조건을 확정함</b><span>오늘 10:18 · 결정 노트 연결</span></div><em>현재</em></div><div class="history-item"><i>DW</i><div><b>assay #24 결과를 첨부함</b><span>오늘 09:52 · 이미지 2개</span></div></div><div class="history-item"><i>JY</i><div><b>관찰을 처음 기록함</b><span>오늘 09:41 · 실험 노트</span></div></div><div class="export-row"><span>이 기록 내보내기</span><div><b>MD</b><b>HTML</b><b>PDF</b><b>ZIP</b></div></div></div>
         </div>
-        <div class="cta-orbit" aria-hidden="true">
-          <span></span><i></i><b></b>
-        </div>
+      </section>
+
+      <section class="final-cta section-shell reveal" data-reveal aria-labelledby="final-title">
+        <img src="./assets/icon.svg" width="72" height="72" alt="" /><p class="chapter-tag">COMMONNOTE</p><h2 id="final-title">다음 결정이<br />이전 근거 위에 놓이도록.</h2><p>노트 하나로 시작하세요. 관계, 업무, 일정은 필요해지는 순간 같은 맥락으로 열립니다.</p><a class="button button-dark" href="https://commonnote.app/">CommonNote 열기<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" /></svg></a>
       </section>
     </main>
 
     <footer class="site-footer">
-      <a class="brand footer-brand" href="#top">
-        <img src="./assets/icon.svg" width="34" height="34" alt="" />
-        <span>CommonNote</span>
-      </a>
-      <p>관찰에서 실행까지 이어지는 공동 연구 노트.</p>
-      <nav aria-label="서비스 정보">
-        <a href="https://commonnote.app/privacy.html">개인정보처리방침</a>
-        <a href="https://commonnote.app/terms.html">이용약관</a>
-        <a href="https://commonnote.app/support.html">지원</a>
-        <a href="../">만든 사람</a>
-      </nav>
-      <small>© 2026 CommonNote</small>
+      <a class="brand footer-brand" href="#top"><img src="./assets/icon.svg" width="28" height="28" alt="" /><span>CommonNote</span></a><p>관찰에서 실행까지 이어지는 공동 연구 노트.</p><nav aria-label="서비스 정보"><a href="https://commonnote.app/privacy.html">개인정보처리방침</a><a href="https://commonnote.app/terms.html">이용약관</a><a href="https://commonnote.app/support.html">지원</a><a href="../">만든 사람</a></nav><small>© 2026 CommonNote</small>
     </footer>
   </body>
 </html>
