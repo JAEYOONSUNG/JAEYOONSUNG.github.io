@@ -35,6 +35,65 @@ document.documentElement.classList.add("js");
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
 
+  const motionFrames = [...document.querySelectorAll("[data-motion-frame]")];
+  motionFrames.forEach((frame) => {
+    const video = frame.querySelector("[data-motion-video]");
+    const toggle = frame.querySelector("[data-motion-toggle]");
+    const toggleText = toggle?.querySelector("[data-motion-toggle-text]");
+    const toggleIcon = toggle?.querySelector(".motion-control-icon");
+    if (!(video instanceof HTMLVideoElement) || !(toggle instanceof HTMLButtonElement)) return;
+
+    let userPaused = false;
+    let visibilityPaused = false;
+    video.muted = true;
+
+    const updateMotionControl = () => {
+      const paused = video.paused;
+      toggle.classList.toggle("is-paused", paused);
+      toggle.setAttribute("aria-label", paused ? toggle.dataset.playLabel : toggle.dataset.pauseLabel);
+      if (toggleText) toggleText.textContent = paused ? toggle.dataset.playText : toggle.dataset.pauseText;
+      if (toggleIcon) toggleIcon.textContent = paused ? "▶" : "Ⅱ";
+    };
+
+    const playMotion = () => {
+      void video.play().catch(() => updateMotionControl());
+    };
+
+    const applyMotionPreference = () => {
+      if (reducedMotion.matches) {
+        video.pause();
+        video.currentTime = 0;
+      } else if (!userPaused && !document.hidden) {
+        playMotion();
+      }
+      updateMotionControl();
+    };
+
+    toggle.addEventListener("click", () => {
+      if (video.paused) {
+        userPaused = false;
+        playMotion();
+      } else {
+        userPaused = true;
+        video.pause();
+      }
+      updateMotionControl();
+    });
+    video.addEventListener("play", updateMotionControl);
+    video.addEventListener("pause", updateMotionControl);
+    reducedMotion.addEventListener("change", applyMotionPreference);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && !video.paused) {
+        visibilityPaused = true;
+        video.pause();
+      } else if (!document.hidden && visibilityPaused && !userPaused && !reducedMotion.matches) {
+        visibilityPaused = false;
+        playMotion();
+      }
+    });
+    applyMotionPreference();
+  });
+
   const revealItems = [...document.querySelectorAll("[data-reveal]")];
   if (reducedMotion.matches || !("IntersectionObserver" in window)) {
     revealItems.forEach((item) => item.classList.add("is-visible"));

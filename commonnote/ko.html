@@ -20,7 +20,7 @@
     <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./assets/icon-192.png" />
     <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="preload" href="./assets/product-v4/collaboration.png" as="image" />
+    <link rel="preload" href="./assets/motion/live-collaboration-poster.jpg" as="image" type="image/jpeg" />
     <link rel="stylesheet" href="./fonts/pretendard/pretendard.css" />
     <link rel="stylesheet" href="./styles.css" />
     <script src="./site.js" defer></script>
@@ -48,12 +48,12 @@
             <p class="eyebrow eyebrow-light"><span></span>기록과 실행이 이어지는 워크스페이스</p>
             <h1 id="hero-title">써둔 기록이,<br />다음 일을 움직이게.</h1>
             <p class="hero-lede">함께 쓰고, 결정은 할 일로 바꾸고, 프로젝트·메시지·파일·일정까지 같은 맥락으로 이어가세요. 다섯 앱에 같은 내용을 다시 옮겨 적지 않아도 됩니다.</p>
-            <div class="hero-actions"><a class="button button-signal" href="https://commonnote.app/">CommonNote 시작하기 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" /></svg></a><a class="button button-ghost" href="#workflow">실제 화면 보기</a></div>
+            <div class="hero-actions"><a class="button button-signal" href="https://commonnote.app/">CommonNote 시작하기 <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" /></svg></a><a class="button button-ghost" href="#live-demo">실제 동시입력 보기</a></div>
             <p class="hero-fine">실시간 공동 편집 · 설치 없는 웹 앱 · Markdown과 전체 작업 공간 내보내기</p>
           </div>
-          <figure class="hero-product reveal" data-reveal>
-            <div class="product-frame product-frame-dark"><div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>CommonNote · 고객 인터뷰 인사이트</span><em>실시간</em></div><img src="./assets/product-v4/collaboration.png" width="2880" height="1800" alt="고객 인터뷰 노트와 실시간 공동 작업자, 풍부한 서식, 노트북, 연결된 할 일을 보여주는 CommonNote 편집기" fetchpriority="high" /></div>
-            <figcaption><span class="pulse-dot"></span>디자인 파트너 접속 중 · 편집 위치, 작성자와 원본이 함께 보입니다.</figcaption>
+          <figure id="live-demo" class="hero-product reveal" data-reveal>
+            <div class="product-frame product-frame-dark live-product-frame" data-motion-frame><div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>CommonNote · 고객 인터뷰 인사이트</span><em>실시간</em></div><div class="motion-media"><video class="hero-motion" width="1440" height="900" autoplay muted loop playsinline preload="metadata" poster="./assets/motion/live-collaboration-poster.jpg" aria-label="Launch team과 Design partner가 같은 고객 인터뷰 노트를 동시에 편집하는 실제 CommonNote 세션" data-motion-video><source src="./assets/motion/live-collaboration.webm" type="video/webm" /><source src="./assets/motion/live-collaboration.mp4" type="video/mp4" /><a href="./assets/motion/live-collaboration.mp4">실시간 공동 편집 데모 내려받기</a></video><button class="motion-control" type="button" aria-label="실시간 공동 편집 데모 일시정지" data-motion-toggle data-play-label="실시간 공동 편집 데모 재생" data-pause-label="실시간 공동 편집 데모 일시정지" data-play-text="재생" data-pause-text="일시정지"><span class="motion-control-icon" aria-hidden="true">Ⅱ</span><span data-motion-toggle-text>일시정지</span></button></div></div>
+            <figcaption><span class="pulse-dot"></span><b>두 사용자의 실제 세션</b> · 새로고침 없이 입력이 도착하고, 작성자와 원본이 그대로 남습니다.</figcaption>
           </figure>
         </div>
       </section>

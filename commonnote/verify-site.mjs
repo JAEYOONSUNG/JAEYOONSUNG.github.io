@@ -34,6 +34,9 @@ const requiredFiles = [
   "assets/icon.svg",
   "assets/icon-192.png",
   "assets/og-card.png",
+  "assets/motion/live-collaboration.mp4",
+  "assets/motion/live-collaboration.webm",
+  "assets/motion/live-collaboration-poster.jpg",
   "fonts/pretendard/pretendard.css",
   "fonts/pretendard/LICENSE.txt",
   ...productCaptures,
@@ -93,6 +96,9 @@ for (const { file, lang, canonical, html } of pages) {
 check(/property="og:image"/.test(landing) && /property="og:image"/.test(landingKo), "both landing pages must define an Open Graph image");
 check(/\.\/guide\.html/.test(landing) && /\.\/guide-ko\.html/.test(landingKo), "each landing page must link its local-language guide");
 check(/data-gallery/.test(landing) && /data-gallery/.test(landingKo), "both landing pages must include the real-product gallery");
+check(/<video[^>]+autoplay[^>]+muted[^>]+loop[^>]+playsinline/.test(landing), "English landing must include the live collaboration loop");
+check(/<video[^>]+autoplay[^>]+muted[^>]+loop[^>]+playsinline/.test(landingKo), "Korean landing must include the live collaboration loop");
+check(/data-motion-toggle/.test(landing) && /data-motion-toggle/.test(landingKo), "both landing pages must provide a motion pause/play control");
 check((landing.match(/assets\/product-v4\//g) || []).length >= 9, "English landing must use at least nine real product captures");
 check((landingKo.match(/assets\/product-v4\//g) || []).length >= 9, "Korean landing must use at least nine real product captures");
 check((guide.match(/data-guide-section/g) || []).length === 12, "English guide must include exactly twelve detailed sections");

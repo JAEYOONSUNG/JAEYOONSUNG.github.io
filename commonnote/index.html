@@ -20,7 +20,7 @@
     <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="./assets/icon-192.png" />
     <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="preload" href="./assets/product-v4/collaboration.png" as="image" />
+    <link rel="preload" href="./assets/motion/live-collaboration-poster.jpg" as="image" type="image/jpeg" />
     <link rel="stylesheet" href="./fonts/pretendard/pretendard.css" />
     <link rel="stylesheet" href="./styles.css" />
     <script src="./site.js" defer></script>
@@ -51,16 +51,23 @@
             <p class="hero-lede">Write together. Turn decisions into tasks. Carry the context into projects, messages, files, and schedules—without rebuilding it in five different tools.</p>
             <div class="hero-actions">
               <a class="button button-signal" href="https://commonnote.app/">Start in CommonNote <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" /></svg></a>
-              <a class="button button-ghost" href="#workflow">See it in motion</a>
+              <a class="button button-ghost" href="#live-demo">See it in motion</a>
             </div>
             <p class="hero-fine">Real-time collaboration · no-install web app · Markdown and full-workspace export</p>
           </div>
-          <figure class="hero-product reveal" data-reveal>
-            <div class="product-frame product-frame-dark">
+          <figure id="live-demo" class="hero-product reveal" data-reveal>
+            <div class="product-frame product-frame-dark live-product-frame" data-motion-frame>
               <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>CommonNote · Customer interview insights</span><em>Live</em></div>
-              <img src="./assets/product-v4/collaboration.png" width="2880" height="1800" alt="CommonNote editor showing customer interview insights, live collaborators, rich formatting, notebooks, and connected tasks" fetchpriority="high" />
+              <div class="motion-media">
+                <video class="hero-motion" width="1440" height="900" autoplay muted loop playsinline preload="metadata" poster="./assets/motion/live-collaboration-poster.jpg" aria-label="Actual CommonNote session where Launch team and Design partner edit the same customer interview note at the same time" data-motion-video>
+                  <source src="./assets/motion/live-collaboration.webm" type="video/webm" />
+                  <source src="./assets/motion/live-collaboration.mp4" type="video/mp4" />
+                  <a href="./assets/motion/live-collaboration.mp4">Download the live collaboration demo</a>
+                </video>
+                <button class="motion-control" type="button" aria-label="Pause live collaboration demo" data-motion-toggle data-play-label="Play live collaboration demo" data-pause-label="Pause live collaboration demo" data-play-text="Play" data-pause-text="Pause"><span class="motion-control-icon" aria-hidden="true">Ⅱ</span><span data-motion-toggle-text>Pause</span></button>
+              </div>
             </div>
-            <figcaption><span class="pulse-dot"></span>Design partner is here · edits, authors, and the source stay visible.</figcaption>
+            <figcaption><span class="pulse-dot"></span><b>Actual two-client session</b> · edits arrive without refresh, while authors and the source stay visible.</figcaption>
           </figure>
         </div>
       </section>
