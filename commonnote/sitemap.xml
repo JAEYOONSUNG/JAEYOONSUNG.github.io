@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://jaeyoonsung.github.io/commonnote/</loc>
     <lastmod>2026-08-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jaeyoonsung.github.io/commonnote/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://jaeyoonsung.github.io/commonnote/ko.html" />
+  </url>
+  <url>
+    <loc>https://jaeyoonsung.github.io/commonnote/ko.html</loc>
+    <lastmod>2026-08-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jaeyoonsung.github.io/commonnote/" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://jaeyoonsung.github.io/commonnote/ko.html" />
   </url>
   <url>
     <loc>https://jaeyoonsung.github.io/commonnote/guide.html</loc>
     <lastmod>2026-08-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jaeyoonsung.github.io/commonnote/guide.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://jaeyoonsung.github.io/commonnote/guide-ko.html" />
+  </url>
+  <url>
+    <loc>https://jaeyoonsung.github.io/commonnote/guide-ko.html</loc>
+    <lastmod>2026-08-26</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://jaeyoonsung.github.io/commonnote/guide.html" />
+    <xhtml:link rel="alternate" hreflang="ko" href="https://jaeyoonsung.github.io/commonnote/guide-ko.html" />
   </url>
 </urlset>

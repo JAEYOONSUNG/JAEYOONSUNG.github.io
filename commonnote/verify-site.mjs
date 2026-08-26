@@ -9,22 +9,22 @@ const check = (condition, message) => {
 };
 
 const productCaptures = [
+  "calendar.png",
   "collaboration.png",
-  "tasks.png",
-  "project-tree.png",
-  "relation-map.png",
+  "handoff.png",
   "messenger-files.png",
   "migration.png",
+  "project-tree.png",
+  "relation-map.png",
   "schedule-table.png",
-  "calendar.png",
-  "handoff.png",
-  "calculator.png",
-  "editor-icons.png",
-].map((name) => `assets/product-v3/${name}`);
+  "tasks.png",
+].map((name) => `assets/product-v4/${name}`);
 
 const requiredFiles = [
   "index.html",
+  "ko.html",
   "guide.html",
+  "guide-ko.html",
   "styles.css",
   "site.js",
   "manifest.webmanifest",
@@ -41,18 +41,24 @@ const requiredFiles = [
 
 requiredFiles.forEach((relativePath) => check(existsSync(join(siteDir, relativePath)), `missing required file: ${relativePath}`));
 
-const pages = ["index.html", "guide.html"].map((file) => ({ file, html: readFileSync(join(siteDir, file), "utf8") }));
-const landing = pages[0].html;
-const guide = pages[1].html;
+const pageConfig = [
+  { file: "index.html", lang: "en", canonical: "https://jaeyoonsung.github.io/commonnote/" },
+  { file: "ko.html", lang: "ko", canonical: "https://jaeyoonsung.github.io/commonnote/ko.html" },
+  { file: "guide.html", lang: "en", canonical: "https://jaeyoonsung.github.io/commonnote/guide.html" },
+  { file: "guide-ko.html", lang: "ko", canonical: "https://jaeyoonsung.github.io/commonnote/guide-ko.html" },
+];
+const pages = pageConfig.map((config) => ({ ...config, html: readFileSync(join(siteDir, config.file), "utf8") }));
+const [landing, landingKo, guide, guideKo] = pages.map(({ html }) => html);
 const css = readFileSync(join(siteDir, "styles.css"), "utf8");
 const js = readFileSync(join(siteDir, "site.js"), "utf8");
 
-for (const { file, html } of pages) {
-  check(/<html[^>]+lang="ko"/.test(html), `${file}: document language must be Korean`);
+for (const { file, lang, canonical, html } of pages) {
+  check(new RegExp(`<html[^>]+lang="${lang}"`).test(html), `${file}: document language must be ${lang}`);
   check((html.match(/<h1(?:\s|>)/g) || []).length === 1, `${file}: page must contain exactly one h1`);
   check(/<main[^>]+id="[^"]+"/.test(html), `${file}: page must have a named main landmark`);
   check(/class="skip-link"/.test(html), `${file}: page must include a keyboard skip link`);
-  check(/rel="canonical"/.test(html), `${file}: page must define a canonical URL`);
+  check(html.includes(`<link rel="canonical" href="${canonical}"`), `${file}: canonical URL is incorrect`);
+  check(/rel="alternate" hreflang="en"/.test(html) && /rel="alternate" hreflang="ko"/.test(html), `${file}: bilingual hreflang links are required`);
   check(!/\bonclick\s*=/.test(html), `${file}: inline click handlers are not allowed`);
   check(!/<style\b|style="/.test(html), `${file}: inline styles are not allowed`);
 
@@ -61,6 +67,7 @@ for (const { file, html } of pages) {
 
   for (const match of html.matchAll(/<img\b([^>]*)>/g)) {
     check(/\balt="[^"]*"/.test(match[1]), `${file}: image is missing alt text: ${match[0].slice(0, 90)}`);
+    check(/\bwidth="\d+"/.test(match[1]) && /\bheight="\d+"/.test(match[1]), `${file}: image must reserve width and height: ${match[0].slice(0, 90)}`);
   }
   for (const match of html.matchAll(/<button\b([^>]*)>/g)) {
     check(/\btype="button"/.test(match[1]), `${file}: button is missing type=button: ${match[0].slice(0, 90)}`);
@@ -75,7 +82,6 @@ for (const { file, html } of pages) {
   const localReferences = [...html.matchAll(/\b(?:src|href)="([^"]+)"/g)]
     .map((match) => match[1])
     .filter((value) => !/^(?:https?:|mailto:|tel:|#)/.test(value))
-    .filter((value) => value !== "../")
     .map((value) => value.split(/[?#]/)[0]);
   for (const reference of localReferences) {
     const resolved = normalize(join(siteDir, reference));
@@ -84,17 +90,21 @@ for (const { file, html } of pages) {
   }
 }
 
-check(/property="og:image"/.test(landing), "landing must define an Open Graph image");
-check(/\.\/guide\.html/.test(landing), "landing must link the detailed guide");
-check(/data-gallery/.test(landing), "landing must include the real-product workflow gallery");
-check((landing.match(/assets\/product-v3\//g) || []).length >= 10, "landing must use at least ten real product captures");
-check(!/hero-lab-v2|data-journey|journey-stage|product-window|map-card/.test(landing), "stale v2 illustrative product dependencies must be removed");
-check(!/qa_surface|성재윤|nkim/.test(landing + guide), "published text must not contain QA or personal identities");
-check(/data-guide-search/.test(guide) && /data-guide-section/.test(guide), "guide must include searchable task-oriented sections");
-check((guide.match(/data-guide-section/g) || []).length >= 12, "guide must include at least twelve detailed sections");
+check(/property="og:image"/.test(landing) && /property="og:image"/.test(landingKo), "both landing pages must define an Open Graph image");
+check(/\.\/guide\.html/.test(landing) && /\.\/guide-ko\.html/.test(landingKo), "each landing page must link its local-language guide");
+check(/data-gallery/.test(landing) && /data-gallery/.test(landingKo), "both landing pages must include the real-product gallery");
+check((landing.match(/assets\/product-v4\//g) || []).length >= 9, "English landing must use at least nine real product captures");
+check((landingKo.match(/assets\/product-v4\//g) || []).length >= 9, "Korean landing must use at least nine real product captures");
+check((guide.match(/data-guide-section/g) || []).length === 12, "English guide must include exactly twelve detailed sections");
+check((guideKo.match(/data-guide-section/g) || []).length === 12, "Korean guide must include exactly twelve detailed sections");
+check(/data-guide-search/.test(guide) && /data-guide-search/.test(guideKo), "both guides must include task-oriented search");
 check(/@media \(prefers-reduced-motion: reduce\)/.test(css), "CSS must support reduced motion");
 check(/:focus-visible/.test(css), "CSS must provide visible keyboard focus");
-check(!/text-shadow|mix-blend-mode/.test(css), "novelty glow or blend effects are not allowed");
+check(!/text-shadow|mix-blend-mode/.test(css), "novelty text glow or blend effects are not allowed");
+check(!/product-v[123]|hero-lab|journey-stage|pseudo-app/.test(landing + landingKo + css + js), "stale landing dependencies must be removed");
+
+const textualSite = [landing, landingKo, guide, guideKo, css, js, readFileSync(join(siteDir, "manifest.webmanifest"), "utf8")].join("\n");
+check(!/collagenase|assay\s*#|research workspace|연구 기록부터|효소 안정성|활성 조건 재현|scale-up|qa_surface|성재윤|nkim/i.test(textualSite), "published site contains stale research-only or personal demo wording");
 
 for (const relativePath of productCaptures) {
   if (!existsSync(join(siteDir, relativePath))) continue;
@@ -102,12 +112,17 @@ for (const relativePath of productCaptures) {
   check(buffer.subarray(1, 4).toString() === "PNG", `${relativePath}: capture must be PNG`);
   const width = buffer.readUInt32BE(16);
   const height = buffer.readUInt32BE(20);
-  check(width >= 2400 && height >= 1400, `${relativePath}: capture is too small (${width}×${height})`);
+  check(width === 2880 && height === 1800, `${relativePath}: capture must be 2880×1800, found ${width}×${height}`);
   check(statSync(join(siteDir, relativePath)).size < 1_000_000, `${relativePath}: capture must stay below 1 MB`);
 }
 
+const og = readFileSync(join(siteDir, "assets/og-card.png"));
+check(og.readUInt32BE(16) === 1200 && og.readUInt32BE(20) === 630, "Open Graph card must be 1200×630");
+check(statSync(join(siteDir, "assets/og-card.png")).size < 1_000_000, "Open Graph card must stay below 1 MB");
+
 const manifest = JSON.parse(readFileSync(join(siteDir, "manifest.webmanifest"), "utf8"));
 check(manifest.name === "CommonNote", "manifest name must be CommonNote");
+check(manifest.lang === "en", "manifest default language must be English");
 check(manifest.start_url === "./", "manifest start_url must be subpath-safe");
 check(Array.isArray(manifest.icons) && manifest.icons.length > 0, "manifest must define an icon");
 check(Buffer.byteLength(js) < 15_000, "site JavaScript should remain small and dependency-free");

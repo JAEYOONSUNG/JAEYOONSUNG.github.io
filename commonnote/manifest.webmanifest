@@ -1,13 +1,13 @@
 {
   "name": "CommonNote",
   "short_name": "CommonNote",
-  "description": "관찰, 근거, 결정, 할 일을 한 흐름으로 연결하는 공동 연구 노트",
-  "lang": "ko-KR",
+  "description": "A connected workspace for notes, decisions, tasks, projects, messages, files, and schedules.",
+  "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f7f7fb",
-  "theme_color": "#15141a",
+  "background_color": "#0d1017",
+  "theme_color": "#0d1017",
   "icons": [
     {
       "src": "./assets/icon-192.png",

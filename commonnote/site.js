@@ -1,6 +1,7 @@
 document.documentElement.classList.add("js");
 
 (() => {
+  const isKorean = document.documentElement.lang === "ko";
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const header = document.querySelector("[data-header]");
   const nav = document.querySelector("[data-nav]");
@@ -10,7 +11,7 @@ document.documentElement.classList.add("js");
     if (!nav || !navToggle) return;
     nav.classList.remove("is-open");
     navToggle.setAttribute("aria-expanded", "false");
-    navToggle.setAttribute("aria-label", "메뉴 열기");
+    navToggle.setAttribute("aria-label", navToggle.dataset.openLabel || (isKorean ? "메뉴 열기" : "Open menu"));
   };
 
   if (nav && navToggle) {
@@ -18,7 +19,7 @@ document.documentElement.classList.add("js");
       const open = navToggle.getAttribute("aria-expanded") !== "true";
       nav.classList.toggle("is-open", open);
       navToggle.setAttribute("aria-expanded", String(open));
-      navToggle.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+      navToggle.setAttribute("aria-label", open ? navToggle.dataset.closeLabel : navToggle.dataset.openLabel);
     });
     nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeNavigation));
     document.addEventListener("keydown", (event) => {
@@ -56,7 +57,7 @@ document.documentElement.classList.add("js");
     const tabs = [...gallery.querySelectorAll("[data-gallery-tab]")];
     const panels = [...gallery.querySelectorAll("[data-gallery-panel]")];
 
-    const selectGallery = (name, moveFocus = false) => {
+    const selectGallery = (name, moveFocus = false, updateUrl = false) => {
       tabs.forEach((tab) => {
         const selected = tab.dataset.galleryTab === name;
         tab.setAttribute("aria-selected", String(selected));
@@ -69,10 +70,11 @@ document.documentElement.classList.add("js");
         panel.classList.toggle("is-active", selected);
       });
       gallery.dataset.active = name;
+      if (updateUrl) history.replaceState(null, "", `#gallery-${name}`);
     };
 
     tabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => selectGallery(tab.dataset.galleryTab));
+      tab.addEventListener("click", () => selectGallery(tab.dataset.galleryTab, false, true));
       tab.addEventListener("keydown", (event) => {
         let nextIndex = index;
         if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
@@ -81,10 +83,14 @@ document.documentElement.classList.add("js");
         else if (event.key === "End") nextIndex = tabs.length - 1;
         else return;
         event.preventDefault();
-        selectGallery(tabs[nextIndex].dataset.galleryTab, true);
+        selectGallery(tabs[nextIndex].dataset.galleryTab, true, true);
       });
     });
-    selectGallery(tabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.dataset.galleryTab || "project");
+    const deepLinkedGallery = location.hash.match(/^#gallery-([a-z-]+)$/)?.[1];
+    const initialGallery = tabs.some((tab) => tab.dataset.galleryTab === deepLinkedGallery)
+      ? deepLinkedGallery
+      : tabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.dataset.galleryTab || tabs[0]?.dataset.galleryTab;
+    selectGallery(initialGallery);
   }
 
   const guideSearch = document.querySelector("[data-guide-search]");
@@ -93,18 +99,44 @@ document.documentElement.classList.add("js");
   const guideEmpty = document.querySelector("[data-guide-empty]");
 
   if (guideSearch && guideSections.length) {
+    guideSearch.value = new URLSearchParams(location.search).get("q") || "";
     const filterGuide = () => {
-      const query = guideSearch.value.trim().toLocaleLowerCase("ko");
+      const query = guideSearch.value.trim().toLocaleLowerCase(document.documentElement.lang);
       let visible = 0;
       guideSections.forEach((section) => {
-        const match = !query || section.textContent.toLocaleLowerCase("ko").includes(query);
+        const haystack = `${section.dataset.search || ""} ${section.textContent}`.toLocaleLowerCase(document.documentElement.lang);
+        const match = !query || haystack.includes(query);
         section.hidden = !match;
         if (match) visible += 1;
       });
-      if (guideOutput) guideOutput.textContent = query ? `${visible}개 설명 항목을 찾았습니다.` : `전체 ${guideSections.length}개 설명 항목`;
+      if (guideOutput) {
+        guideOutput.textContent = query
+          ? isKorean
+            ? `${visible}개 설명 항목을 찾았습니다.`
+            : `${visible} guide section${visible === 1 ? "" : "s"} found.`
+          : isKorean
+            ? `전체 ${guideSections.length}개 설명 항목`
+            : `${guideSections.length} complete guide sections`;
+      }
       guideEmpty?.classList.toggle("is-visible", visible === 0);
+      const params = new URLSearchParams(location.search);
+      if (query) params.set("q", guideSearch.value.trim());
+      else params.delete("q");
+      const search = params.toString();
+      history.replaceState(null, "", `${location.pathname}${search ? `?${search}` : ""}${location.hash}`);
     };
     guideSearch.addEventListener("input", filterGuide);
+    document.addEventListener("keydown", (event) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        guideSearch.focus();
+      }
+      if (event.key === "Escape" && document.activeElement === guideSearch) {
+        guideSearch.value = "";
+        filterGuide();
+        guideSearch.blur();
+      }
+    });
     filterGuide();
   }
 
