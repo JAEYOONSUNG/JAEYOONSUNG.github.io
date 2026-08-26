@@ -134,6 +134,9 @@ check(/data-guide-search/.test(guide) && /data-guide-search/.test(guideKo), "bot
 check(/@media \(prefers-reduced-motion: reduce\)/.test(css), "CSS must support reduced motion");
 check(/:focus-visible/.test(css), "CSS must provide visible keyboard focus");
 check(!/text-shadow|mix-blend-mode/.test(css), "novelty text glow or blend effects are not allowed");
+check(!/perspective\(1600px\)|rotateX\(|0\s+0\s+0\s+10px/.test(css), "rounded product surfaces must not use protruding perspective or outline-ring layers");
+check(/--product-radius:\s*28px/.test(css) && /--mac-window-radius:\s*18px/.test(css), "hero Mac surfaces must share explicit radius tokens");
+check(/--gallery-radius:\s*38px/.test(css) && /calc\(var\(--gallery-radius\) - 1px\)/.test(css), "workflow window surfaces must share an explicit radius hierarchy");
 check(!/product-v[123]|hero-lab|journey-stage|pseudo-app/.test(landing + landingKo + css + js), "stale landing dependencies must be removed");
 
 const textualSite = [landing, landingKo, guide, guideKo, css, js, readFileSync(join(siteDir, "manifest.webmanifest"), "utf8")].join("\n");
