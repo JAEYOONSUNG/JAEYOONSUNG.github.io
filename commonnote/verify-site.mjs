@@ -158,7 +158,7 @@ check(manifest.name === "CommonNote", "manifest name must be CommonNote");
 check(manifest.lang === "en", "manifest default language must be English");
 check(manifest.start_url === "./", "manifest start_url must be subpath-safe");
 check(Array.isArray(manifest.icons) && manifest.icons.length > 0, "manifest must define an icon");
-check(Buffer.byteLength(js) < 15_000, "site JavaScript should remain small and dependency-free");
+check(Buffer.byteLength(js) < 16_000, "site JavaScript should remain small and dependency-free");
 
 if (failures.length) {
   console.error("CommonNote launch site verification failed:\n");

@@ -166,13 +166,13 @@ document.documentElement.classList.add("js");
     const scrubber = gallery.querySelector("[data-gallery-scrubber]");
     const scrubberOutput = gallery.querySelector("[data-gallery-output]");
     const counter = gallery.querySelector("[data-gallery-counter]");
+    const galleryTabs = gallery.querySelector(".gallery-tabs");
+    const lastIndex = Math.max(1, tabs.length - 1);
     let interactionLockUntil = 0;
-    const warmGalleryFrames = () => {
-      panels.forEach((panel) => {
-        const image = panel.querySelector("img");
-        if (image instanceof HTMLImageElement) image.loading = "eager";
-      });
-    };
+    const warmGalleryFrames = () => panels.forEach((panel) => {
+      const image = panel.querySelector("img");
+      if (image instanceof HTMLImageElement) image.loading = "eager";
+    });
 
     if ("IntersectionObserver" in window) {
       const preloadObserver = new IntersectionObserver(
@@ -188,7 +188,17 @@ document.documentElement.classList.add("js");
       warmGalleryFrames();
     }
 
-    const selectGallery = (name, moveFocus = false, updateUrl = false) => {
+    const updateGalleryProgress = (position) => {
+      const bounded = Math.min(lastIndex, Math.max(0, position));
+      const progress = bounded / lastIndex;
+      galleryTabs?.style.setProperty("--workflow-progress", String(progress));
+      if (scrubber instanceof HTMLInputElement) {
+        scrubber.value = String(bounded);
+        scrubber.style.setProperty("--scrub-progress", `${progress * 100}%`);
+      }
+    };
+
+    const selectGallery = (name, moveFocus = false, updateUrl = false, syncProgress = true) => {
       const selectedIndex = Math.max(0, tabs.findIndex((tab) => tab.dataset.galleryTab === name));
       tabs.forEach((tab) => {
         const selected = tab.dataset.galleryTab === name;
@@ -203,10 +213,9 @@ document.documentElement.classList.add("js");
       });
       gallery.dataset.active = name;
       if (scrubber instanceof HTMLInputElement) {
-        scrubber.value = String(selectedIndex);
-        scrubber.style.setProperty("--scrub-progress", `${(selectedIndex / Math.max(1, tabs.length - 1)) * 100}%`);
         scrubber.setAttribute("aria-valuetext", tabs[selectedIndex]?.querySelector("b")?.textContent?.trim() || name);
       }
+      if (syncProgress) updateGalleryProgress(selectedIndex);
       if (scrubberOutput) scrubberOutput.textContent = tabs[selectedIndex]?.querySelector("b")?.textContent?.trim() || name;
       if (counter) counter.textContent = `${String(selectedIndex + 1).padStart(2, "0")} / ${String(tabs.length).padStart(2, "0")}`;
       if (updateUrl) history.replaceState(null, "", `#gallery-${name}`);
@@ -214,7 +223,7 @@ document.documentElement.classList.add("js");
 
     tabs.forEach((tab, index) => {
       tab.addEventListener("click", () => {
-        interactionLockUntil = performance.now() + 900;
+        interactionLockUntil = performance.now() + 760;
         selectGallery(tab.dataset.galleryTab, false, true);
       });
       tab.addEventListener("keydown", (event) => {
@@ -225,14 +234,22 @@ document.documentElement.classList.add("js");
         else if (event.key === "End") nextIndex = tabs.length - 1;
         else return;
         event.preventDefault();
-        interactionLockUntil = performance.now() + 900;
+        interactionLockUntil = performance.now() + 760;
         selectGallery(tabs[nextIndex].dataset.galleryTab, true, true);
       });
     });
     if (scrubber instanceof HTMLInputElement) {
       scrubber.addEventListener("input", () => {
-        interactionLockUntil = performance.now() + 900;
-        const next = tabs[Math.min(tabs.length - 1, Math.max(0, Number(scrubber.value)))];
+        interactionLockUntil = performance.now() + 760;
+        const position = Math.min(lastIndex, Math.max(0, Number(scrubber.value)));
+        const next = tabs[Math.round(position)];
+        updateGalleryProgress(position);
+        if (next && gallery.dataset.active !== next.dataset.galleryTab) {
+          selectGallery(next.dataset.galleryTab, false, true, false);
+        }
+      });
+      scrubber.addEventListener("change", () => {
+        const next = tabs[Math.round(Number(scrubber.value))];
         if (next) selectGallery(next.dataset.galleryTab, false, true);
       });
     }
@@ -243,19 +260,37 @@ document.documentElement.classList.add("js");
     selectGallery(initialGallery);
 
     const desktopWorkflow = window.matchMedia("(min-width: 821px)");
-    if ("IntersectionObserver" in window && desktopWorkflow.matches) {
-      const stepObserver = new IntersectionObserver(
-        (entries) => {
-          if (performance.now() < interactionLockUntil) return;
-          const active = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-          if (active) selectGallery(active.target.dataset.galleryTab);
-        },
-        { rootMargin: "-40% 0px -42%", threshold: [0.05, 0.35, 0.7] },
-      );
-      tabs.forEach((tab) => stepObserver.observe(tab));
-    }
+    let workflowFrame = 0;
+    const updateWorkflowFromScroll = () => {
+      workflowFrame = 0;
+      if (!desktopWorkflow.matches || performance.now() < interactionLockUntil) return;
+      const bounds = gallery.getBoundingClientRect();
+      if (bounds.bottom < innerHeight * 0.18 || bounds.top > innerHeight * 0.84) return;
+      const center = innerHeight * 0.5;
+      const centers = tabs.map((tab) => {
+        const { top, height } = tab.getBoundingClientRect();
+        return top + height / 2;
+      });
+      let position = 0;
+      if (center >= centers[centers.length - 1]) position = lastIndex;
+      else if (center > centers[0]) {
+        const segment = centers.findIndex((value, index) => index < lastIndex && center <= centers[index + 1]);
+        const start = Math.max(0, segment);
+        position = start + (center - centers[start]) / Math.max(1, centers[start + 1] - centers[start]);
+      }
+      updateGalleryProgress(position);
+      const next = tabs[Math.round(position)];
+      if (next && gallery.dataset.active !== next.dataset.galleryTab) {
+        selectGallery(next.dataset.galleryTab, false, false, false);
+      }
+    };
+    const scheduleWorkflowUpdate = () => {
+      if (workflowFrame) return;
+      workflowFrame = requestAnimationFrame(updateWorkflowFromScroll);
+    };
+    addEventListener("scroll", scheduleWorkflowUpdate, { passive: true });
+    addEventListener("resize", scheduleWorkflowUpdate, { passive: true });
+    scheduleWorkflowUpdate();
   }
 
   const guideSearch = document.querySelector("[data-guide-search]");
