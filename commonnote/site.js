@@ -35,6 +35,23 @@ document.documentElement.classList.add("js");
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
 
+  const macClocks = [...document.querySelectorAll("[data-mac-clock]")];
+  if (macClocks.length) {
+    const clockFormatter = new Intl.DateTimeFormat(isKorean ? "ko-KR" : "en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    });
+    const updateMacClocks = () => {
+      const value = clockFormatter.format(new Date()).replaceAll(",", "");
+      macClocks.forEach((clock) => { clock.textContent = value; });
+    };
+    updateMacClocks();
+    window.setInterval(updateMacClocks, 30_000);
+  }
+
   const motionFrames = [...document.querySelectorAll("[data-motion-frame]")];
   motionFrames.forEach((frame) => {
     const video = frame.querySelector("[data-motion-video]");
