@@ -1201,7 +1201,7 @@ html[lang="ko"] .hero-copy h1 {
   --symbol-rail-b: #28b9ff;
   --symbol-accent: #1679e8;
   --symbol-soft: #edf4ff;
-  min-height: 252px;
+  min-height: 244px;
   padding: 28px;
   border: 1px solid rgba(109, 124, 255, 0.08);
   border-radius: 28px;
@@ -1227,6 +1227,7 @@ html[lang="ko"] .hero-copy h1 {
 .motion-symbol {
   --motion-state: paused;
   --motion-delay: 0s;
+  --glyph-scale: 1;
   position: relative;
   z-index: 0;
   display: grid;
@@ -1280,7 +1281,22 @@ html[lang="ko"] .hero-copy h1 {
   height: 40px;
   overflow: visible;
   shape-rendering: geometricPrecision;
+  transform: scale(var(--glyph-scale));
+  transform-origin: center;
 }
+
+.motion-symbol--personal { --glyph-scale: 1.08; }
+.motion-symbol--study { --glyph-scale: 0.9; }
+.motion-symbol--creative { --glyph-scale: 0.96; }
+.motion-symbol--teams { --glyph-scale: 0.92; }
+.motion-symbol--operations { --glyph-scale: 1.14; }
+.motion-symbol--research { --glyph-scale: 1.04; }
+.motion-symbol--notes { --glyph-scale: 1.1; }
+.motion-symbol--collaboration { --glyph-scale: 0.96; }
+.motion-symbol--execution { --glyph-scale: 1.14; }
+.motion-symbol--planning { --glyph-scale: 0.96; }
+.motion-symbol--records { --glyph-scale: 0.96; }
+.motion-symbol--tools { --glyph-scale: 1.08; }
 
 .motion-symbol svg * {
   vector-effect: non-scaling-stroke;
@@ -1442,107 +1458,108 @@ html[lang="ko"] .hero-copy h1 {
 }
 
 @keyframes symbol-write {
-  0%, 12% { opacity: 0.25; stroke-dashoffset: 28; }
+  0%, 12% { opacity: 0.55; stroke-dashoffset: 28; }
   40%, 78% { opacity: 1; stroke-dashoffset: 0; }
-  92%, 100% { opacity: 0.25; stroke-dashoffset: 28; }
+  92%, 100% { opacity: 0.55; stroke-dashoffset: 28; }
 }
 
 @keyframes symbol-pulse {
-  0%, 50%, 78%, 100% { opacity: 0.72; transform: scale(1); }
-  62% { opacity: 1; transform: scale(1.38); }
+  0%, 50%, 78%, 100% { opacity: 0.78; transform: scale(1); }
+  62% { opacity: 1; transform: scale(1.24); }
 }
 
 @keyframes symbol-page-lift {
-  0%, 24%, 66%, 100% { opacity: 0.72; transform: rotate(0deg) translateY(0); }
-  40% { opacity: 1; transform: rotate(-6deg) translateY(-1px); }
+  0%, 24%, 66%, 100% { opacity: 0.82; transform: rotate(0deg) translateY(0); }
+  40% { opacity: 1; transform: rotate(-4deg) translateY(-0.5px); }
 }
 
 @keyframes symbol-bookmark {
-  0%, 20% { opacity: 0.4; stroke-dashoffset: 14; }
+  0%, 20% { opacity: 0.58; stroke-dashoffset: 14; }
   42%, 78% { opacity: 1; stroke-dashoffset: 0; }
-  100% { opacity: 0.4; stroke-dashoffset: 14; }
+  100% { opacity: 0.58; stroke-dashoffset: 14; }
 }
 
 @keyframes symbol-spark {
-  0%, 24%, 72%, 100% { opacity: 0.82; transform: rotate(0deg) scale(0.92); }
-  44% { opacity: 1; transform: rotate(8deg) scale(1.08); }
+  0%, 24%, 72%, 100% { opacity: 0.9; transform: rotate(0deg) scale(0.96); }
+  44% { opacity: 1; transform: rotate(5deg) scale(1.04); }
 }
 
 @keyframes symbol-route {
-  0%, 16% { opacity: 0.35; stroke-dashoffset: 34; }
+  0%, 16% { opacity: 0.52; stroke-dashoffset: 34; }
   62%, 82% { opacity: 1; stroke-dashoffset: 0; }
-  100% { opacity: 0.35; stroke-dashoffset: -18; }
+  100% { opacity: 0.52; stroke-dashoffset: -18; }
 }
 
 @keyframes symbol-node {
-  0%, 34%, 62%, 100% { opacity: 0.76; transform: scale(1); }
-  48% { opacity: 1; transform: scale(1.22); }
+  0%, 34%, 62%, 100% { opacity: 0.82; transform: scale(1); }
+  48% { opacity: 1; transform: scale(1.14); }
 }
 
 @keyframes symbol-slider-one {
   0%, 20%, 72%, 100% { transform: translateX(0); }
-  40%, 54% { transform: translateX(10px); }
+  40%, 54% { transform: translateX(8px); }
 }
 
 @keyframes symbol-slider-two {
   0%, 28%, 80%, 100% { transform: translateX(0); }
-  48%, 62% { transform: translateX(-12px); }
+  48%, 62% { transform: translateX(-9px); }
 }
 
 @keyframes symbol-slider-three {
   0%, 36%, 88%, 100% { transform: translateX(0); }
-  56%, 70% { transform: translateX(9px); }
+  56%, 70% { transform: translateX(7px); }
 }
 
 @keyframes symbol-scan {
-  0%, 18% { opacity: 0; transform: translateY(-6px); }
+  0%, 18% { opacity: 0.15; transform: translateY(-5px); }
   30% { opacity: 1; }
-  66% { opacity: 1; transform: translateY(7px); }
-  78%, 100% { opacity: 0; transform: translateY(7px); }
+  66% { opacity: 1; transform: translateY(5.5px); }
+  78%, 100% { opacity: 0.15; transform: translateY(5.5px); }
 }
 
 @keyframes symbol-pen {
-  0%, 16% { opacity: 0.76; transform: translate(-5px, 5px); }
+  0%, 16% { opacity: 0.82; transform: translate(-3px, 3px); }
   48%, 78% { opacity: 1; transform: translate(0, 0); }
-  100% { opacity: 0.76; transform: translate(-5px, 5px); }
+  100% { opacity: 0.82; transform: translate(-3px, 3px); }
 }
 
 @keyframes symbol-link-dot {
-  0%, 18% { opacity: 0; transform: translateX(0); }
+  0%, 18% { opacity: 0.12; transform: translateX(0); }
   34% { opacity: 1; }
-  66% { opacity: 1; transform: translateX(9px); }
-  80%, 100% { opacity: 0; transform: translateX(9px); }
+  66% { opacity: 1; transform: translateX(8px); }
+  80%, 100% { opacity: 0.12; transform: translateX(8px); }
 }
 
 @keyframes symbol-step-dot {
   0%, 18% { opacity: 1; transform: translateY(0); }
   38% { opacity: 1; transform: translateY(10px); }
-  58% { opacity: 1; transform: translateY(20px); }
-  72% { opacity: 0; transform: translateY(20px); }
-  73%, 100% { opacity: 0; transform: translateY(0); }
+  58% { opacity: 1; transform: translateY(18px); }
+  72% { opacity: 0.12; transform: translateY(18px); }
+  73%, 100% { opacity: 0.12; transform: translateY(0); }
 }
 
 @keyframes symbol-forward {
-  0%, 24%, 68%, 100% { opacity: 0.55; transform: translateX(0); }
-  44% { opacity: 1; transform: translateX(3px); }
+  0%, 24%, 68%, 100% { opacity: 0.68; transform: translateX(0); }
+  44% { opacity: 1; transform: translateX(2px); }
 }
 
 @keyframes symbol-day {
-  0%, 16% { opacity: 0; transform: translateY(-6px); }
+  0%, 16% { opacity: 0.12; transform: translateY(-4px); }
   38%, 78% { opacity: 1; transform: translateY(0); }
-  92%, 100% { opacity: 0; transform: translateY(3px); }
+  92%, 100% { opacity: 0.12; transform: translateY(2px); }
 }
 
 @keyframes symbol-shackle {
-  0%, 18% { opacity: 0.62; transform: translateY(-3px); }
+  0%, 18% { opacity: 0.72; transform: translateY(-2px); }
   40%, 82% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0.62; transform: translateY(-3px); }
+  100% { opacity: 0.72; transform: translateY(-2px); }
 }
 
 .audience-grid h3 {
-  margin: 34px 0 10px;
+  margin: 30px 0 8px;
   font-size: 24px;
   font-weight: 650;
+  line-height: 1.25;
 }
 
 .audience-grid p {
@@ -2292,7 +2309,9 @@ html[lang="ko"] .hero-copy h1 {
   --symbol-rail-b: #2fc7ff;
   --symbol-accent: #177bd9;
   --symbol-soft: #eaf5ff;
-  min-height: 346px;
+  display: flex;
+  min-height: 338px;
+  flex-direction: column;
   padding: 32px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 28px;
@@ -2314,28 +2333,37 @@ html[lang="ko"] .hero-copy h1 {
   transform: translateY(-6px);
 }
 
+.feature-matrix .motion-symbol {
+  flex: 0 0 auto;
+}
+
 .feature-matrix h3 {
-  margin: 34px 0 22px;
+  margin: 30px 0 18px;
   font-size: 27px;
   font-weight: 630;
+  line-height: 1.2;
 }
 
 .feature-matrix ul {
-  margin: 0 0 30px;
+  margin: 0 0 24px;
   padding: 0;
   list-style: none;
 }
 
 .feature-matrix li {
-  padding: 4px 0;
+  padding: 3px 0;
   color: rgba(255, 255, 255, 0.54);
   font-size: 14px;
+  line-height: 1.55;
 }
 
 .feature-matrix a {
+  align-self: flex-start;
+  margin-top: auto;
   color: #a9c5ff;
   font-size: 13px;
   font-weight: 800;
+  line-height: 1.4;
 }
 
 .guide-promo {
