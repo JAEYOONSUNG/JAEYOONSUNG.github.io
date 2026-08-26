@@ -128,12 +128,67 @@ document.documentElement.classList.add("js");
     revealItems.forEach((item) => revealObserver.observe(item));
   }
 
-  const motionSymbols = [...document.querySelectorAll("[data-motion-symbol], [data-fine-motion]")];
-  if (motionSymbols.length) {
+  const livingSymbols = [...document.querySelectorAll("[data-motion-symbol]")];
+  if (livingSymbols.length) {
+    const settleTimers = new WeakMap();
+    const markEntered = (symbol) => {
+      symbol.classList.add("is-in-view");
+      symbol.dataset.motionState = reducedMotion.matches ? "rest" : "entering";
+      window.clearTimeout(settleTimers.get(symbol));
+      settleTimers.set(symbol, window.setTimeout(() => {
+        symbol.dataset.motionState = "rest";
+      }, reducedMotion.matches ? 0 : 980));
+    };
+    const replaySymbol = (symbol) => {
+      if (reducedMotion.matches || document.hidden || !symbol.classList.contains("is-in-view")) return;
+      symbol.classList.remove("is-interacting");
+      void symbol.offsetWidth;
+      symbol.classList.add("is-interacting");
+      symbol.dataset.motionState = "active";
+      symbol.dataset.motionPlays = String(Number(symbol.dataset.motionPlays || "0") + 1);
+      window.clearTimeout(settleTimers.get(symbol));
+      settleTimers.set(symbol, window.setTimeout(() => {
+        symbol.classList.remove("is-interacting");
+        symbol.dataset.motionState = "rest";
+      }, 980));
+    };
+
+    if (reducedMotion.matches || !("IntersectionObserver" in window)) {
+      livingSymbols.forEach(markEntered);
+    } else {
+      const livingObserver = new IntersectionObserver(
+        (entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            markEntered(entry.target);
+            observer.unobserve(entry.target);
+          });
+        },
+        { rootMargin: "8% 0px", threshold: 0.08 },
+      );
+      livingSymbols.forEach((symbol) => livingObserver.observe(symbol));
+    }
+
+    livingSymbols.forEach((symbol) => {
+      const surface = symbol.closest("article") || symbol;
+      surface.addEventListener("pointerenter", () => replaySymbol(symbol));
+      surface.addEventListener("focusin", () => replaySymbol(symbol));
+    });
+    reducedMotion.addEventListener("change", () => {
+      livingSymbols.forEach((symbol) => {
+        symbol.classList.remove("is-interacting");
+        if (!symbol.classList.contains("is-in-view")) markEntered(symbol);
+        symbol.dataset.motionState = "rest";
+      });
+    });
+  }
+
+  const fineMotionSymbols = [...document.querySelectorAll("[data-fine-motion]")];
+  if (fineMotionSymbols.length) {
     const visibleSymbols = new WeakSet();
     const syncMotionSymbols = () => {
       const canRun = !reducedMotion.matches && !document.hidden;
-      motionSymbols.forEach((symbol) => {
+      fineMotionSymbols.forEach((symbol) => {
         symbol.classList.toggle("is-in-view", canRun && visibleSymbols.has(symbol));
       });
     };
@@ -149,9 +204,9 @@ document.documentElement.classList.add("js");
         },
         { rootMargin: "8% 0px", threshold: 0.04 },
       );
-      motionSymbols.forEach((symbol) => symbolObserver.observe(symbol));
+      fineMotionSymbols.forEach((symbol) => symbolObserver.observe(symbol));
     } else {
-      motionSymbols.forEach((symbol) => visibleSymbols.add(symbol));
+      fineMotionSymbols.forEach((symbol) => visibleSymbols.add(symbol));
     }
 
     reducedMotion.addEventListener("change", syncMotionSymbols);

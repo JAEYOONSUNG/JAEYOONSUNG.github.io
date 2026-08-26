@@ -26,6 +26,7 @@ const requiredFiles = [
   "guide.html",
   "guide-ko.html",
   "styles.css",
+  "living-glyphs.js",
   "site.js",
   "manifest.webmanifest",
   "robots.txt",
@@ -54,6 +55,7 @@ const pages = pageConfig.map((config) => ({ ...config, html: readFileSync(join(s
 const [landing, landingKo, guide, guideKo] = pages.map(({ html }) => html);
 const css = readFileSync(join(siteDir, "styles.css"), "utf8");
 const js = readFileSync(join(siteDir, "site.js"), "utf8");
+const glyphJs = readFileSync(join(siteDir, "living-glyphs.js"), "utf8");
 
 for (const { file, lang, canonical, html } of pages) {
   check(new RegExp(`<html[^>]+lang="${lang}"`).test(html), `${file}: document language must be ${lang}`);
@@ -120,12 +122,15 @@ for (const [label, html] of [["English", landing], ["Korean", landingKo]]) {
   for (const variant of motionSymbolVariants) {
     check(html.includes(`data-motion-symbol="${variant}"`), `${label} landing is missing the ${variant} motion symbol`);
   }
-  check((html.match(/<svg viewBox="0 0 48 48" focusable="false">/g) || []).length === 12, `${label} motion symbols must use non-focusable inline SVG`);
+  check((html.match(/data-motion-symbol="[^"]+" aria-hidden="true"><\/span>/g) || []).length === 12, `${label} motion symbol hosts must be decorative and centrally rendered`);
+  check(html.indexOf("./living-glyphs.js") < html.indexOf("./site.js"), `${label} living glyph renderer must load before interaction logic`);
 }
+check((glyphJs.match(/^\s{4}[a-z]+:\s*`/gm) || []).length === 12, "living glyph renderer must define exactly twelve variants");
+check(/viewBox="0 0 64 64"/.test(glyphJs) && /glyph-material/.test(glyphJs) && /glyph-hero/.test(glyphJs) && /glyph-motion/.test(glyphJs), "living glyphs must use the layered 64-unit drawing system");
 check(!/audience-emoji|feature-emoji|🗒️|🎓|✨|🧭|⚙️|🔬|✍️|👥|🚀|🗓️|🔐|🧮|⚡|🌐/.test(landing + landingKo + css), "native emoji artwork must be fully replaced");
 check((landing.match(/data-fine-motion/g) || []).length === 3 && (landingKo.match(/data-fine-motion/g) || []).length === 3, "both landing pages need three fine motion trust symbols");
-check(/\.motion-symbol\.is-in-view/.test(css) && /animation-play-state:\s*var\(--motion-state\)/.test(css), "motion symbols must expose a CSS paused/running contract");
-check(/const motionSymbols/.test(js) && /visibleSymbols/.test(js) && /document\.hidden/.test(js), "motion symbols must be visibility-gated in JavaScript");
+check(/\.motion-symbol\[data-glyph-ready="true"\]\.is-in-view \.living-glyph/.test(css) && /\.is-interacting/.test(css), "living glyphs must expose finite entrance and interaction states");
+check(/const livingSymbols/.test(js) && /livingObserver/.test(js) && /replaySymbol/.test(js) && /document\.hidden/.test(js), "living glyphs must be visibility-gated and interaction-driven in JavaScript");
 check((landing.match(/assets\/product-v4\//g) || []).length >= 9, "English landing must use at least nine real product captures");
 check((landingKo.match(/assets\/product-v4\//g) || []).length >= 9, "Korean landing must use at least nine real product captures");
 check((guide.match(/data-guide-section/g) || []).length === 12, "English guide must include exactly twelve detailed sections");
@@ -139,7 +144,7 @@ check(/--product-radius:\s*28px/.test(css) && /--mac-window-radius:\s*18px/.test
 check(/--gallery-radius:\s*38px/.test(css) && /calc\(var\(--gallery-radius\) - 1px\)/.test(css), "workflow window surfaces must share an explicit radius hierarchy");
 check(!/product-v[123]|hero-lab|journey-stage|pseudo-app/.test(landing + landingKo + css + js), "stale landing dependencies must be removed");
 
-const textualSite = [landing, landingKo, guide, guideKo, css, js, readFileSync(join(siteDir, "manifest.webmanifest"), "utf8")].join("\n");
+const textualSite = [landing, landingKo, guide, guideKo, css, js, glyphJs, readFileSync(join(siteDir, "manifest.webmanifest"), "utf8")].join("\n");
 check(!/collagenase|assay\s*#|research workspace|연구 기록부터|효소 안정성|활성 조건 재현|scale-up|qa_surface|성재윤|nkim/i.test(textualSite), "published site contains stale research-only or personal demo wording");
 
 for (const relativePath of productCaptures) {
@@ -161,7 +166,9 @@ check(manifest.name === "CommonNote", "manifest name must be CommonNote");
 check(manifest.lang === "en", "manifest default language must be English");
 check(manifest.start_url === "./", "manifest start_url must be subpath-safe");
 check(Array.isArray(manifest.icons) && manifest.icons.length > 0, "manifest must define an icon");
-check(Buffer.byteLength(js) < 16_000, "site JavaScript should remain small and dependency-free");
+check(Buffer.byteLength(js) < 20_000, "site interaction JavaScript should remain small and dependency-free");
+check(Buffer.byteLength(glyphJs) < 12_000, "living glyph renderer should remain small and dependency-free");
+check(Buffer.byteLength(js) + Buffer.byteLength(glyphJs) < 30_000, "combined site JavaScript should stay lightweight");
 
 if (failures.length) {
   console.error("CommonNote launch site verification failed:\n");
