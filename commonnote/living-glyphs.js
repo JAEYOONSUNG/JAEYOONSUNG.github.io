@@ -5,10 +5,10 @@
       <g class="glyph-hero glyph-page-front"><path class="glyph-surface" d="M12 18c0-5 4-9 9-9h19l11 11v27c0 5-4 9-9 9H21c-5 0-9-4-9-9z"/><path class="glyph-ink" d="M40 9v12h11M20 28h22M20 35h16"/><path class="glyph-accent glyph-write" d="M20 42h12"/></g>
       <g class="glyph-motion glyph-confirm"><circle class="glyph-fill-secondary" cx="43" cy="45" r="8"/><path class="glyph-white-line" d="m39 45 2.5 2.5L47 42"/></g>`,
     study: `
-      <g class="glyph-depth glyph-study-stack" transform="rotate(5 37 29)"><rect class="glyph-material" x="16" y="7" width="42" height="44" rx="13"/><path class="glyph-soft-line" d="M25 16h22M25 22h15"/></g>
-      <g class="glyph-hero glyph-review-card"><rect class="glyph-surface" x="7" y="11" width="45" height="45" rx="14"/><rect class="glyph-soft-fill" x="14" y="17" width="22" height="7" rx="3.5"/><path class="glyph-ink" d="M15 33h28M15 40h22M15 47h14"/><path class="glyph-accent glyph-study-progress" d="M15 28h18"/></g>
-      <g class="glyph-motion glyph-study-tab"><path class="glyph-fill-secondary" d="M39 10h13v21l-6.5-5-6.5 5z"/><path class="glyph-white-line" d="m42 18 3 3 5-6"/></g>
-      <circle class="glyph-fill" cx="46" cy="48" r="4"/><path class="glyph-white-line" d="M44 48h4"/>`,
+      <g class="glyph-depth glyph-flashcard-fan"><rect class="glyph-material" x="11" y="17" width="43" height="31" rx="11" transform="rotate(-11 32.5 32.5)"/><rect class="glyph-material" x="11" y="17" width="43" height="31" rx="11" transform="rotate(9 32.5 32.5)"/></g>
+      <g class="glyph-hero glyph-flashcard-front"><rect class="glyph-surface" x="7" y="18" width="50" height="31" rx="11"/><path class="glyph-soft-line" d="M32 23v21"/><circle class="glyph-fill-secondary" cx="20" cy="32" r="8"/><path class="glyph-white-line" d="M17.5 29.5c0-2 1-3.5 3-3.5s3.5 1.2 3.5 3c0 2.5-3.5 2.5-3.5 5"/><circle class="glyph-white-fill" cx="20.5" cy="38" r="1.2"/><path class="glyph-ink" d="M38 27h11M38 33h9M38 39h12"/></g>
+      <g class="glyph-motion glyph-review-chip"><circle class="glyph-fill" cx="49" cy="47" r="8"/><path class="glyph-white-line" d="m45 47 2.5 2.5L53 44"/></g>
+      <path class="glyph-accent glyph-review-progress" d="M14 56h26"/>`,
     creative: `
       <g class="glyph-depth glyph-canvas-back" transform="rotate(-4 32 32)"><rect class="glyph-material" x="7" y="9" width="50" height="46" rx="16"/><path class="glyph-soft-line" d="M16 18h18"/></g>
       <g class="glyph-hero glyph-creative-canvas"><rect class="glyph-surface" x="10" y="12" width="44" height="42" rx="14"/><rect class="glyph-soft-fill" x="15" y="17" width="16" height="7" rx="3.5"/><path class="glyph-ink" d="M19 20.5h8"/></g>
