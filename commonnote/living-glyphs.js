@@ -5,16 +5,15 @@
       <g class="glyph-hero glyph-page-front"><path class="glyph-surface" d="M12 18c0-5 4-9 9-9h19l11 11v27c0 5-4 9-9 9H21c-5 0-9-4-9-9z"/><path class="glyph-ink" d="M40 9v12h11M20 28h22M20 35h16"/><path class="glyph-accent glyph-write" d="M20 42h12"/></g>
       <g class="glyph-motion glyph-confirm"><circle class="glyph-fill-secondary" cx="43" cy="45" r="8"/><path class="glyph-white-line" d="m39 45 2.5 2.5L47 42"/></g>`,
     study: `
-      <path class="glyph-material glyph-depth" d="M7 18c8-7 17-8 25-2 8-6 17-5 25 2v34c-9-4-17-2-25 5-8-7-16-9-25-5z"/>
-      <g class="glyph-hero glyph-book-left"><path class="glyph-surface" d="M8 18c8-5 16-4 24 2v32c-8-6-16-7-24-3z"/><path class="glyph-soft-line" d="M14 26c5-1 9 0 13 3M14 34c5-1 9 0 13 3"/></g>
-      <g class="glyph-motion glyph-book-right"><path class="glyph-surface" d="M56 18c-8-5-16-4-24 2v32c8-6 16-7 24-3z"/><path class="glyph-accent" d="M50 26c-5-1-9 0-13 3M50 34c-5-1-9 0-13 3"/></g>
-      <path class="glyph-fill-secondary glyph-bookmark" d="M29 17h6v18l-3-3-3 3z"/>
-      <circle class="glyph-fill glyph-ping" cx="51" cy="13" r="3"/>`,
+      <g class="glyph-depth glyph-study-stack" transform="rotate(5 37 29)"><rect class="glyph-material" x="16" y="7" width="42" height="44" rx="13"/><path class="glyph-soft-line" d="M25 16h22M25 22h15"/></g>
+      <g class="glyph-hero glyph-review-card"><rect class="glyph-surface" x="7" y="11" width="45" height="45" rx="14"/><rect class="glyph-soft-fill" x="14" y="17" width="22" height="7" rx="3.5"/><path class="glyph-ink" d="M15 33h28M15 40h22M15 47h14"/><path class="glyph-accent glyph-study-progress" d="M15 28h18"/></g>
+      <g class="glyph-motion glyph-study-tab"><path class="glyph-fill-secondary" d="M39 10h13v21l-6.5-5-6.5 5z"/><path class="glyph-white-line" d="m42 18 3 3 5-6"/></g>
+      <circle class="glyph-fill" cx="46" cy="48" r="4"/><path class="glyph-white-line" d="M44 48h4"/>`,
     creative: `
-      <circle class="glyph-material glyph-depth" cx="31" cy="32" r="23"/>
-      <path class="glyph-soft-fill glyph-orbit" d="M15 39c7 10 24 14 35 2 5-6 6-15 2-22-2 13-13 23-25 23-5 0-9-1-12-3z"/>
-      <g class="glyph-hero glyph-spark-core"><path class="glyph-fill" d="M31 10c2 11 7 17 18 22-11 4-16 10-18 22-2-12-7-18-18-22 11-5 16-11 18-22z"/><path class="glyph-white-line" d="M31 20c1 6 4 9 9 12-5 2-8 5-9 12-1-7-4-10-9-12 5-3 8-6 9-12z"/></g>
-      <g class="glyph-motion glyph-sparklets"><circle class="glyph-fill-secondary" cx="51" cy="15" r="4"/><circle class="glyph-fill" cx="11" cy="48" r="3"/><path class="glyph-accent" d="M12 15v8M8 19h8"/></g>`,
+      <g class="glyph-depth glyph-canvas-back" transform="rotate(-4 32 32)"><rect class="glyph-material" x="7" y="9" width="50" height="46" rx="16"/><path class="glyph-soft-line" d="M16 18h18"/></g>
+      <g class="glyph-hero glyph-creative-canvas"><rect class="glyph-surface" x="10" y="12" width="44" height="42" rx="14"/><rect class="glyph-soft-fill" x="15" y="17" width="16" height="7" rx="3.5"/><path class="glyph-ink" d="M19 20.5h8"/></g>
+      <g class="glyph-control-system"><path class="glyph-soft-line glyph-control-handles" d="M16 43 25 25l23 9"/><path class="glyph-accent glyph-creative-curve" d="M16 43C19 25 35 20 48 34"/><circle class="glyph-fill" cx="16" cy="43" r="4"/><circle class="glyph-soft-dot" cx="25" cy="25" r="3"/><circle class="glyph-fill-secondary" cx="48" cy="34" r="4"/></g>
+      <g class="glyph-motion glyph-creative-cursor"><path class="glyph-fill-secondary" d="m38 14 14 8-7 3-3 8z"/><path class="glyph-white-line" d="m43 24 5 5"/></g>`,
     teams: `
       <path class="glyph-material glyph-depth" d="M13 46 31 10l22 37z"/>
       <path class="glyph-accent glyph-route" d="M14 44 30 18M34 18l17 27M18 46h29"/>

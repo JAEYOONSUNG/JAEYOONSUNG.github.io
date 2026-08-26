@@ -63,8 +63,8 @@ for (const { file, lang, canonical, html } of pages) {
   check(/<main[^>]+id="[^"]+"/.test(html), `${file}: page must have a named main landmark`);
   check(/class="skip-link"/.test(html), `${file}: page must include a keyboard skip link`);
   check(html.includes(`<link rel="canonical" href="${canonical}"`), `${file}: canonical URL is incorrect`);
-  check(/\.\/styles\.css\?v=living-glyphs-v2/.test(html), `${file}: stylesheet must use the current cache-busting release key`);
-  check(/\.\/site\.js\?v=living-glyphs-v2/.test(html), `${file}: interaction script must use the current cache-busting release key`);
+  check(/\.\/styles\.css\?v=living-glyphs-v2-1/.test(html), `${file}: stylesheet must use the current cache-busting release key`);
+  check(/\.\/site\.js\?v=living-glyphs-v2-1/.test(html), `${file}: interaction script must use the current cache-busting release key`);
   check(/rel="alternate" hreflang="en"/.test(html) && /rel="alternate" hreflang="ko"/.test(html), `${file}: bilingual hreflang links are required`);
   check(!/\bonclick\s*=/.test(html), `${file}: inline click handlers are not allowed`);
   check(!/<style\b|style="/.test(html), `${file}: inline styles are not allowed`);
@@ -105,7 +105,7 @@ check(/class="gallery-viewport"/.test(landing) && /class="gallery-viewport"/.tes
 check(/<video[^>]+autoplay[^>]+muted[^>]+loop[^>]+playsinline/.test(landing), "English landing must include the live collaboration loop");
 check(/<video[^>]+autoplay[^>]+muted[^>]+loop[^>]+playsinline/.test(landingKo), "Korean landing must include the live collaboration loop");
 check(/data-motion-toggle/.test(landing) && /data-motion-toggle/.test(landingKo), "both landing pages must provide a motion pause/play control");
-check(/living-glyphs\.js\?v=living-glyphs-v2/.test(landing) && /living-glyphs\.js\?v=living-glyphs-v2/.test(landingKo), "both landing pages must cache-bust the living glyph renderer");
+check(/living-glyphs\.js\?v=living-glyphs-v2-1/.test(landing) && /living-glyphs\.js\?v=living-glyphs-v2-1/.test(landingKo), "both landing pages must cache-bust the living glyph renderer");
 const motionSymbolVariants = [
   "personal",
   "study",

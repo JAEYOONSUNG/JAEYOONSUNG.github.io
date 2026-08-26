@@ -1390,10 +1390,12 @@ html[lang="ko"] .hero-copy h1 {
 .motion-symbol--personal.is-interacting .glyph-confirm { animation: living-confirm 720ms cubic-bezier(0.2, 0.85, 0.25, 1) both; }
 .motion-symbol--personal.is-interacting .glyph-write,
 .motion-symbol--notes.is-interacting .glyph-write { animation: living-write 760ms ease-out both; }
-.motion-symbol--study.is-interacting .glyph-book-right { animation: living-page-turn 820ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-.motion-symbol--study.is-interacting .glyph-bookmark { animation: living-bookmark 720ms ease-out both; }
-.motion-symbol--creative.is-interacting .glyph-spark-core { animation: living-spark 780ms cubic-bezier(0.16, 1, 0.3, 1) both; }
-.motion-symbol--creative.is-interacting .glyph-sparklets { animation: living-orbit 820ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.motion-symbol--study.is-interacting .glyph-review-card { animation: living-review-card 760ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.motion-symbol--study.is-interacting .glyph-study-tab { animation: living-study-tab 760ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.motion-symbol--study.is-interacting .glyph-study-progress { animation: living-study-progress 760ms ease-out both; }
+.motion-symbol--creative.is-interacting .glyph-creative-curve { animation: living-creative-curve 820ms ease-out both; }
+.motion-symbol--creative.is-interacting .glyph-control-system { animation: living-controls 820ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.motion-symbol--creative.is-interacting .glyph-creative-cursor { animation: living-cursor 820ms cubic-bezier(0.16, 1, 0.3, 1) both; }
 .motion-symbol--teams.is-interacting .glyph-route { animation: living-route 850ms ease-out both; }
 .motion-symbol--teams.is-interacting .glyph-route-dot { animation: living-route-dot 850ms cubic-bezier(0.4, 0, 0.2, 1) both; }
 .motion-symbol--operations.is-interacting .glyph-slider-a { animation: living-slider-a 760ms cubic-bezier(0.16, 1, 0.3, 1) both; }
@@ -1439,10 +1441,12 @@ html[lang="ko"] .hero-copy h1 {
 
 @keyframes living-confirm { 0%, 100% { transform: none; } 35% { transform: translateY(-5px) scale(0.82); } 68% { transform: translateY(0) scale(1.12); } }
 @keyframes living-write { 0% { stroke-dasharray: 24; stroke-dashoffset: 24; opacity: 0.25; } 100% { stroke-dasharray: 24; stroke-dashoffset: 0; opacity: 1; } }
-@keyframes living-page-turn { 0%, 100% { transform: none; } 45% { transform: perspective(90px) rotateY(-18deg) translateX(-2px); } }
-@keyframes living-bookmark { 0%, 100% { transform: none; } 44% { transform: translateY(-7px); } }
-@keyframes living-spark { 0%, 100% { transform: none; } 46% { transform: rotate(7deg) scale(1.12); } }
-@keyframes living-orbit { 0%, 100% { transform: none; } 45% { transform: rotate(-8deg) scale(1.04); } }
+@keyframes living-review-card { 0%, 100% { transform: none; } 44% { transform: translate(-2px, -4px) rotate(-2deg); } }
+@keyframes living-study-tab { 0%, 100% { transform: none; } 38% { transform: translateY(-7px) scale(0.94); } 68% { transform: translateY(0) scale(1.06); } }
+@keyframes living-study-progress { 0% { stroke-dasharray: 24; stroke-dashoffset: 24; opacity: 0.3; } 100% { stroke-dasharray: 24; stroke-dashoffset: 0; opacity: 1; } }
+@keyframes living-creative-curve { 0% { stroke-dasharray: 70; stroke-dashoffset: 70; opacity: 0.25; } 100% { stroke-dasharray: 70; stroke-dashoffset: 0; opacity: 1; } }
+@keyframes living-controls { 0%, 100% { transform: none; } 42% { transform: scale(1.045); } }
+@keyframes living-cursor { 0%, 100% { transform: none; } 36% { transform: translate(-8px, 5px) rotate(-6deg); } 68% { transform: translate(-3px, 2px) rotate(-2deg); } }
 @keyframes living-route { 0% { stroke-dasharray: 80; stroke-dashoffset: 80; opacity: 0.35; } 100% { stroke-dasharray: 80; stroke-dashoffset: 0; opacity: 1; } }
 @keyframes living-route-dot { 0% { opacity: 0; transform: translate(-15px, 13px) scale(0.7); } 52% { opacity: 1; transform: translate(0, -10px) scale(1); } 100% { opacity: 1; transform: none; } }
 @keyframes living-slider-a { 0%, 100% { transform: none; } 48% { transform: translateX(12px); } }
