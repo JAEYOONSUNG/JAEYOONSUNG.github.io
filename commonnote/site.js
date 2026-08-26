@@ -128,12 +128,68 @@ document.documentElement.classList.add("js");
     revealItems.forEach((item) => revealObserver.observe(item));
   }
 
+  const motionSymbols = [...document.querySelectorAll("[data-motion-symbol], [data-fine-motion]")];
+  if (motionSymbols.length) {
+    const visibleSymbols = new WeakSet();
+    const syncMotionSymbols = () => {
+      const canRun = !reducedMotion.matches && !document.hidden;
+      motionSymbols.forEach((symbol) => {
+        symbol.classList.toggle("is-in-view", canRun && visibleSymbols.has(symbol));
+      });
+    };
+
+    if ("IntersectionObserver" in window) {
+      const symbolObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) visibleSymbols.add(entry.target);
+            else visibleSymbols.delete(entry.target);
+          });
+          syncMotionSymbols();
+        },
+        { rootMargin: "8% 0px", threshold: 0.04 },
+      );
+      motionSymbols.forEach((symbol) => symbolObserver.observe(symbol));
+    } else {
+      motionSymbols.forEach((symbol) => visibleSymbols.add(symbol));
+    }
+
+    reducedMotion.addEventListener("change", syncMotionSymbols);
+    document.addEventListener("visibilitychange", syncMotionSymbols);
+    syncMotionSymbols();
+  }
+
   const gallery = document.querySelector("[data-gallery]");
   if (gallery) {
     const tabs = [...gallery.querySelectorAll("[data-gallery-tab]")];
     const panels = [...gallery.querySelectorAll("[data-gallery-panel]")];
+    const scrubber = gallery.querySelector("[data-gallery-scrubber]");
+    const scrubberOutput = gallery.querySelector("[data-gallery-output]");
+    const counter = gallery.querySelector("[data-gallery-counter]");
+    let interactionLockUntil = 0;
+    const warmGalleryFrames = () => {
+      panels.forEach((panel) => {
+        const image = panel.querySelector("img");
+        if (image instanceof HTMLImageElement) image.loading = "eager";
+      });
+    };
+
+    if ("IntersectionObserver" in window) {
+      const preloadObserver = new IntersectionObserver(
+        (entries, observer) => {
+          if (!entries.some((entry) => entry.isIntersecting)) return;
+          warmGalleryFrames();
+          observer.disconnect();
+        },
+        { rootMargin: "900px 0px", threshold: 0 },
+      );
+      preloadObserver.observe(gallery);
+    } else {
+      warmGalleryFrames();
+    }
 
     const selectGallery = (name, moveFocus = false, updateUrl = false) => {
+      const selectedIndex = Math.max(0, tabs.findIndex((tab) => tab.dataset.galleryTab === name));
       tabs.forEach((tab) => {
         const selected = tab.dataset.galleryTab === name;
         tab.setAttribute("aria-selected", String(selected));
@@ -146,11 +202,21 @@ document.documentElement.classList.add("js");
         panel.classList.toggle("is-active", selected);
       });
       gallery.dataset.active = name;
+      if (scrubber instanceof HTMLInputElement) {
+        scrubber.value = String(selectedIndex);
+        scrubber.style.setProperty("--scrub-progress", `${(selectedIndex / Math.max(1, tabs.length - 1)) * 100}%`);
+        scrubber.setAttribute("aria-valuetext", tabs[selectedIndex]?.querySelector("b")?.textContent?.trim() || name);
+      }
+      if (scrubberOutput) scrubberOutput.textContent = tabs[selectedIndex]?.querySelector("b")?.textContent?.trim() || name;
+      if (counter) counter.textContent = `${String(selectedIndex + 1).padStart(2, "0")} / ${String(tabs.length).padStart(2, "0")}`;
       if (updateUrl) history.replaceState(null, "", `#gallery-${name}`);
     };
 
     tabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => selectGallery(tab.dataset.galleryTab, false, true));
+      tab.addEventListener("click", () => {
+        interactionLockUntil = performance.now() + 900;
+        selectGallery(tab.dataset.galleryTab, false, true);
+      });
       tab.addEventListener("keydown", (event) => {
         let nextIndex = index;
         if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
@@ -159,14 +225,37 @@ document.documentElement.classList.add("js");
         else if (event.key === "End") nextIndex = tabs.length - 1;
         else return;
         event.preventDefault();
+        interactionLockUntil = performance.now() + 900;
         selectGallery(tabs[nextIndex].dataset.galleryTab, true, true);
       });
     });
+    if (scrubber instanceof HTMLInputElement) {
+      scrubber.addEventListener("input", () => {
+        interactionLockUntil = performance.now() + 900;
+        const next = tabs[Math.min(tabs.length - 1, Math.max(0, Number(scrubber.value)))];
+        if (next) selectGallery(next.dataset.galleryTab, false, true);
+      });
+    }
     const deepLinkedGallery = location.hash.match(/^#gallery-([a-z-]+)$/)?.[1];
     const initialGallery = tabs.some((tab) => tab.dataset.galleryTab === deepLinkedGallery)
       ? deepLinkedGallery
       : tabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.dataset.galleryTab || tabs[0]?.dataset.galleryTab;
     selectGallery(initialGallery);
+
+    const desktopWorkflow = window.matchMedia("(min-width: 821px)");
+    if ("IntersectionObserver" in window && desktopWorkflow.matches) {
+      const stepObserver = new IntersectionObserver(
+        (entries) => {
+          if (performance.now() < interactionLockUntil) return;
+          const active = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (active) selectGallery(active.target.dataset.galleryTab);
+        },
+        { rootMargin: "-40% 0px -42%", threshold: [0.05, 0.35, 0.7] },
+      );
+      tabs.forEach((tab) => stepObserver.observe(tab));
+    }
   }
 
   const guideSearch = document.querySelector("[data-guide-search]");

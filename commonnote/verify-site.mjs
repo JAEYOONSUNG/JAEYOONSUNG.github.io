@@ -96,9 +96,36 @@ for (const { file, lang, canonical, html } of pages) {
 check(/property="og:image"/.test(landing) && /property="og:image"/.test(landingKo), "both landing pages must define an Open Graph image");
 check(/\.\/guide\.html/.test(landing) && /\.\/guide-ko\.html/.test(landingKo), "each landing page must link its local-language guide");
 check(/data-gallery/.test(landing) && /data-gallery/.test(landingKo), "both landing pages must include the real-product gallery");
+check(/data-gallery-scrubber/.test(landing) && /data-gallery-scrubber/.test(landingKo), "both landing pages must include the draggable workflow scrubber");
+check(/class="gallery-viewport"/.test(landing) && /class="gallery-viewport"/.test(landingKo), "both landing pages must include the sticky product cinema viewport");
 check(/<video[^>]+autoplay[^>]+muted[^>]+loop[^>]+playsinline/.test(landing), "English landing must include the live collaboration loop");
 check(/<video[^>]+autoplay[^>]+muted[^>]+loop[^>]+playsinline/.test(landingKo), "Korean landing must include the live collaboration loop");
 check(/data-motion-toggle/.test(landing) && /data-motion-toggle/.test(landingKo), "both landing pages must provide a motion pause/play control");
+const motionSymbolVariants = [
+  "personal",
+  "study",
+  "creative",
+  "teams",
+  "operations",
+  "research",
+  "notes",
+  "collaboration",
+  "execution",
+  "planning",
+  "records",
+  "tools",
+];
+for (const [label, html] of [["English", landing], ["Korean", landingKo]]) {
+  check((html.match(/data-motion-symbol=/g) || []).length === 12, `${label} landing must include exactly twelve motion symbols`);
+  for (const variant of motionSymbolVariants) {
+    check(html.includes(`data-motion-symbol="${variant}"`), `${label} landing is missing the ${variant} motion symbol`);
+  }
+  check((html.match(/<svg viewBox="0 0 48 48" focusable="false">/g) || []).length === 12, `${label} motion symbols must use non-focusable inline SVG`);
+}
+check(!/audience-emoji|feature-emoji|🗒️|🎓|✨|🧭|⚙️|🔬|✍️|👥|🚀|🗓️|🔐|🧮|⚡|🌐/.test(landing + landingKo + css), "native emoji artwork must be fully replaced");
+check((landing.match(/data-fine-motion/g) || []).length === 3 && (landingKo.match(/data-fine-motion/g) || []).length === 3, "both landing pages need three fine motion trust symbols");
+check(/\.motion-symbol\.is-in-view/.test(css) && /animation-play-state:\s*var\(--motion-state\)/.test(css), "motion symbols must expose a CSS paused/running contract");
+check(/const motionSymbols/.test(js) && /visibleSymbols/.test(js) && /document\.hidden/.test(js), "motion symbols must be visibility-gated in JavaScript");
 check((landing.match(/assets\/product-v4\//g) || []).length >= 9, "English landing must use at least nine real product captures");
 check((landingKo.match(/assets\/product-v4\//g) || []).length >= 9, "Korean landing must use at least nine real product captures");
 check((guide.match(/data-guide-section/g) || []).length === 12, "English guide must include exactly twelve detailed sections");
