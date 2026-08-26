@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f7f9" />
+    <meta name="description" content="CommonNote의 노트 작성, 실시간 협업, 업무 전달, 메신저, 프로젝트, 관계 맵, 일정 표, 캘린더, 가져오기와 백업을 단계별로 설명합니다." />
+    <link rel="canonical" href="https://jaeyoonsung.github.io/commonnote/guide.html" />
+    <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./fonts/pretendard/pretendard.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./site.js" defer></script>
+    <title>CommonNote 자세한 설명서</title>
+  </head>
+  <body class="guide-page">
+    <a class="skip-link" href="#guide-main">설명서 본문으로 건너뛰기</a>
+    <header class="guide-header">
+      <div class="guide-header-inner section-shell">
+        <a class="brand" href="./"><img src="./assets/icon.svg" width="32" height="32" alt="" /><span>CommonNote 설명서</span></a>
+        <div class="guide-header-actions"><a href="./">제품 소개</a><a href="https://commonnote.app/">앱 열기</a></div>
+      </div>
+    </header>
+
+    <main id="guide-main">
+      <section class="guide-hero section-shell" aria-labelledby="guide-title">
+        <p class="eyebrow">DETAILED PRODUCT GUIDE</p>
+        <h1 id="guide-title">기능을 찾고,<br />바로 쓸 수 있게.</h1>
+        <p>어디서 시작하고 무엇을 누르며 결과가 어디에 보이는지, 실제 작업 순서로 정리했습니다. 기능 이름이나 하고 싶은 일을 검색해도 됩니다.</p>
+        <label class="guide-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg><input type="search" placeholder="예: 업무 전달, TeX, Notion, 일정 표, 파일 보내기" aria-label="설명서 검색" data-guide-search /><output data-guide-output></output></label>
+      </section>
+
+      <div class="guide-layout section-shell">
+        <aside class="guide-sidebar" aria-label="설명서 목차"><span>CONTENTS</span><nav>
+          <a href="#start" data-guide-link>시작하기</a>
+          <a href="#notes" data-guide-link>노트 만들기</a>
+          <a href="#formatting" data-guide-link>서식·색상·아이콘</a>
+          <a href="#collaboration" data-guide-link>실시간 공동 편집</a>
+          <a href="#handoff" data-guide-link>업무 전달·검토</a>
+          <a href="#messenger" data-guide-link>메신저·파일 전달</a>
+          <a href="#migration" data-guide-link>데이터 가져오기</a>
+          <a href="#projects" data-guide-link>프로젝트·관계 맵</a>
+          <a href="#planning" data-guide-link>할 일·일정·캘린더</a>
+          <a href="#research-tools" data-guide-link>수식·시약 계산</a>
+          <a href="#records" data-guide-link>버전·잠금·백업</a>
+          <a href="#troubleshooting" data-guide-link>문제 해결·단축키</a>
+        </nav></aside>
+
+        <div class="guide-content">
+          <section id="start" class="guide-section" data-guide-section data-search="시작 로그인 가입 화면 사이드바">
+            <span class="guide-label">01 · GETTING STARTED</span><h2>시작하기</h2><p>로그인한 뒤 처음 보이는 화면과 가장 빠른 기록 경로입니다.</p>
+            <div class="guide-path"><b>앱 열기</b><i>→</i><b>로그인</b><i>→</i><b>왼쪽 사이드바</b></div>
+            <ol class="step-list"><li><a href="https://commonnote.app/">commonnote.app</a>에서 로그인합니다. 처음 쓰는 계정은 가입과 이메일 확인을 먼저 마칩니다.</li><li>왼쪽 사이드바에서 <b>All Notes</b>, <b>할 일</b>, <b>프로젝트 트리</b>, <b>캘린더</b> 중 지금 할 일을 선택합니다.</li><li>빠른 기록은 <b>오늘의 새 노트</b>를 누릅니다. 오늘 날짜 제목과 체크리스트를 가진 노트가 열립니다.</li><li>상단의 보기 설정에서 줄간격, 여백, 글꼴을 내 화면에 맞춥니다.</li></ol>
+            <div class="guide-callout">기능이 보이지 않으면 먼저 브라우저 새로고침 후 왼쪽 사이드바가 접혀 있지 않은지 확인하세요. 사이드바 단축키는 <code>⇧⌘\</code>입니다.</div>
+          </section>
+
+          <section id="notes" class="guide-section" data-guide-section data-search="노트 템플릿 체크리스트 표 파일 Figure 태그 노트북">
+            <span class="guide-label">02 · NOTES</span><h2>노트 만들기와 구조 잡기</h2><p>빈 노트, 연구 템플릿, 노트북과 태그를 이용해 기록의 기본 구조를 만듭니다.</p>
+            <div class="guide-path"><b>All Notes</b><i>→</i><b>새 노트 +</b><i>→</i><b>빈 노트 또는 템플릿</b></div>
+            <ol class="step-list"><li><b>새 노트</b>를 누르고 빈 노트 또는 실험 노트·논문 리뷰·회의록·프로젝트 킥오프 템플릿을 선택합니다.</li><li>첫 번째 제목 1 블록이 노트 제목이 됩니다. 제목을 바꾸면 목록과 탭 이름도 함께 바뀝니다.</li><li>노트 상단의 노트북 선택에서 저장할 노트북을 고르고, <code>+ tag</code>에서 태그를 붙입니다.</li><li>편집기 도구에서 표, 체크리스트, 파일 첨부 또는 Figure 프레임을 삽입합니다.</li><li>자주 쓰는 구조는 <b>템플릿으로 지정</b>해 다음 노트에서 다시 사용합니다.</li></ol>
+            <div class="guide-columns"><article class="guide-card"><h3>노트북</h3><p>사이드바의 +로 만들고 부모 노트북을 지정해 여러 단계로 중첩할 수 있습니다.</p></article><article class="guide-card"><h3>태그</h3><p>프로젝트와 무관한 주제·시약·상태를 가로질러 찾을 때 사용합니다.</p></article><article class="guide-card"><h3>파일과 Figure</h3><p>파일은 커서 위치에 들어가며 Figure 프레임에서는 캡션과 배치를 함께 관리합니다.</p></article><article class="guide-card"><h3>목차</h3><p>상단 목차 버튼을 열면 제목 블록 기준으로 긴 노트를 빠르게 이동합니다.</p></article></div>
+          </section>
+
+          <section id="formatting" class="guide-section" data-guide-section data-search="마크다운 Markdown 서식 제목 글꼴 크기 굵게 기울임 밑줄 취소선 형광펜 글자색 이모지 아이콘 Lucide Phosphor Tabler 표 코드 TeX">
+            <span class="guide-label">03 · FORMATTING</span><h2>서식·색상·아이콘</h2><p>기본 문서 형식부터 연구용 표기까지 선택 영역이나 현재 블록에 적용합니다.</p>
+            <div class="guide-path"><b>노트 열기</b><i>→</i><b>편집기 상단 도구막대</b></div>
+            <table class="guide-table"><thead><tr><th>범주</th><th>지원 기능</th><th>사용 방법</th></tr></thead><tbody>
+              <tr><td>블록</td><td>제목 1–3, 글머리, 번호, 체크리스트, 인용, 구분선, 접기 블록</td><td>커서를 블록에 놓고 해당 도구를 누릅니다.</td></tr>
+              <tr><td>글자</td><td>굵게, 기울임, 밑줄, 취소선, 아래·위 첨자, 인라인 코드, 링크</td><td>글자를 선택한 뒤 적용합니다.</td></tr>
+              <tr><td>색</td><td>형광펜 9색, 글자색 9색, 원하는 색 직접 선택</td><td>선택 영역에 적용하며 제거 버튼으로 원래 색으로 돌립니다.</td></tr>
+              <tr><td>아이콘</td><td>Lucide, Phosphor, Tabler, 이모지</td><td>아이콘 검색에서 선택하면 주변 글자의 크기와 색을 따릅니다.</td></tr>
+              <tr><td>구조</td><td>표, 코드 블록, TeX 수식, Figure 프레임</td><td>삽입 후 블록별 편집 도구를 사용합니다.</td></tr>
+              <tr><td>형식</td><td>Markdown 기반 편집, MD·HTML·PDF 출력</td><td>편집기 오른쪽의 MD/HTML/PDF 버튼을 사용합니다.</td></tr>
+            </tbody></table>
+            <div class="guide-callout">CommonNote는 Markdown을 가져오고 내보낼 수 있지만 편집 화면에서는 표, 파일, 댓글, 작성자처럼 Markdown만으로 표현하기 어려운 정보도 함께 관리합니다.</div>
+          </section>
+
+          <section id="collaboration" class="guide-section" data-guide-section data-search="실시간 동시 입력 커서 공동 편집 작성자 댓글 공유 편집자 보기 전용 버전">
+            <span class="guide-label">04 · REAL-TIME COLLABORATION</span><h2>실시간 공동 편집</h2><p>같은 노트를 여러 사람이 동시에 열고, 누가 어디를 편집하는지와 누가 쓴 블록인지 구분합니다.</p>
+            <div class="guide-path"><b>노트 상단</b><i>→</i><b>공유</b><i>→</i><b>아이디 입력</b><i>→</i><b>편집자/보기 전용</b></div>
+            <ol class="step-list"><li>노트 소유자가 <b>공유</b>를 누르고 상대 아이디와 권한을 선택합니다.</li><li>상대가 노트를 열면 상단 참가자 아바타와 접속 점이 표시됩니다.</li><li>동시에 입력하면 각 사용자의 커서와 선택 영역이 사용자 색으로 보입니다.</li><li><b>작성자 표시</b>를 켜면 블록마다 작성한 사람을 확인할 수 있습니다.</li><li>검토할 구간은 선택 후 <b>댓글</b>을 눌러 대화를 남깁니다.</li></ol>
+            <div class="guide-columns"><article class="guide-card"><h3>편집자</h3><p>노트 내용을 수정하고 댓글·체크리스트·파일을 함께 편집합니다.</p></article><article class="guide-card"><h3>보기 전용</h3><p>내용은 읽되 수정할 수 없습니다. 공개 링크와 달리 계정 기반 접근입니다.</p></article><article class="guide-card"><h3>버전 기록</h3><p>10분 간격 자동 저장과 수동 버전을 비교하고 복구합니다.</p></article><article class="guide-card"><h3>기록 확정·확인</h3><p>현재 내용을 굳혀 작성자 또는 확인자의 서명과 해시를 남깁니다.</p></article></div>
+          </section>
+
+          <section id="handoff" class="guide-section" data-guide-section data-search="업무 전달 인수인계 담당자 기한 메모 검토 요청 변경 요청 위임 흐름 요청사항">
+            <span class="guide-label">05 · HANDOFF & REVIEW</span><h2>업무 전달과 검토 요청</h2><p>체크리스트 업무를 담당자, 기한, 전달 메모와 함께 넘기고 메시지에서 원본으로 돌아옵니다.</p>
+            <div class="guide-path"><b>할 일</b><i>→</i><b>카드/목록</b><i>→</i><b>전달</b></div>
+            <ol class="step-list"><li>전달할 업무 카드에서 종이비행기 버튼 또는 <b>전달</b>을 누릅니다.</li><li>받는 사람을 한 명 이상 선택합니다.</li><li>오늘·내일·이번 주 금요일·다음 주 또는 직접 날짜로 기한을 지정합니다.</li><li>상대가 바로 이해할 수 있도록 배경과 요청사항을 전달 메모에 적습니다.</li><li>전달하면 수신자 메시지에 메모와 <b>업무 열기</b> 링크가 생기고 고우선순위 알림이 갑니다.</li></ol>
+            <div class="guide-columns"><article class="guide-card"><h3>위임 흐름</h3><p>보낸 사람 → 받은 사람 → 다시 전달된 경로와 현재 담당자를 확인합니다.</p></article><article class="guide-card"><h3>요청사항</h3><p>상대가 보낸 업무 요청을 수락하거나 현재 노트와 연결합니다.</p></article><article class="guide-card"><h3>검토 상태</h3><p>상태를 검토로 바꾸고 검토 요청을 보내면 변경 요청·완료를 추적합니다.</p></article><article class="guide-card"><h3>원본 유지</h3><p>전달 뒤에도 Source Thread와 원본 노트 링크는 사라지지 않습니다.</p></article></div>
+          </section>
+
+          <section id="messenger" class="guide-section" data-guide-section data-search="메신저 메시지 파일 전달 200MB 24시간 팀 대화 CSV 다운로드">
+            <span class="guide-label">06 · MESSENGER & FILES</span><h2>메신저와 파일 전달</h2><p>노트나 팀으로 함께 일하는 사람과 대화하고 큰 원자료를 짧게 전달합니다.</p>
+            <div class="guide-path"><b>상단 말풍선</b><i>→</i><b>연락처 선택</b><i>→</i><b>메시지 또는 + 파일</b></div>
+            <ol class="step-list"><li>상단 메시지 버튼을 열고 개인 또는 팀 대화를 선택합니다.</li><li>텍스트는 Enter로 보내고 Shift+Enter로 줄을 바꿉니다.</li><li><b>+ 파일</b>에서 파일을 고르거나 바로 보내기 버튼을 사용합니다.</li><li>파일 하나는 최대 <b>200MB</b>이며 업로드 진행률이 표시됩니다.</li><li>파일 바이트는 <b>24시간 뒤 자동 삭제</b>되고, 파일명·크기·전달 시각은 대화에 남습니다.</li></ol>
+            <div class="guide-callout warning">메신저 파일은 영구 보관용이 아닙니다. 보존할 원자료는 노트의 파일 첨부 또는 Figure 프레임에 넣고, 메신저는 빠른 인수인계에 사용하세요.</div>
+          </section>
+
+          <section id="migration" class="guide-section" data-guide-section data-search="Notion Obsidian Evernote ENEX ZIP Markdown md 가져오기 마이그레이션 백업 내보내기">
+            <span class="guide-label">07 · MIGRATION</span><h2>데이터 가져오기와 이동</h2><p>기존 앱의 내보내기 파일을 그대로 가져와 노트와 노트북 구조를 재구성합니다.</p>
+            <div class="guide-path"><b>All Notes</b><i>→</i><b>가져오기</b><i>→</i><b>파일 선택 또는 끌어 놓기</b></div>
+            <table class="guide-table"><thead><tr><th>출처</th><th>준비할 파일</th><th>옮겨지는 내용</th></tr></thead><tbody>
+              <tr><td>Notion</td><td>Markdown & CSV 내보내기 ZIP</td><td>페이지, 폴더, 이미지와 첨부 파일</td></tr>
+              <tr><td>Obsidian</td><td>Vault 폴더를 압축한 ZIP</td><td>Markdown, 폴더 계층, Wiki 링크, 첨부</td></tr>
+              <tr><td>Evernote</td><td><code>.enex</code></td><td>노트 본문, 제목, 생성 시각과 첨부</td></tr>
+              <tr><td>Markdown</td><td><code>.md</code> 또는 Markdown ZIP</td><td>제목·목록·체크·표·코드·이미지</td></tr>
+            </tbody></table>
+            <ol class="step-list"><li>가져오기 전에 원본 앱에서 전체 내보내기를 한 번 더 보관합니다.</li><li>파일을 올리고 가져오기 요약에서 성공·건너뜀·오류 수를 확인합니다.</li><li>노트북 구조, 이미지, 내부 링크와 체크리스트를 표본 노트에서 검수합니다.</li><li>이동 뒤 전체 ZIP 백업을 받아 복구 가능한 사본을 만듭니다.</li></ol>
+          </section>
+
+          <section id="projects" class="guide-section" data-guide-section data-search="프로젝트 트리 노트북 계층 관계 맵 네트워크 노드 메모 연결 라벨 선 화살표 색 굵기 Source Thread">
+            <span class="guide-label">08 · PROJECTS & MAP</span><h2>프로젝트 트리와 관계 맵</h2><p>같은 범위를 계층과 네트워크 두 방식으로 읽습니다. 계층은 구조, 관계 맵은 판단 이유를 보여줍니다.</p>
+            <div class="guide-path"><b>프로젝트 트리</b><i>→</i><b>계층 또는 관계 맵</b></div>
+            <ol class="step-list"><li>사이드바 +에서 노트북을 만들고 부모 노트북을 지정해 연구 계층을 구성합니다.</li><li><b>새 프로젝트</b>를 만들고 포함할 최상위 노트북을 프로젝트에 배치합니다.</li><li>계층 보기에서 프로젝트 → 노트북 → 노트 → 할 일을 접고 펼칩니다.</li><li>관계 맵에서 노트와 개인 메모를 캔버스에 놓고 두 노드를 선택해 연결합니다.</li><li>연결 라벨, 실선·점선·점, 화살표 방향, 굵기와 색을 설정합니다.</li><li>캔버스 배율, 폭 맞춤, 노드 크기와 프레임 높이를 작업량에 맞춥니다.</li></ol>
+            <div class="guide-callout"><b>Source Thread</b>: Wiki 링크로 생긴 자동 관계는 점선, 직접 만든 판단 관계는 실선으로 구분됩니다. 업무 카드의 원본 버튼에서도 같은 노트로 돌아갑니다.</div>
+          </section>
+
+          <section id="planning" class="guide-section" data-guide-section data-search="할 일 체크리스트 목록 카드 보드 상태 담당자 마감 반복 자연어 날짜 일정 표 열 속성 그룹 필터 정렬 계산 캘린더 D-Day 기간 막대">
+            <span class="guide-label">09 · TASKS & CALENDAR</span><h2>할 일, 일정 표와 캘린더</h2><p>노트의 체크리스트와 빠른 입력 업무를 상태·담당자·기한·속성으로 관리합니다.</p>
+            <div class="guide-columns"><article class="guide-card"><h3>할 일 만들기</h3><p>노트 체크리스트, 오늘의 새 노트 또는 할 일 상단 입력창에서 만듭니다.</p></article><article class="guide-card"><h3>보기 전환</h3><p>목록·카드·보드, 사람별, 완료 기록, 위임 흐름과 요청사항으로 전환합니다.</p></article><article class="guide-card"><h3>자연어 날짜</h3><p><code>@내일 3시</code>, <code>@다음주 금</code>, <code>@월~금</code>, <code>@7월 30일</code>을 내용에 적습니다.</p></article><article class="guide-card"><h3>반복 업무</h3><p>반복 업무에서 요일과 담당자를 정하면 해당 주기에 새 업무가 생성됩니다.</p></article></div>
+            <h3>일정 표 사용 순서</h3><ol class="step-list"><li>캘린더 상단에서 <b>표</b>를 선택합니다.</li><li>업무별·날짜별·상태별·노트별 중 기본 계층을 고릅니다.</li><li>그룹을 여러 단계로 추가하고 순서를 드래그해 바꿉니다.</li><li>상태·사람·날짜 필터와 정렬을 적용합니다.</li><li>열 손잡이로 열 순서를 바꾸고 구분선을 드래그해 너비를 조절합니다.</li><li>속성에서 선택·숫자·날짜·사람·관계·수식·롤업 열을 추가합니다.</li></ol>
+            <h3>캘린더 사용 순서</h3><ol class="step-list"><li>빈 날짜를 눌러 바로 추가하거나 가로로 드래그해 기간 막대를 만듭니다.</li><li>항목을 눌러 내용, 색, 완료, 기한과 삭제를 수정합니다.</li><li>상단의 오늘·이번 주 진행률, 마감 지남, 확인 요청과 D-Day 칩으로 우선순위를 봅니다.</li></ol>
+          </section>
+
+          <section id="research-tools" class="guide-section" data-guide-section data-search="시약 계산기 분자량 몰수 희석 농도 PubChem TeX 수식 계산 속성 롤업">
+            <span class="guide-label">10 · RESEARCH TOOLS</span><h2>수식, 시약 계산과 자동 계산</h2><p>편집기와 일정 표에서 반복 계산을 줄입니다.</p>
+            <div class="guide-path"><b>노트 상단 플라스크</b><i>→</i><b>시약 계산기</b></div>
+            <ol class="step-list"><li>화학식(<code>C6H12O6</code>)을 입력하면 원자량을 합산해 분자량을 계산합니다.</li><li>시약 이름을 입력하면 PubChem에서 찾아오며, 한 번 찾은 결과는 다음 검색에 재사용됩니다.</li><li>목표 몰농도와 부피를 넣어 필요한 질량을 계산합니다.</li><li>원액 농도와 목표 농도를 넣어 덜어 쓸 부피를 계산합니다.</li><li>질량을 넣어 실제 몰수를 계산합니다.</li></ol>
+            <div class="guide-columns"><article class="guide-card"><h3>TeX 수식</h3><p>편집기 Σ 도구에서 LaTeX를 입력해 블록 수식을 삽입합니다.</p></article><article class="guide-card"><h3>수식 속성</h3><p>일정 표 속성에서 숫자·날짜·선택 값을 조합한 계산식을 만듭니다.</p></article><article class="guide-card"><h3>롤업</h3><p>관계 속성으로 연결된 항목의 개수·합계·완료율을 집계합니다.</p></article><article class="guide-card"><h3>진행률</h3><p>그룹과 사람별 완료 수를 바탕으로 일정 표와 캘린더에서 자동 표시합니다.</p></article></div>
+          </section>
+
+          <section id="records" class="guide-section" data-guide-section data-search="버전 히스토리 기록 확정 서명 확인 잠금 비밀번호 Markdown HTML PDF ZIP 백업 복구">
+            <span class="guide-label">11 · RECORDS & BACKUP</span><h2>버전, 잠금과 백업</h2><p>변경 이력과 소유권을 남기고 서비스 밖에서도 읽을 수 있는 사본을 만듭니다.</p>
+            <div class="guide-columns"><article class="guide-card"><h3>버전 히스토리</h3><p>10분 간격 자동 버전과 수동 저장을 비교·복구합니다.</p></article><article class="guide-card"><h3>기록 확정·확인</h3><p>내용 해시와 서명 시각, 작성자·확인자 관계를 남깁니다.</p></article><article class="guide-card"><h3>비밀번호 잠금</h3><p>개인 노트나 노트북을 잠그고 비활성 시간 뒤 자동으로 다시 잠급니다.</p></article><article class="guide-card"><h3>내보내기</h3><p>현재 노트는 MD·HTML·PDF, 전체 작업 공간은 첨부를 포함한 ZIP으로 받습니다.</p></article></div>
+            <ol class="step-list"><li>노트별 사본은 편집기 오른쪽 MD, HTML, PDF 버튼을 사용합니다.</li><li>전체 사본은 상단 데이터베이스/백업 아이콘에서 형식과 저장 위치를 선택합니다.</li><li>백업 ZIP을 다른 저장소에 한 부 더 복사하고 정기적으로 열어 봅니다.</li><li>복구 전에는 기존 작업 공간을 먼저 백업해 덮어쓰기 위험을 줄입니다.</li></ol>
+          </section>
+
+          <section id="troubleshooting" class="guide-section" data-guide-section data-search="문제 해결 동기화 업로드 필터 모바일 단축키 오류 안보임">
+            <span class="guide-label">12 · TROUBLESHOOTING</span><h2>문제 해결과 단축키</h2><p>자주 헷갈리는 상태와 빠른 조작을 모았습니다.</p>
+            <table class="guide-table"><thead><tr><th>증상</th><th>확인할 것</th></tr></thead><tbody>
+              <tr><td>다른 사람의 입력이 보이지 않음</td><td>두 사람이 같은 노트를 열었는지, 상단 참가자 점이 켜졌는지, 네트워크가 연결됐는지 확인합니다.</td></tr>
+              <tr><td>업무가 목록에 없음</td><td>내 할 일/전체 범위, 상태·사람·날짜 필터, 완료 여부와 임시 표시를 확인합니다.</td></tr>
+              <tr><td>프로젝트 관계 맵이 비어 있음</td><td>프로젝트를 만들고 노트북을 배치했는지, 현재 프로젝트 렌즈가 맞는지 확인합니다.</td></tr>
+              <tr><td>가져온 이미지가 없음</td><td>원본 ZIP에 이미지가 포함됐는지와 상대 경로가 깨지지 않았는지 확인합니다.</td></tr>
+              <tr><td>파일 전달이 안 됨</td><td>공동 작업자인지, 파일이 200MB 이하인지, 서버 여유 공간이 있는지 확인합니다.</td></tr>
+              <tr><td>모바일에서 메뉴가 안 보임</td><td>상단 메뉴와 좌우 패널 닫기 버튼을 사용하고 화면 확대 배율을 확인합니다.</td></tr>
+            </tbody></table>
+            <h3>주요 단축키</h3><table class="guide-table"><thead><tr><th>동작</th><th>macOS</th></tr></thead><tbody>
+              <tr><td>새 노트</td><td><code>⌘N</code></td></tr><tr><td>새 노트북</td><td><code>⇧⌘N</code></td></tr><tr><td>노트 검색</td><td><code>⌘G</code></td></tr><tr><td>굵게 / 기울임 / 밑줄</td><td><code>⌘B</code> / <code>⌘I</code> / <code>⌘U</code></td></tr><tr><td>제목 1–3</td><td><code>⌘1</code>–<code>⌘3</code></td></tr><tr><td>체크리스트</td><td><code>⌘9</code></td></tr><tr><td>오늘 날짜 / 현재 시간</td><td><code>⌘D</code> / <code>⇧⌘D</code></td></tr><tr><td>집중 모드</td><td><code>⇧⌘.</code></td></tr><tr><td>즐겨찾기 / 고정</td><td><code>⇧⌘S</code> / <code>⇧⌘P</code></td></tr><tr><td>사이드바</td><td><code>⇧⌘\</code></td></tr>
+            </tbody></table>
+            <div class="guide-callout">해결되지 않으면 <a href="https://commonnote.app/support.html">지원 페이지</a>에서 브라우저·운영체제, 문제가 생긴 화면, 재현 순서와 오류 메시지를 함께 보내 주세요.</div>
+          </section>
+
+          <div class="guide-empty" data-guide-empty><h2>검색 결과가 없습니다.</h2><p>기능 이름 대신 하고 싶은 일로 검색해 보세요. 예: “다른 사람에게 업무 보내기”, “Notion 옮기기”.</p></div>
+        </div>
+      </div>
+    </main>
+    <footer class="site-footer"><a class="brand footer-brand" href="./"><img src="./assets/icon.svg" width="28" height="28" alt="" /><span>CommonNote</span></a><p>자세한 제품 설명서</p><nav aria-label="서비스 정보"><a href="./">제품 소개</a><a href="https://commonnote.app/support.html">지원</a><a href="https://commonnote.app/">앱 열기</a></nav><small>© 2026 CommonNote</small></footer>
+  </body>
+</html>

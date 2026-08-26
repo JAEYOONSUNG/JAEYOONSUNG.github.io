@@ -20,7 +20,6 @@ document.documentElement.classList.add("js");
       navToggle.setAttribute("aria-expanded", String(open));
       navToggle.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
     });
-
     nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeNavigation));
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape") closeNavigation();
@@ -31,7 +30,7 @@ document.documentElement.classList.add("js");
     });
   }
 
-  const updateHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 18);
+  const updateHeader = () => header?.classList.toggle("is-scrolled", window.scrollY > 12);
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
 
@@ -47,71 +46,78 @@ document.documentElement.classList.add("js");
           observer.unobserve(entry.target);
         });
       },
-      { rootMargin: "0px 0px -7%", threshold: 0.08 },
+      { rootMargin: "0px 0px -7%", threshold: 0.06 },
     );
     revealItems.forEach((item) => revealObserver.observe(item));
   }
 
-  const journey = document.querySelector("[data-journey]");
-  const journeyButtons = [...document.querySelectorAll("[data-journey-button]")];
-  const journeyLabel = document.querySelector("[data-journey-label]");
-  const journeyLabels = [
-    "관찰을 선택합니다.",
-    "원본을 유지한 채 근거로 연결합니다.",
-    "담당자와 기한이 있는 다음 할 일이 열립니다.",
-  ];
-  let journeyScene = 0;
-  let journeyTimer;
-  let journeyVisible = false;
+  const gallery = document.querySelector("[data-gallery]");
+  if (gallery) {
+    const tabs = [...gallery.querySelectorAll("[data-gallery-tab]")];
+    const panels = [...gallery.querySelectorAll("[data-gallery-panel]")];
 
-  const setJourneyScene = (scene) => {
-    if (!journey) return;
-    journeyScene = ((scene % journeyLabels.length) + journeyLabels.length) % journeyLabels.length;
-    journey.dataset.scene = String(journeyScene);
-    if (journeyLabel) journeyLabel.textContent = journeyLabels[journeyScene];
-    journeyButtons.forEach((button, index) => {
-      const active = index === journeyScene;
-      button.classList.toggle("is-active", active);
-      button.setAttribute("aria-pressed", String(active));
+    const selectGallery = (name, moveFocus = false) => {
+      tabs.forEach((tab) => {
+        const selected = tab.dataset.galleryTab === name;
+        tab.setAttribute("aria-selected", String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        if (selected && moveFocus) tab.focus();
+      });
+      panels.forEach((panel) => {
+        const selected = panel.dataset.galleryPanel === name;
+        panel.hidden = !selected;
+        panel.classList.toggle("is-active", selected);
+      });
+      gallery.dataset.active = name;
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => selectGallery(tab.dataset.galleryTab));
+      tab.addEventListener("keydown", (event) => {
+        let nextIndex = index;
+        if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+        else if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === "Home") nextIndex = 0;
+        else if (event.key === "End") nextIndex = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        selectGallery(tabs[nextIndex].dataset.galleryTab, true);
+      });
     });
-  };
-
-  const stopJourney = () => window.clearInterval(journeyTimer);
-  const startJourney = () => {
-    stopJourney();
-    if (!reducedMotion.matches && journeyVisible && !document.hidden) {
-      journeyTimer = window.setInterval(() => setJourneyScene(journeyScene + 1), 3600);
-    }
-  };
-
-  journeyButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      setJourneyScene(Number(button.dataset.journeyButton));
-      startJourney();
-    });
-  });
-
-  if (journey && "IntersectionObserver" in window) {
-    const journeyObserver = new IntersectionObserver(
-      ([entry]) => {
-        journeyVisible = entry.isIntersecting;
-        startJourney();
-      },
-      { threshold: 0.14 },
-    );
-    journeyObserver.observe(journey);
+    selectGallery(tabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.dataset.galleryTab || "project");
   }
 
-  const updateMotionPreference = () => {
-    if (reducedMotion.matches) {
-      stopJourney();
-      setJourneyScene(0);
-    } else {
-      startJourney();
-    }
-  };
+  const guideSearch = document.querySelector("[data-guide-search]");
+  const guideSections = [...document.querySelectorAll("[data-guide-section]")];
+  const guideOutput = document.querySelector("[data-guide-output]");
+  const guideEmpty = document.querySelector("[data-guide-empty]");
 
-  reducedMotion.addEventListener?.("change", updateMotionPreference);
-  document.addEventListener("visibilitychange", startJourney);
-  setJourneyScene(0);
+  if (guideSearch && guideSections.length) {
+    const filterGuide = () => {
+      const query = guideSearch.value.trim().toLocaleLowerCase("ko");
+      let visible = 0;
+      guideSections.forEach((section) => {
+        const match = !query || section.textContent.toLocaleLowerCase("ko").includes(query);
+        section.hidden = !match;
+        if (match) visible += 1;
+      });
+      if (guideOutput) guideOutput.textContent = query ? `${visible}개 설명 항목을 찾았습니다.` : `전체 ${guideSections.length}개 설명 항목`;
+      guideEmpty?.classList.toggle("is-visible", visible === 0);
+    };
+    guideSearch.addEventListener("input", filterGuide);
+    filterGuide();
+  }
+
+  const guideLinks = [...document.querySelectorAll("[data-guide-link]")];
+  if (guideLinks.length && guideSections.length && "IntersectionObserver" in window) {
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        guideLinks.forEach((link) => link.classList.toggle("is-current", link.getAttribute("href") === `#${visible.target.id}`));
+      },
+      { rootMargin: "-15% 0px -70%", threshold: [0.05, 0.25, 0.5] },
+    );
+    guideSections.forEach((section) => sectionObserver.observe(section));
+  }
 })();
