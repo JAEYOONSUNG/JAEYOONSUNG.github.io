@@ -35,7 +35,7 @@
         <a class="brand" href="#top" aria-label="CommonNote home" translate="no"><img src="./assets/icon.svg" width="32" height="32" alt="" /><span>CommonNote</span></a>
         <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-navigation" data-nav-toggle data-open-label="Open menu" data-close-label="Close menu"><span></span><span></span></button>
         <nav id="site-navigation" class="site-nav" aria-label="Product navigation" data-nav>
-          <a href="#write">Write</a><a href="#workflow">Organize</a><a href="#collaborate">Collaborate</a><a href="#features">Features</a><a href="./guide.html">Guide</a>
+          <a href="#write">Write</a><a href="#workflow">Organize</a><a href="#collaborate">Collaborate</a><a href="#daily">Your day</a><a href="#connect">Connect</a><a href="#features">Features</a><a href="./guide.html">Guide</a>
           <span class="locale-switch" aria-label="Language"><a href="./" lang="en" aria-current="page">EN</a><a href="./ko.html" lang="ko">KO</a></span>
           <a class="nav-cta" href="https://commonnote.app/">Open app</a>
         </nav>
@@ -49,7 +49,7 @@
           <div class="hero-copy reveal" data-reveal>
             <p class="eyebrow eyebrow-light"><span></span>A CONNECTED WORKSPACE</p>
             <h1 id="hero-title">Notes that keep<br />the work moving.</h1>
-            <p class="hero-lede">Write together. Turn decisions into tasks. Carry the context into projects, messages, files, and schedules—without rebuilding it in five different tools.</p>
+            <p class="hero-lede">Write together. Turn decisions into tasks. Carry the context into projects, messages, files, and schedules—without rebuilding it in five different tools. Open it on the web, the Mac app, or iPhone and it is the same note.</p>
             <div class="hero-actions">
               <a class="button button-signal" href="https://commonnote.app/">Start in CommonNote <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" /></svg></a>
               <a class="button button-ghost" href="#live-demo">See it in motion</a>
@@ -154,7 +154,7 @@
               <button type="button" role="tab" aria-selected="false" aria-controls="gallery-map" id="tab-map" data-gallery-tab="map"><span>Step 2</span><b>Map the relationships</b><small>Draw the links that a folder tree cannot explain.</small></button>
               <button type="button" role="tab" aria-selected="false" aria-controls="gallery-tasks" id="tab-tasks" data-gallery-tab="tasks"><span>Step 3</span><b>Move the work</b><small>Turn source-linked decisions into accountable action cards.</small></button>
               <button type="button" role="tab" aria-selected="false" aria-controls="gallery-table" id="tab-table" data-gallery-tab="table"><span>Step 4</span><b>Shape the schedule</b><small>Group, filter, calculate, resize, and reorder the same work.</small></button>
-              <button type="button" role="tab" aria-selected="false" aria-controls="gallery-calendar" id="tab-calendar" data-gallery-tab="calendar"><span>Step 5</span><b>Commit it to time</b><small>See ranges, D-Day, progress, and the next due date.</small></button>
+              <button type="button" role="tab" aria-selected="false" aria-controls="gallery-calendar" id="tab-calendar" data-gallery-tab="calendar"><span>Step 5</span><b>Commit it to time</b><small>Range bars, D-Day, weather, and a day board for each date.</small></button>
             </div>
             <div class="gallery-viewport">
               <div class="gallery-stage" data-gallery-stage>
@@ -176,14 +176,33 @@
                   <figcaption><span>04 / TABLE</span><div><b>Treat the schedule like structured data.</b><p>Reorder and resize columns, nest groups, filter, sort, calculate, and add typed properties without detaching the task from its note.</p></div></figcaption>
                 </figure>
                 <figure id="gallery-calendar" class="gallery-panel" role="tabpanel" aria-labelledby="tab-calendar" data-gallery-panel="calendar" hidden>
-                  <img src="./assets/product-v4/calendar.png" width="2880" height="1800" alt="CommonNote monthly calendar with tasks, D-Day signals, weekly progress, and range planning" loading="lazy" />
-                  <figcaption><span>05 / CALENDAR</span><div><b>Make the commitment visible.</b><p>Month view, ranges, D-Day, today and week progress, quick add, and natural-language due dates share the same planning data.</p></div></figcaption>
+                  <img src="./assets/product-v5/calendar.png" width="2880" height="1800" alt="CommonNote monthly calendar with range bars, timed items, today and this-week progress, and weather" loading="lazy" />
+                  <figcaption><span>05 / CALENDAR</span><div><b>Make the commitment visible.</b><p>Month view, range bars that show their end date, D-Day, today and week progress, weather, quick add, and natural-language due dates share one schedule. Apple Calendar events drop straight in.</p></div></figcaption>
                 </figure>
               </div>
               <div class="gallery-scrubber"><label for="workflow-scrubber">Drag through the workflow</label><input id="workflow-scrubber" type="range" min="0" max="4" step="0.01" value="0" data-gallery-scrubber /><output for="workflow-scrubber" data-gallery-output>Hierarchy</output></div>
             </div>
           </div>
         </div>
+      </section>
+
+      <section id="daily" class="chapter section-shell" aria-labelledby="daily-title">
+        <div class="chapter-copy reveal" data-reveal><p class="section-kicker">FROM THE MORNING DIGEST TO THE NOTCH.</p><h2 id="daily-title">Today finds you<br />before you look for it.</h2><p>The day starts without opening the calendar. Today's schedule arrives as a push at the time you choose, and on a Mac the notch and a desktop widget show your progress. Click any date and its board opens, split into multi-day and single-day work.</p>
+          <ul class="proof-list"><li><b>Morning digest.</b><span>On work days, at the time you pick: today's schedule, overdue items, and pending handoffs in one push.</span></li><li><b>Mac notch and desktop widget.</b><span>Today's progress sits beside the notch; hover to expand the list. The desktop calendar widget shows a day's work when you hover a date.</span></li><li><b>Day board.</b><span>Multi-day and single-day items as cards with D-Day, end date, and time. Click a card to open its note.</span></li><li><b>iPhone.</b><span>Today's status lives in the Dynamic Island as a Live Activity.</span></li></ul>
+          <a class="text-link" href="./guide.html#daily">Read about the daily flow <span>↗</span></a>
+        </div>
+        <figure class="chapter-visual reveal" data-reveal><img src="./assets/product-v5/calendar-board.png" width="2880" height="1800" alt="CommonNote day board for September 4 with one multi-day item and three single-day items sorted by D-Day and time" loading="lazy" /><figcaption><b>The board for September 4</b><span>Multi-day and single-day work as cards with D-Day, end date, and time.</span></figcaption></figure>
+      </section>
+
+      <section id="connect" class="chapter chapter-flip section-shell" aria-labelledby="connect-title">
+        <div class="chapter-copy reveal" data-reveal><p class="section-kicker">IMPORT, LINK, DELEGATE.</p><h2 id="connect-title">Connect the schedules<br />and tools you already have.</h2><p>Drop in an Apple Calendar .ics file or an iCloud subscription link: recurring events are expanded into the calendar note, and re-importing never duplicates them. Reusable phrases become snippets. Scripts and AI agents read and write notes through the Markdown API.</p>
+          <ul class="proof-list"><li><b>Apple Calendar import.</b><span>An .ics file or a webcal link. Weekly and monthly rules and exception occurrences are expanded; pick a range, preview, then import.</span></li><li><b>Snippets.</b><span>Reusable phrases stored on your account. Pick one from the <code>/</code> menu or type <code>;shortcut</code> and a space to expand it in place.</span></li><li><b>Markdown API.</b><span>Personal tokens list and read notes as Markdown, create notes, and append to them, so agents like Claude Code can work with your lab notebook directly.</span></li></ul>
+          <pre class="code-sample" aria-label="Markdown API example"><code>curl -H "Authorization: Bearer cnk_…" \
+     -H "Accept: text/markdown" \
+     https://commonnote.app/api/v1/notes/&lt;note-id&gt;</code></pre>
+          <a class="text-link" href="./guide.html#connect">Read about import and the API <span>↗</span></a>
+        </div>
+        <figure class="chapter-visual reveal" data-reveal><img src="./assets/product-v5/calendar-import.png" width="2880" height="1800" alt="CommonNote Apple Calendar import dialog previewing expanded recurring events" loading="lazy" /><figcaption><b>Apple Calendar import</b><span>Recurring rules are expanded for preview; choose a range, then add to the calendar note.</span></figcaption></figure>
       </section>
 
       <section id="collaborate" class="collaboration-section section-shell" aria-labelledby="collaboration-title">
@@ -204,7 +223,7 @@
       <section class="portability-section" aria-labelledby="portability-title">
         <div class="section-shell portability-grid">
           <div class="portability-copy reveal" data-reveal><p class="section-kicker">BRING YOUR HISTORY. KEEP YOUR EXIT.</p><h2 id="portability-title">Your archive should<br />outlive the app.</h2><p>Move in without flattening everything. Move out in formats you can still read. CommonNote treats portability as a product feature, not a cancellation flow.</p>
-            <ul class="migration-list"><li><b>Notion</b><span>Markdown & CSV export ZIP</span></li><li><b>Obsidian</b><span>Vault ZIP, folders, links, and attachments</span></li><li><b>Evernote</b><span>.enex notes and attachments</span></li><li><b>Markdown</b><span>Single files or structured folder ZIP</span></li><li><b>Export</b><span>MD · HTML · PDF · complete workspace ZIP</span></li></ul>
+            <ul class="migration-list"><li><b>Notion</b><span>Markdown & CSV export ZIP</span></li><li><b>Obsidian</b><span>Vault ZIP, folders, links, and attachments</span></li><li><b>Evernote</b><span>.enex notes and attachments</span></li><li><b>Markdown</b><span>Single files or structured folder ZIP</span></li><li><b>Export</b><span>MD · HTML · PDF · complete workspace ZIP</span></li><li><b>Status page</b><span>commonnote.app/status — uptime checked externally every 5 minutes, with incident history</span></li><li><b>Backups</b><span>Nightly encrypted off-site backups, version history, and a 30-day trash</span></li></ul>
             <a class="text-link" href="./guide.html#migration">Migration and backup guide <span>↗</span></a>
           </div>
           <figure class="migration-visual reveal" data-reveal><img src="./assets/product-v4/migration.png" width="2880" height="1800" alt="CommonNote import dialog for Notion, Obsidian, Evernote, Markdown, ZIP, and ENEX" loading="lazy" /></figure>
@@ -217,7 +236,7 @@
           <div class="feature-matrix reveal" data-reveal>
             <article>
               <span class="motion-symbol motion-symbol--notes" data-motion-symbol="notes" aria-hidden="true"></span>
-              <h3>Notes</h3><ul><li>Markdown and rich text</li><li>Tables, files, figures, code, TeX</li><li>Emoji, icons, font, color</li><li>Templates, tags, covers, locks</li></ul><a href="./guide.html#notes">Read guide</a>
+              <h3>Notes</h3><ul><li>Markdown and rich text</li><li>Tables, files, figures, code, TeX</li><li>Snippets, emoji, icons, fonts</li><li>Templates, tags, covers, locks</li></ul><a href="./guide.html#notes">Read guide</a>
             </article>
             <article>
               <span class="motion-symbol motion-symbol--collaboration" data-motion-symbol="collaboration" aria-hidden="true"></span>
@@ -229,15 +248,15 @@
             </article>
             <article>
               <span class="motion-symbol motion-symbol--planning" data-motion-symbol="planning" aria-hidden="true"></span>
-              <h3>Planning</h3><ul><li>Schedule table and calendar</li><li>Typed properties and formulas</li><li>Multi-level grouping and filters</li><li>D-Day, ranges, and progress</li></ul><a href="./guide.html#planning">Read guide</a>
+              <h3>Planning</h3><ul><li>Calendar, day board, schedule table</li><li>Apple Calendar import and weather</li><li>Morning digest, notch, widget</li><li>D-Day, ranges, typed properties</li></ul><a href="./guide.html#planning">Read guide</a>
             </article>
             <article>
               <span class="motion-symbol motion-symbol--records" data-motion-symbol="records" aria-hidden="true"></span>
-              <h3>Records</h3><ul><li>Version history and restore</li><li>Finalization and acknowledgment</li><li>Signatures and content hashes</li><li>MD, HTML, PDF, and ZIP export</li></ul><a href="./guide.html#records">Read guide</a>
+              <h3>Records</h3><ul><li>Version history and restore</li><li>Finalization, acknowledgment, signatures</li><li>MD, HTML, PDF, and ZIP export</li><li>Encrypted backups and a status page</li></ul><a href="./guide.html#records">Read guide</a>
             </article>
             <article>
               <span class="motion-symbol motion-symbol--tools" data-motion-symbol="tools" aria-hidden="true"></span>
-              <h3>Specialized tools</h3><ul><li>Formula and rollup properties</li><li>Equation blocks and subscripts</li><li>Figure frames and file metadata</li><li>Reagent calculations when needed</li></ul><a href="./guide.html#automation">Read guide</a>
+              <h3>Specialized tools</h3><ul><li>Formula and rollup properties</li><li>Equation blocks and subscripts</li><li>Figure frames and reagent calculations</li><li>Markdown API and personal tokens</li></ul><a href="./guide.html#automation">Read guide</a>
             </article>
           </div>
         </div>
@@ -251,6 +270,6 @@
       <section class="final-cta" aria-labelledby="final-title"><div class="final-cta-inner reveal" data-reveal><p class="section-kicker">COMMONNOTE</p><h2 id="final-title">Write it once.<br />Keep it moving.</h2><p>From a private thought to shared execution—without dropping the thread.</p><div class="hero-actions"><a class="button button-signal" href="https://commonnote.app/">Open CommonNote <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" /></svg></a><a class="button button-ghost" href="./guide.html">Read the guide</a></div></div></section>
     </main>
 
-    <footer class="site-footer site-footer-dark"><a class="brand footer-brand" href="#top" translate="no"><img src="./assets/icon.svg" width="28" height="28" alt="" /><span>CommonNote</span></a><p>A connected workspace for work in motion.</p><nav aria-label="Service information"><a href="./guide.html">Guide</a><a href="https://commonnote.app/support.html">Support</a><a href="https://commonnote.app/privacy.html">Privacy</a><a href="https://commonnote.app/">Open app</a></nav><small>© 2026 CommonNote</small></footer>
+    <footer class="site-footer site-footer-dark"><a class="brand footer-brand" href="#top" translate="no"><img src="./assets/icon.svg" width="28" height="28" alt="" /><span>CommonNote</span></a><p>A connected workspace for work in motion.</p><nav aria-label="Service information"><a href="https://commonnote.app/status">Status</a><a href="./guide.html">Guide</a><a href="https://commonnote.app/support.html">Support</a><a href="https://commonnote.app/privacy.html">Privacy</a><a href="https://commonnote.app/">Open app</a></nav><small>© 2026 CommonNote</small></footer>
   </body>
 </html>

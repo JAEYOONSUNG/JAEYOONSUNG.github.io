@@ -18,7 +18,9 @@ const productCaptures = [
   "relation-map.png",
   "schedule-table.png",
   "tasks.png",
-].map((name) => `assets/product-v4/${name}`);
+].map((name) => `assets/product-v4/${name}`).concat(
+  ["calendar.png", "calendar-board.png", "calendar-import.png"].map((name) => `assets/product-v5/${name}`),
+);
 
 const requiredFiles = [
   "index.html",
@@ -134,10 +136,10 @@ check(!/audience-emoji|feature-emoji|🗒️|🎓|✨|🧭|⚙️|🔬|✍️|�
 check((landing.match(/data-fine-motion/g) || []).length === 3 && (landingKo.match(/data-fine-motion/g) || []).length === 3, "both landing pages need three fine motion trust symbols");
 check(/\.motion-symbol\[data-glyph-ready="true"\]\.is-in-view \.living-glyph/.test(css) && /\.is-interacting/.test(css), "living glyphs must expose finite entrance and interaction states");
 check(/const livingSymbols/.test(js) && /livingObserver/.test(js) && /replaySymbol/.test(js) && /document\.hidden/.test(js), "living glyphs must be visibility-gated and interaction-driven in JavaScript");
-check((landing.match(/assets\/product-v4\//g) || []).length >= 9, "English landing must use at least nine real product captures");
-check((landingKo.match(/assets\/product-v4\//g) || []).length >= 9, "Korean landing must use at least nine real product captures");
-check((guide.match(/data-guide-section/g) || []).length === 12, "English guide must include exactly twelve detailed sections");
-check((guideKo.match(/data-guide-section/g) || []).length === 12, "Korean guide must include exactly twelve detailed sections");
+check((landing.match(/assets\/product-v[45]\//g) || []).length >= 11, "English landing must use at least eleven real product captures");
+check((landingKo.match(/assets\/product-v[45]\//g) || []).length >= 11, "Korean landing must use at least eleven real product captures");
+check((guide.match(/data-guide-section/g) || []).length === 14, "English guide must include exactly fourteen detailed sections");
+check((guideKo.match(/data-guide-section/g) || []).length === 14, "Korean guide must include exactly fourteen detailed sections");
 check(/data-guide-search/.test(guide) && /data-guide-search/.test(guideKo), "both guides must include task-oriented search");
 check(/@media \(prefers-reduced-motion: reduce\)/.test(css), "CSS must support reduced motion");
 check(/:focus-visible/.test(css), "CSS must provide visible keyboard focus");
