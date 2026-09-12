@@ -61,8 +61,18 @@ document.documentElement.classList.add("js");
     if (!(video instanceof HTMLVideoElement) || !(toggle instanceof HTMLButtonElement)) return;
 
     let userPaused = false;
-    let visibilityPaused = false;
+    let userRequestedMotion = false;
+    const isInViewport = () => {
+      const rect = video.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight && rect.right > 0 && rect.left < window.innerWidth;
+    };
+    let inView = isInViewport();
     video.muted = true;
+    // Playback starts here so the reduced-motion preference is checked first.
+    video.autoplay = false;
+    const progress = frame.querySelector("[data-film-progress]");
+    const chapters = [...frame.querySelectorAll("[data-film-chapter]")];
+    const shouldPlay = () => inView && !document.hidden && !userPaused && (!reducedMotion.matches || userRequestedMotion);
 
     const updateMotionControl = () => {
       const paused = video.paused;
@@ -73,42 +83,69 @@ document.documentElement.classList.add("js");
     };
 
     const playMotion = () => {
-      void video.play().catch(() => updateMotionControl());
+      void video.play().then(() => {
+        if (!shouldPlay()) video.pause();
+      }).catch(() => updateMotionControl());
     };
 
-    const applyMotionPreference = () => {
-      if (reducedMotion.matches) {
-        video.pause();
-        video.currentTime = 0;
-      } else if (!userPaused && !document.hidden) {
-        playMotion();
-      }
+    const syncPlayback = () => {
+      if (shouldPlay()) playMotion();
+      else video.pause();
       updateMotionControl();
     };
 
     toggle.addEventListener("click", () => {
       if (video.paused) {
         userPaused = false;
-        playMotion();
+        userRequestedMotion = true;
+        inView = isInViewport();
       } else {
         userPaused = true;
-        video.pause();
       }
-      updateMotionControl();
+      syncPlayback();
     });
     video.addEventListener("play", updateMotionControl);
     video.addEventListener("pause", updateMotionControl);
-    reducedMotion.addEventListener("change", applyMotionPreference);
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden && !video.paused) {
-        visibilityPaused = true;
-        video.pause();
-      } else if (!document.hidden && visibilityPaused && !userPaused && !reducedMotion.matches) {
-        visibilityPaused = false;
-        playMotion();
-      }
+    const updateFilmProgress = () => {
+      if (progress && Number.isFinite(video.duration)) progress.style.transform = `scaleX(${video.currentTime / video.duration})`;
+      chapters.forEach((chapter, index) => {
+        const end = Number(chapters[index + 1]?.dataset.filmChapter ?? Infinity);
+        chapter.setAttribute("aria-pressed", String(video.currentTime >= Number(chapter.dataset.filmChapter) && video.currentTime < end));
+      });
+    };
+    video.addEventListener("timeupdate", updateFilmProgress);
+    video.addEventListener("seeked", updateFilmProgress);
+    let pendingChapter = null;
+    video.addEventListener("loadedmetadata", () => {
+      if (pendingChapter === null) return;
+      video.currentTime = pendingChapter;
+      pendingChapter = null;
+      updateFilmProgress();
     });
-    applyMotionPreference();
+    chapters.forEach((chapter) => chapter.addEventListener("click", () => {
+      const time = Number(chapter.dataset.filmChapter);
+      if (video.readyState >= HTMLMediaElement.HAVE_METADATA) video.currentTime = time;
+      else pendingChapter = time;
+      updateFilmProgress();
+      userRequestedMotion = true;
+      userPaused = false;
+      inView = isInViewport();
+      syncPlayback();
+    }));
+    reducedMotion.addEventListener("change", () => {
+      userRequestedMotion = false;
+      syncPlayback();
+    });
+    document.addEventListener("visibilitychange", syncPlayback);
+    if ("IntersectionObserver" in window) {
+      const motionObserver = new IntersectionObserver((entries) => {
+        inView = entries.some((entry) => entry.isIntersecting);
+        syncPlayback();
+      }, { threshold: 0.12 });
+      motionObserver.observe(frame);
+    }
+    video.controls = false;
+    syncPlayback();
   });
 
   const revealItems = [...document.querySelectorAll("[data-reveal]")];
